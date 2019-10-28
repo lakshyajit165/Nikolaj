@@ -1,0 +1,79 @@
+<section class="tickets">
+    <div class="parent">
+
+        <div child="child">
+            <h1 class="mat-display-1 heading ticketName">List of Tickets</h1>
+        </div>
+        <div child="child">
+        </div>
+        <div child="child">
+        </div>
+        <div class="child">
+            <mat-form-field>
+                <mat-select class="selection" [(ngModel)]="defaultValue" matNativeControl placeholder="Filter by Status" (selectionChange)="selectionChange($event.value)">
+                    <mat-option *ngFor="let a of array" [value]="a">
+                        {{ a }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout class="infinityscroll" infiniteScroll [scrollWindow]="false" [fromRoot]="true" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="150" [fromRoot]="true" (scrolled)="onScroll()">
+        <div *ngFor="let report of reports" class="expansion">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="title">
+                        {{ report.ticketName }}
+                    </mat-panel-title>
+                    <div class="description">
+                        {{report.ticketStatus}}
+                    </div>
+                </mat-expansion-panel-header>
+                <!-- here the main data is coming -->
+                <mat-chip-list *ngFor="let intent of report.intent" class="item">
+                    <mat-chip>{{ intent }}</mat-chip>
+                </mat-chip-list>
+                <div class="dateCheck">
+                    <div class="date1">
+                        <p title="created On" class="date"> {{ report.createdOn | date }}
+                    </div>
+                    <div class="date1">
+                        <div *ngIf="report.ticketStatus==='closed'; else elseBlock">
+                            <div class="date">
+                                <p title="Closed On"> {{ report.updatedOn | date }}
+                                </p>
+                            </div>
+                        </div>
+                        <ng-template #elseBlock>
+                            <p title="Last Updated On">{{ report.updatedOn | date }}</p>
+                        </ng-template>
+                    </div>
+                </div>
+                <p class="raisedby" title="Raised By">
+                    {{report.raisedBy}}
+                </p>
+                <div>
+                    <div *ngIf="report.assignedTo==='bot'; else elseBlock1">
+                        <div>
+                            <p title="Solved By">System</p>
+                        </div>
+                    </div>
+                    <ng-template #elseBlock1>
+                        <p title="Solved By"> {{report.assignedTo}}
+                        </p>
+                    </ng-template>
+                </div>
+            </mat-expansion-panel>
+        </div>
+        <div *ngIf="scrollStatus">
+            <mat-progress-bar mode="indeterminate" class="progress"></mat-progress-bar>
+        </div>
+
+    </div>
+
+    <div *ngIf="pagination">
+        <p class="numbering">Showing {{totalNoOfDocuments}} of {{noOfDocuments}}</p>
+    </div>
+
+
+</section>

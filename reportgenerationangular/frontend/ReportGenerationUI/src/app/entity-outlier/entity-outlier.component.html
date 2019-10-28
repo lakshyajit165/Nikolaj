@@ -1,0 +1,63 @@
+<div class="main">
+
+    <mat-form-field class="example">
+        <input readonly matInput [matDatepicker]="picker" placeholder="select the start date" (dateInput)="getStartDate($event.target.value)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+    <mat-form-field class="example">
+        <input readonly matInput [matDatepicker]="pickerTo" placeholder="select the end date" (dateInput)="getEndDate($event.target.value)">
+        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
+    </mat-form-field>
+
+
+    <div class="container" fxLayout>
+        <div class="chart" class="piechart" fxLayout="column">
+            <canvas baseChart height="250%" [data]="pieChartData " [labels]="pieChartLabels " [chartType]="pieChartType " [options]="pieChartOptions " [plugins]="pieChartPlugins " [colors]="pieChartColors " [legend]="pieChartLegend ">
+                    </canvas>
+        </div>
+        <div class="tableinfo" fxLayout="column">
+
+            <mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="scroll">
+                <ng-container matColumnDef="entity">
+                    <mat-header-cell *matHeaderCellDef> Service Name </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.entity}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="queriesRaised">
+                    <mat-header-cell *matHeaderCellDef> Queries Count </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.queriesRaised}} </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+
+
+        </div>
+
+
+    </div>
+
+    <!-- here call one component if..... line chart and if selected then it should be bar chart -->
+
+    <div *ngIf="isBarChart; else elseBlock">
+        <div>
+            <mat-checkbox (change)="toggleChart()">Show Line Chart</mat-checkbox>
+        </div>
+        <!-- <app-service-report [start]="" [end]=""></app-service-report> -->
+        <app-service-outlier [startDate]="startDate" [endDate]="endDate"></app-service-outlier>
+        <!-- for line chart -->
+    </div>
+    <ng-template #elseBlock>
+        <div>
+            <mat-checkbox (change)="toggleChart()">Show Bar Chart</mat-checkbox>
+        </div>
+        <!-- for bar chart -->
+        <app-service-report [startDate]="startDate" [endDate]="endDate"></app-service-report>
+    </ng-template>
+</div>
