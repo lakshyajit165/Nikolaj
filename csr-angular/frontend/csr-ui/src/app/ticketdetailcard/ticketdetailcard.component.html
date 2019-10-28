@@ -1,0 +1,32 @@
+<mat-card>
+        <mat-card-header>
+          
+            <mat-card-title>Ticket Details</mat-card-title>
+            
+        </mat-card-header>
+        <hr>
+        <mat-card-content>
+            <div class="details">
+                <h3>Ticket Id: </h3> <p>{{ ticket.uuid }}</p>
+                <h3>Ticket Query: </h3> <p>{{ ticket.query }}</p>
+                <h3>User: </h3><p>{{ ticket.raisedBy }}</p>
+                <h3>Status: </h3><p> {{ status }}</p>
+            
+            <form class="example-form">
+                
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <input matInput placeholder="Execute a command" [(ngModel)]="command" name="commandname">
+                </mat-form-field>
+                <button mat-raised-button color="primary" class="command-button" (click)="executeCommand(command)">Execute</button>
+            </form>
+            </div>
+        </mat-card-content>
+        <app-suggestion [ticketId]="ticketId" [intent]="intent"></app-suggestion>
+        <mat-card-actions>
+            <div class="wrapper1">
+                <button mat-stroked-button color="primary" (click)="openDialog('report')">Report User</button>
+                <button mat-stroked-button color="primary" (click)="resolveTicket(2, 1, 'Callback Initiated!')">Callback</button>
+                <button mat-stroked-button color="primary" (click)="resolveTicket(2, 2, 'Ticket Resolved!')">Resolved</button>
+           </div>
+        </mat-card-actions>
+</mat-card>

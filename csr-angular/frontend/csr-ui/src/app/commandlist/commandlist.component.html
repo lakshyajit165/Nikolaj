@@ -1,0 +1,7 @@
+<!-- <p>commandlist works!</p> -->
+<div class="error-msg" *ngIf="error">
+    <p>{{ error }}</p>
+</div>
+<div *ngIf="!error">
+    <app-command [commands]="commands" (command)="onSelectCommand($event)"></app-command>
+</div>
