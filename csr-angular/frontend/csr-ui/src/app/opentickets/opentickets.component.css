@@ -1,0 +1,34 @@
+.opentickets{
+    padding: 30px 5% 10px 2%;
+    text-align:center;
+    font-family: Questrial;
+}
+
+.logo{
+    text-align: center;
+}
+/* .wrapper{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+    padding: 30px 20px 30px 20px;   
+    text-align: center;
+}
+
+.chips{
+    display: inline-flex;
+}
+
+#ticket-description{
+    text-align: left;
+    padding-left: 30rem;
+}
+
+.example-full-width {
+    width: 100%;
+  }
+
+mat-form-field{
+    width: 100%;
+} */

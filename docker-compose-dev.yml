@@ -1,0 +1,271 @@
+version: '3.3'
+services:
+## databases
+##   neo4j
+  neo4j:
+    image: neo4j:latest
+    ports:
+      - 7475:7474
+      - 7688:7687
+    volumes:
+      - $HOME/workspace/productdb/neo4j:/data
+##   mongo
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    environment:
+      - MONGO_DATA_DIR=/data/uask-mongo
+      - MONGO_INITDB_ROOT_USERNAME=nikolaj
+      - MONGO_INITDB_ROOT_PASSWORD=nikolaj
+    ports:
+      - 27017:27017
+    volumes:
+      - $HOME/workspace/productdb/helpdesk:/data/uask-mongo
+##   redis
+  redis:
+    image: redis:latest
+    container_name: suggestionsdb
+    ports:
+      - 6379:6379
+    volumes:
+      - ../data/redis:/data
+    environment:
+      - REDIS_PASS=nikolaj
+      - REDIS_APPENDONLY=yes
+      - REDIS_APPENDFSYNC=always
+    deploy:
+      replicas: 1
+## rabbit mq image for messaging
+  rabbitmq:
+    image: rabbitmq:management
+    environment:
+      RABBITMQ_DEFAULT_USER: nikolaj
+      RABBITMQ_DEFAULT_PASS: nikolaj
+    ports:
+      - 5672:5672
+      - 15672:15672
+## spring-boot projects
+## config server
+  config-server:
+    build: config-server
+    env_file:
+      - ./docker-dev.env
+    ports:
+      - 8089:8089
+    volumes:
+      - $HOME/mavenrepo/:/maven/home/
+    environment:
+      MVN_LOCAL_REPO: /maven/home/
+## eureka server
+  eureka-naming-server:
+    build: eureka-naming-server
+    env_file:
+      - ./docker-dev.env
+    depends_on:
+      - config-server
+    ports:
+      - 8761:8761
+    restart: on-failure
+    volumes:
+      - $HOME/mavenrepo/:/maven/home/
+    environment:
+      MVN_LOCAL_REPO: /maven/home/
+## api gateway
+  zuul-api-gateway:
+    build: zuul-api-gateway
+    env_file:
+      - ./docker-dev.env
+    ports:
+      - 8765:8765
+    depends_on:
+      - config-server
+      - eureka-naming-server
+    restart: on-failure
+    volumes:
+      - $HOME/mavenrepo/:/maven/home/
+    environment:
+      MVN_LOCAL_REPO: /maven/home/
+  ## messaging architecture spring boot project
+  messagingarchitecture:
+    build: messagingarchitecture
+    ports:
+      - 8099:8099
+    env_file:
+      - ./docker-dev.env
+    depends_on:
+      - eureka-naming-server
+      - config-server
+      - zuul-api-gateway
+    restart: on-failure
+    volumes:
+      - $HOME/mavenrepo/:/maven/home/
+    environment:
+      MVN_LOCAL_REPO: /maven/home/
+  ## messaging architecture spring boot project
+  mailservice:
+    build: mailservice
+    ports:
+      - 8189:8189
+    env_file:
+      - ./docker-dev.env
+    depends_on:
+      - eureka-naming-server
+      - config-server
+      - zuul-api-gateway
+    restart: on-failure
+    volumes:
+      - $HOME/mavenrepo/:/maven/home/
+    environment:
+      MVN_LOCAL_REPO: /maven/home/
+
+  ## command framework
+  spring-boot-command-framework:
+    build: command-framework
+    ports:
+      - 8080:8080
+    env_file:
+      - ./docker-dev.env
+    depends_on:
+      - eureka-naming-server
+      - config-server
+      - zuul-api-gateway
+    restart: on-failure
+    volumes:
+      - $HOME/mavenrepo/:/maven/home/
+    environment:
+      MVN_LOCAL_REPO: /maven/home/
+
+  ## command registry
+  spring-boot-command-registry:
+    build: command-registry
+    ports:
+      - 8082:8082
+    env_file:
+      - ./docker-dev.env
+    depends_on:
+      - eureka-naming-server
+      - config-server
+      - zuul-api-gateway
+    restart: on-failure
+    volumes:
+      - $HOME/mavenrepo/:/maven/home/
+    environment:
+      MVN_LOCAL_REPO: /maven/home/
+
+  ## optimus spring boot project
+  spring-boot-optimus:
+    build: bot-watson
+    ports:
+      - 8087:8087
+    depends_on:
+      - eureka-naming-server
+      - config-server
+      - zuul-api-gateway
+    restart: on-failure
+    volumes:
+      - $HOME/mavenrepo/:/maven/home/
+    environment:
+      MVN_LOCAL_REPO: /maven/home/
+
+  ## report service for admin
+  spring-boot-reportservice:
+    build: ReportGeneration
+    ports:
+      - 9003:9003
+    env_file:
+      - ./docker-dev.env
+    depends_on:
+      - eureka-naming-server
+      - config-server
+      - zuul-api-gateway
+    restart: on-failure
+    volumes:
+      - $HOME/mavenrepo/:/maven/home/
+    environment:
+      MVN_LOCAL_REPO: /maven/home/
+
+  ## csr-service backend
+  spring-boot-csrservice:
+    build: csr-service
+    ports:
+      - 8182:8182
+    env_file:
+      - ./docker-dev.env
+    depends_on:
+      - eureka-naming-server
+      - config-server
+      - zuul-api-gateway
+    restart: on-failure
+    volumes:
+      - $HOME/mavenrepo/:/maven/home/
+    environment:
+      MVN_LOCAL_REPO: /maven/home/
+
+  ## csr-service backend
+  ticketservice:
+    build: ticket-service
+    ports:
+      - 8183:8183
+    env_file:
+      - ./docker-dev.env
+    depends_on:
+      - eureka-naming-server
+      - config-server
+      - zuul-api-gateway
+    restart: on-failure
+    volumes:
+      - $HOME/mavenrepo/:/maven/home/
+    environment:
+      MVN_LOCAL_REPO: /maven/home/
+
+  ## angular projects in spring boot project
+##   command-registry-angular spring boot project
+  command-registry-angular:
+    build: command-registry-angular
+    env_file:
+      - ./docker-dev.env
+    ports:
+      - 8083:8083
+    depends_on:
+      - eureka-naming-server
+      - config-server
+      - zuul-api-gateway
+    restart: on-failure
+    volumes:
+      - $HOME/mavenrepo/:/maven/home/
+    environment:
+      MVN_LOCAL_REPO: /maven/home/
+
+  ##   report generation - angular spring boot project
+  report-angular:
+    build: reportgenerationangular
+    env_file:
+      - ./docker-dev.env
+    ports:
+      - 9005:9005
+    depends_on:
+      - eureka-naming-server
+      - config-server
+      - zuul-api-gateway
+    restart: on-failure
+    volumes:
+      - $HOME/mavenrepo/:/maven/home/
+    environment:
+      MVN_LOCAL_REPO: /maven/home/
+
+  ## csr angular project for customer support representative
+  csr-angular:
+    build: csr-angular
+    env_file:
+      - ./docker-dev.env
+    ports:
+      - 8084:8084
+    depends_on:
+      - eureka-naming-server
+      - config-server
+      - zuul-api-gateway
+    restart: on-failure
+    volumes:
+      - $HOME/mavenrepo/:/maven/home/
+    environment:
+      MVN_LOCAL_REPO: /maven/home/

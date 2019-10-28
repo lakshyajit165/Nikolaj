@@ -1,0 +1,10 @@
+.user-chat{
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+    padding: 30px 20px 30px 20px;   
+    /* text-align: center; */
+
+}

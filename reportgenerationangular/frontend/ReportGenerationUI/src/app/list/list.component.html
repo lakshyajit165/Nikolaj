@@ -1,0 +1,76 @@
+<section class="tickets">
+    <div class="parent">
+
+        <div child="child">
+            <h1 class="mat-display-1 heading ticketName">List of Tickets</h1>
+        </div>
+        <div child="child">
+        </div>
+        <div child="child">
+        </div>
+        <div class="child">
+            <mat-form-field class="selection">
+                <mat-select [(ngModel)]="defaultValue" matNativeControl placeholder="Filter by Status" (selectionChange)="selectionChange($event.value)">
+                    <mat-option *ngFor="let a of array" [value]="a">
+                        {{ a }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout class="infinityscroll" infiniteScroll [scrollWindow]="false" [fromRoot]="true" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="150" (scrolled)="onScroll()">
+
+        <mat-list *ngFor="let report of reports">
+            <!-- 
+            <mat-list-item> -->
+            <h1 mat-line class="mat-display-1" class="ticket">{{ report.ticketName }}</h1>
+            <!-- </mat-list-item> -->
+            <!-- <mat-list-item flexLayout="row" flexLayoutAlign="start center">
+                <p class="date"> {{ report.createdOn | date }}
+                </p>
+                <div *ngIf="report.ticketStatus==='closed'">
+                    <div class="date">
+                        <p> {{ report.updatedOn | date }}
+                            <mat-icon matTooltip="Ticket Closed ">check_circle_outline</mat-icon>
+                        </p>
+                    </div>
+                </div>
+                <mat-chip-list *ngFor="let intent of report.intent" class="item">
+                    <mat-chip>{{ intent }}</mat-chip>
+                </mat-chip-list>
+            </mat-list-item> -->
+            <div class="one">
+                <div class="two">
+                    <p class="date"> {{ report.createdOn | date }}
+                </div>
+                <div class="two">
+                    <mat-chip-list *ngFor="let intent of report.intent" class="item">
+                        <mat-chip>{{ intent }}</mat-chip>
+                    </mat-chip-list>
+                </div>
+                <div class="two">
+                    <div *ngIf="report.ticketStatus==='closed'">
+                        <div class="date">
+                            <p> {{ report.updatedOn | date }}
+                                <mat-icon class="check" [inline]="true" matTooltip="Ticket Closed">check_circle_outline</mat-icon>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+
+        </mat-list>
+        <div *ngIf="scrollStatus">
+            <mat-progress-bar mode="indeterminate" class="progress"></mat-progress-bar>
+        </div>
+    </div>
+
+    <!-- <input Showing [(ngModel)]="limit" of [(ngModel)]="count" /> -->
+
+    <div *ngIf="pagination">
+        <p class="numbering">Showing {{totalNoOfDocuments}} of {{noOfDocuments}}</p>
+    </div>
+
+
+</section>

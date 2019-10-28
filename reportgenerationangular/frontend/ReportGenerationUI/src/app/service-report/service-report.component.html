@@ -1,0 +1,53 @@
+<div class="main">
+    <mat-form-field class="example">
+        <input matInput [matDatepicker]="picker" placeholder="select the start date" (dateInput)="getStartDate('input', $event)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+    <mat-form-field class="example">
+        <input matInput [matDatepicker]="pickerTo" placeholder="select the end date" (dateInput)="getEndDate('input', $event)">
+        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
+    </mat-form-field>
+
+    <mat-checkbox (change)="yourfunc($event)">Show Bar Graph</mat-checkbox>
+
+    <div class="container" fxLayout>
+        <div class="chart" fxFlex="50%" class="piechart ">
+            <canvas baseChart height="270% " [data]="pieChartData " [labels]="pieChartLabels " [chartType]="pieChartType " [options]="pieChartOptions " [plugins]="pieChartPlugins " [colors]="pieChartColors " [legend]="pieChartLegend ">
+                    </canvas>
+        </div>
+        <div class="tableinfo " fxFlex="50% ">
+
+            <mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="scroll">
+                <!-- Position Column -->
+                <ng-container matColumnDef="entity">
+                    <mat-header-cell *matHeaderCellDef> Service Name </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.entity}} </mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="queriesRaised">
+                    <mat-header-cell *matHeaderCellDef> Queries Count </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.queriesRaised}} </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+
+
+
+        </div>
+    </div>
+    <div class="flex-item " class="linechart ">
+        <div style="display: block; ">
+            <canvas baseChart width="80% " height="37% " [datasets]="lineChartData " [labels]="lineChartLabels " [options]="lineChartOptions " [colors]="lineChartColors " [legend]="lineChartLegend " [chartType]="lineChartType " [plugins]="lineChartPlugins
+            " (chartHover)="chartHovered($event) " (chartClick)="chartClicked($event) "></canvas>
+        </div>
+    </div>
+
+</div>

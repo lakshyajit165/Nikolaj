@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+  <p>{{ data.sub }}</p>
+
+  <mat-form-field style="width:100%" *ngIf="data.report">
+    <input matInput [(ngModel)]="reportReason">
+  </mat-form-field>
+  <div class="response" *ngIf="data.command">
+    <p> {{ data.response }}</p>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button *ngIf="data.report" mat-button [mat-dialog-close]="reportReason" cdkFocusInitial>Submit</button>
+  <button *ngIf="data.command" mat-button [mat-dialog-close]="reportReason" cdkFocusInitial>Send Mail</button>
+
+</div>

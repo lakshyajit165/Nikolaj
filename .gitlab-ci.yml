@@ -1,0 +1,127 @@
+#Stages
+stages:
+  - build
+  - tests
+  - lint
+  - release
+  - production
+
+cache:
+  key: build-cache
+  paths:
+    - .m2/
+  # services:
+  # - name: mongo:latest
+  # alias: mongodb
+variables:
+  DEPLOY_BRANCH: $CI_COMMIT_REF_NAME
+  # MONGO_URL: mongodb://root:example@mongodb:27017/?authSource=admin&authMechanism=SCRAM-SHA-1
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2"
+  KARMA: "
+  let defaultConfFile = './karma.conf';
+  const karmaConfig = require(defaultConfFile);
+  module.exports = function(overridedConfig) {
+    reporters = ['progress', 'junit'];
+    browsers = ['ChromeHeadless'];
+    customLaunchers = {
+      ChromeHeadless: {
+        base: 'Chrome',
+        flags: [
+          '--headless',
+          '--disable-gpu',
+          '--remote-debugging-port=9222',
+          '--no-sandbox'
+        ],
+      }
+    };
+    junitReporter = {
+      outputDir:  'reports/karma/',
+      outputFile: 'karma-test-result.xml',
+      suite: '',
+      useBrowserName: false,
+    };
+    let mycfg = {
+      set(val) {
+        val.plugins = [
+          require('karma-jasmine'),
+          require('karma-chrome-launcher'),
+          require('karma-jasmine-html-reporter'),
+          require('karma-coverage-istanbul-reporter'),
+          require('@angular-devkit/build-angular/plugins/karma'),
+          require('karma-junit-reporter')
+        ];
+        val.reporters = reporters;
+        val.junitReporter = junitReporter;
+        val.browsers = browsers;
+        val.customLaunchers = customLaunchers;
+        val.singleRun = true;
+        val.browserDisconnectTolerance = 1;
+        val.browserNoActivityTimeout = 50000;
+        overridedConfig.set(val);
+      }
+    };
+    karmaConfig(mycfg);
+  }
+  "
+#Angular Build
+build_app:
+  image: circleci/node:latest-browsers
+  stage: build
+  when: always
+  tags:
+    - immersive
+  script:
+    - cd csr-angular/frontend/csr-ui
+    - npm install
+# #Spring boot Build
+maven-build:
+  image: maven:3.6.0-jdk-11
+  stage: build
+  when: always
+  tags:
+    - immersive
+  script:
+    - mvn compile
+# #Angular Test
+karma_unit_tests:
+  image: circleci/node:latest-browsers
+  stage: tests
+  when: always
+  before_script:
+    - echo $KARMA > ./karma.config.js
+  tags:
+    - immersive
+  script:
+    - cd WebAppMicroservice/WebApp
+    - npm install
+    - npm install --save karma-junit-reporter jasmine-reporters
+    - npm run test -- --watch=false --karma-config=karma.conf.js
+#Spring Junit Test
+run-junit-test:
+  image: maven:3.6.0-jdk-11
+  stage: tests
+  when: always
+  tags:
+    - immersive
+  script:
+    - mvn test
+#Angular Lint
+tslint_app:
+  image: circleci/node:11-browsers
+  stage: tests
+  when: always
+  tags:
+    - immersive
+  script:
+    - cd WebAppMicroservice/WebApp
+    - npm install
+    - npm run lint -- --format json
+# #Java pmd
+pmd_check:
+  image: maven:3.6.0-jdk-11
+  stage: tests
+  tags:
+    - immersive
+  when: always
+  script:
+    - mvn pmd:check -X

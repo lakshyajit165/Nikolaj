@@ -1,0 +1,29 @@
+{
+  "result":
+  {
+    "count": 1,
+    "data": [
+      {
+        "_id": "5d932a0d7410e95212a6d156",
+        "name": "SBI credit card",
+        "objective": "To increase the number of credit card users for SBI",
+        "startDate": "1-10-2019",
+        "endDate": "16-10-2019",
+        "promocode": "OCT100",
+        "discountPercent": 25
+      },
+      {
+        "_id": "5d932a0d7410e95212a6d156",
+        "name": "HDFC credit card",
+        "objective": "To increase the number of credit card users for SBI",
+        "startDate": "1-10-2019",
+        "endDate": "16-10-2019",
+        "promocode": "OCT100",
+        "discountPercent": 25
+      }
+    ],
+    "status": "OK"
+  }
+}
+
+
