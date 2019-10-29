@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
@@ -17,8 +19,7 @@ public class RedisConfiguration {
 	@Value("${REDIS_PORT}")
 	private String redisPortNum;
 
-	@Bean
-	@Qualifier("jedis")
+	@Bean("jedis")
 	JedisConnectionFactory jedisConFactory() {
 		JedisConnectionFactory jedisConFactory
 				= new JedisConnectionFactory();
@@ -28,11 +29,13 @@ public class RedisConfiguration {
 	}
 
 	@Bean
+	@DependsOn("jedis")
+	@Lazy
 	@Qualifier("csr_published_messages")
 	public RedisTemplate<String, ChatMessage> getMessageRedisTemplate() {
 		RedisTemplate<String, ChatMessage> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(jedisConFactory());
 		redisTemplate.setValueSerializer(new GenericToStringSerializer<Object>(Object.class));
 		return redisTemplate;
-	};
+	}
 }
