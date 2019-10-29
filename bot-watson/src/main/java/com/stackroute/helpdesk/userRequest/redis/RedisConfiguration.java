@@ -23,7 +23,7 @@ public class RedisConfiguration {
 	@Value("${REDIS_PORT}")
 	private String redisPortNum;
 
-	@Bean("jedis")
+	@Bean("jedisRedisConfiguration")
 	JedisConnectionFactory jedisConFactory() {
 		JedisConnectionFactory jedisConFactory
 				= new JedisConnectionFactory();
@@ -34,7 +34,7 @@ public class RedisConfiguration {
 	}
 
 	@Bean
-	@DependsOn("jedis")
+	@DependsOn("jedisRedisConfiguration")
 	@Lazy
 	@Qualifier("messagingTemplate")
 	public RedisTemplate<String, ChatMessageFormat> getMessageRedisTemplate() {
