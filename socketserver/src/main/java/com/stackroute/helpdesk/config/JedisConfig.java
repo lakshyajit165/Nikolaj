@@ -20,6 +20,7 @@ public class JedisConfig {
 				= new JedisConnectionFactory();
 		jedisConFactory.setHostName(redisHostName);
 		jedisConFactory.setPort(Integer.parseInt(redisPortNum));
+		System.out.println("congratulations!!! jedis connection established");
 		return jedisConFactory;
 	}
 }
