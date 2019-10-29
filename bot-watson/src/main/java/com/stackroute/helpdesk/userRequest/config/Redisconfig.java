@@ -4,6 +4,7 @@ import com.stackroute.helpdesk.userRequest.controller.ChatController;
 import com.stackroute.helpdesk.userRequest.model.ChatMessageFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +36,7 @@ public class Redisconfig {
         JedisConnectionFactory jedisConFactory
                 = new JedisConnectionFactory();
         jedisConFactory.setHostName(redisHostName);
-        jedisConFactory.setPort(redisPortNum);
+        jedisConFactory.setPort(Integer.parseInt(redisPortNum));
         return jedisConFactory;
     }
 }
