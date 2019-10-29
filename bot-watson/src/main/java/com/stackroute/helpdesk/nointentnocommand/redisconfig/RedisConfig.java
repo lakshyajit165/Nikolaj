@@ -1,7 +1,6 @@
 package com.stackroute.helpdesk.nointentnocommand.redisconfig;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +16,6 @@ public class RedisConfig {
 
     @Value("${REDIS_HOST}")
     private String redisHostName;
-    @Value("${REDIS_PORT}")
-    private String redisPortNum;
 
     @Bean
     public RedisTemplate<String, Object> redisTemplateForReport() {
@@ -30,9 +27,8 @@ public class RedisConfig {
     @Primary
     JedisConnectionFactory jedisConnectionFactoryForReport() {
         JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
-//        jedisConFactory.setHostName("suggestionsdb");
         jedisConFactory.setHostName(redisHostName);
-        jedisConFactory.setPort(Integer.parseInt(redisPortNum));
+        jedisConFactory.setPort(6379);
         return jedisConFactory;
     }
 

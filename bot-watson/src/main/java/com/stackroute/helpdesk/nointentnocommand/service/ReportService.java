@@ -84,7 +84,7 @@ public class ReportService implements ReportServiceRepo {
                     .collect(Collectors.groupingBy(p -> {
                         String entity;
                         if (p.getEntity() == null) {
-                            entity = "Unknown Entity";
+                            entity = "Unknown_Entity";
                         } else {
                             entity = p.getEntity();
                         }
@@ -123,8 +123,8 @@ public class ReportService implements ReportServiceRepo {
                 if (words.isEmpty()) {
                     List<Report> reportList = new ArrayList<>();
                     reportList.add(report);
-                    finalIntent.put("Unknown Intent", reportList);
-                    uniqueIntents.add("Unknown Intent");
+                    finalIntent.put("Unknown_Intent", reportList);
+                    uniqueIntents.add("Unknown_Intent");
                 } else {
 
                     for (String word : words) {

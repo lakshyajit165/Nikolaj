@@ -140,7 +140,7 @@ public class Neo4jController {
                                                             ,@RequestParam(value = "relationshipName", required = false) String relationshipName){
         responseObject = new HashMap<>();
         responseObject.put("result", neo4jServiceRepo.getCommandByName(intentName,relationshipName));
-        responseObject.put("message", "Successfully displayed the Intents");
+        responseObject.put("message", "Successfully displayed the command");
         responseObject.put("error", "No error");
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }

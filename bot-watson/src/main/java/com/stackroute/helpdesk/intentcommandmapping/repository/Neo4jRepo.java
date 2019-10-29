@@ -45,10 +45,10 @@ public interface Neo4jRepo extends Neo4jRepository{
 //    List<JSONObject> addIntentAndCommand(String commandName,String commandParameter,String intentName,String intentStatus,Integer confidence);
 //
 
-    @Query("MATCH (i:Intent)-[e:EXECUTED]->(c:Command) where i.intentName={intentName} and e.relationshipName={relationshipName} return c.commandName as `Command name`,c.commandParameter as `Command parameter` order by e.confidence desc limit 1;")
+    @Query("MATCH (i:Intent)-[e:EXECUTED]->(c:Command) where i.intentName={intentName} and e.relationshipName={relationshipName} return c.commandName as `Command name`,c.commandParameter as `Command parameter`,e.confidence as `Confidence` order by e.confidence desc limit 1;")
     List<JSONObject> getCommandByName(String intentName, String relationshipName);
 
-    @Query("MATCH (i:Intent)-[e:EXECUTED]->(c:Command) where i.intentName={intentName} return c.commandName as `Command name`,c.commandParameter as `Command parameter` order by e.confidence desc limit 1;")
+    @Query("MATCH (i:Intent)-[e:EXECUTED]->(c:Command) where i.intentName={intentName} return c.commandName as `Command name`,c.commandParameter as `Command parameter`,e.confidence as `Confidence` order by e.confidence desc limit 1;")
     List<JSONObject> getCommandByName(String intentName);
 
     @Query("MATCH p=(Intent)-[:EXECUTED]->(Command) delete p ")
