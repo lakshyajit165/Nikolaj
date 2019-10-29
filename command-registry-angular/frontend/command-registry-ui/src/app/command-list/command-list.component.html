@@ -1,6 +1,0 @@
-<div class="error-msg" *ngIf="errorMessage">
-    <p>{{ error }}</p>
-</div>
-<div *ngIf="!errorMessage">
-    <app-my-commands [commands]="commands" (command)="onSelectCommand($event)"></app-my-commands>
-</div>
