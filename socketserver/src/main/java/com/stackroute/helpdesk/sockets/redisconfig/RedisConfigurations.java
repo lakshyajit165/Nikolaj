@@ -8,10 +8,7 @@ import com.stackroute.helpdesk.sockets.model.SocketStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.*;
 import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
@@ -37,6 +34,7 @@ public class RedisConfigurations {
 //	private JedisConfig jedisConfig;
 
 	@Autowired
+	@Lazy
 	RedisMessageSubscriber redisMessageSubscriber;
 
 	@Value("${REDIS_HOST}")
@@ -69,6 +67,7 @@ public class RedisConfigurations {
 
 	@Bean
 	@DependsOn("jedis")
+	@Lazy
 	public RedisTemplate<String, SocketStore> socketStoreRedisTemplate() {
 		RedisTemplate<String, SocketStore> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(jedisConnectionFactory());
@@ -79,6 +78,7 @@ public class RedisConfigurations {
 
 	@Bean
 	@DependsOn("jedis")
+	@Lazy
 	public RedisTemplate<String, Chats> chatStoreRedisTemplate() {
 		RedisTemplate<String, Chats> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(jedisConnectionFactory());
@@ -89,12 +89,14 @@ public class RedisConfigurations {
 
 	@Bean
 	@DependsOn("jedis")
+	@Lazy
 	public MessageListenerAdapter messageListenerForRedis() {
 		return new MessageListenerAdapter(redisMessageSubscriber);
 	}
 
 	@Bean
 	@DependsOn("jedis")
+	@Lazy
 	public RedisTemplate<String, User> redisTemplate() {
 		RedisTemplate<String, User> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(jedisConnectionFactory());
@@ -103,6 +105,7 @@ public class RedisConfigurations {
 	}
 
 	@Bean
+	@Lazy
 	RedisMessageListenerContainer redisContainer() {
 		RedisMessageListenerContainer container
 				= new RedisMessageListenerContainer();
@@ -112,6 +115,7 @@ public class RedisConfigurations {
 	}
 
 	@Bean
+	@Lazy
 	public List<PatternTopic> getListOfPatternTopics(){
 		List<PatternTopic> patternTopicList = new ArrayList<>();
 		patternTopicList.add(new PatternTopic("*_chat_messages"));
