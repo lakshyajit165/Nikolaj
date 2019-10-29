@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
@@ -21,8 +23,7 @@ public class RedisConfiguration {
 	@Value("${REDIS_PORT}")
 	private String redisPortNum;
 
-	@Bean
-	@Qualifier("jedis")
+	@Bean("jedis")
 	JedisConnectionFactory jedisConFactory() {
 		JedisConnectionFactory jedisConFactory
 				= new JedisConnectionFactory();
@@ -33,6 +34,8 @@ public class RedisConfiguration {
 	}
 
 	@Bean
+	@DependsOn("jedis")
+	@Lazy
 	@Qualifier("messagingTemplate")
 	public RedisTemplate<String, ChatMessageFormat> getMessageRedisTemplate() {
 		RedisTemplate<String, ChatMessageFormat> redisTemplate = new RedisTemplate<>();
