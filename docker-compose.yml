@@ -30,7 +30,7 @@ services:
     volumes:
       - ../data/redis:/data
     environment:
-      - REDIS_PASS=nikolaj
+      - REDIS_PASSWORD=nikolaj
       - REDIS_APPENDONLY=yes
       - REDIS_APPENDFSYNC=always
     deploy:
