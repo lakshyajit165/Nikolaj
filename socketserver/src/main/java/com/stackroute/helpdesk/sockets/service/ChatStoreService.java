@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class ChatStoreService {
 
-	@Autowired
+//	@Autowired
 	private IChatStore iChatStore;
 
 	@Autowired

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 public class RedisMessagePublisher implements MessagePublisher {
 
 	@Autowired
-//	@Qualifier("redisTemp")
 	private RedisTemplate redisTemplate;
 
 //	public RedisMessagePublisher (RedisTemplate redisTemplate){
