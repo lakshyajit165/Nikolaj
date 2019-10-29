@@ -35,10 +35,9 @@ public class Redisconfig {
     public JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory jedisConFactory
                 = new JedisConnectionFactory();
-        jedisConFactory.setHostName("localhost");
-        jedisConFactory.setPort(6379);
         jedisConFactory.setHostName(redisHostName);
         jedisConFactory.setPort(Integer.parseInt(redisPortNum));
+        jedisConFactory.setPassword("nikolaj");
         return jedisConFactory;
     }
 }

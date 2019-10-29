@@ -28,6 +28,7 @@ public class RedisConfiguration {
 				= new JedisConnectionFactory();
 		jedisConFactory.setHostName(redisHostName);
 		jedisConFactory.setPort(Integer.parseInt(redisPortNum));
+		jedisConFactory.setPassword("nikolaj");
 		return jedisConFactory;
 	}
 
