@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { tick } from '@angular/core/testing';
+
 import { environment } from '../../environments/environment.prod';
 import { NoIntent } from '../model/nointent';
 
