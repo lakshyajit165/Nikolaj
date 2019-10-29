@@ -16,8 +16,10 @@ public class JedisConfig {
 	
 	@Bean
 	public JedisConnectionFactory jedisConnectionFactory(){
+		System.out.println("atleast!!! jedis connection started establishing");
 		JedisConnectionFactory jedisConFactory
 				= new JedisConnectionFactory();
+		jedisConFactory.setPassword("nikolaj");
 		jedisConFactory.setHostName(redisHostName);
 		jedisConFactory.setPort(Integer.parseInt(redisPortNum));
 		System.out.println("congratulations!!! jedis connection established");
