@@ -20,7 +20,13 @@ public class GetConfidence {
 
             try {
                 List list= neo4jService.getConfidence(intentName,commandName);
+<<<<<<< HEAD
+//                List list= neo4jService.getConfidence(intentName,commandName);
                 map = (Map) list.get(0);
+                System.out.println(list);
+=======
+                map = (Map) list.get(0);
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
             }
             catch (IndexOutOfBoundsException e){
                 throw new NoMatchFound("either intent,command and relationship match not found");

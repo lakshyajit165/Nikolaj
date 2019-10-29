@@ -5,11 +5,14 @@ import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.assistant.v1.Assistant;
 import com.ibm.watson.assistant.v1.model.*;
 import com.stackroute.helpdesk.intentcommandmapping.service.Neo4jService;
+<<<<<<< HEAD
+=======
 import com.stackroute.helpdesk.intentcommandmapping.service.Neo4jServiceRepo;
 import com.stackroute.helpdesk.nointentnocommand.model.Report;
 import com.stackroute.helpdesk.nointentnocommand.model.ReportType;
 import com.stackroute.helpdesk.nointentnocommand.service.ReportService;
 import com.stackroute.helpdesk.nointentnocommand.service.ReportServiceRepo;
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
 import com.stackroute.helpdesk.ticketservice.model.Status;
 import com.stackroute.helpdesk.ticketservice.model.TicketModel;
 import com.stackroute.helpdesk.ticketservice.model.Type;
@@ -33,6 +36,14 @@ public class ChatService implements ChatServiceInterface {
     private Assistant assistant;
     private  String workSpaceId;
     private String mongoId;
+<<<<<<< HEAD
+    @Autowired
+    private TicketServiceInterface ticketServiceInterface;
+    @Autowired
+    private SuggestionsRepo suggestionsRepo;
+    @Autowired
+    private Neo4jService neo4jService;
+=======
     private String ticketId;
 
     @Autowired
@@ -41,6 +52,7 @@ public class ChatService implements ChatServiceInterface {
     private Neo4jServiceRepo neo4jService;
     @Autowired
     private ReportServiceRepo reportService;
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
 
 
     //initializer block-execute only once
@@ -65,7 +77,10 @@ public class ChatService implements ChatServiceInterface {
     public String postQuery(ChatMessage userRequest) {
         String responseFromBot = null;
         List<String> intents = new LinkedList<>();
+<<<<<<< HEAD
+=======
         List<String> entities = new LinkedList<>();
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
         try {
             String userMessage = (String) userRequest.getContent();
             MessageInput input = new MessageInput();
@@ -76,14 +91,21 @@ public class ChatService implements ChatServiceInterface {
             MessageResponse response = assistant.message(options).execute().getResult();
 
             List<RuntimeIntent> responseIntents = response.getIntents();
+<<<<<<< HEAD
+             intents = new LinkedList<>();
+=======
             List<RuntimeEntity> responseEntities = response.getEntities();
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
 
             for (int i=0;i<responseIntents.size();i++)
                 intents.add(responseIntents.get(i).getIntent());
 
+<<<<<<< HEAD
+=======
             for (int i=0;i<responseEntities.size();i++)
                 entities.add(responseEntities.get(i).getEntity());
 
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
             responseFromBot = response.getOutput().getGeneric().get(0).getText();
 
 
@@ -92,9 +114,17 @@ public class ChatService implements ChatServiceInterface {
             if (!(responseFromBot.equals("Welcome to Optimus, How can I help you"))
                     && !(responseFromBot.equals("Hello, How can I help you"))) {
                 TicketModel ticketModel = new TicketModel();
+<<<<<<< HEAD
+                UUID uuid = UUID.randomUUID();
+                ticketModel.setUuid(uuid);
+                ticketModel.setAssignedTo("bot");
+                ticketModel.setCreatedOn(new Date());
+                ticketModel.setUpdatedOn(new Date());
+=======
                 ticketModel.setRaisedBy(userRequest.getEmailId());
                 ticketModel.setAssignedTo("bot");
                 ticketModel.setEntity(responseEntities.get(0).getEntity());
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
                 ticketModel.setQuery(userMessage);
                 ticketModel.setType(Type.query);
                 ticketModel.setStatus(Status.open);
@@ -106,15 +136,25 @@ public class ChatService implements ChatServiceInterface {
                 Map map = restTemplate.postForObject( uri, request, Map.class);
                 System.out.println(map);
                 System.out.println("database inserted");
+<<<<<<< HEAD
+                //ticketServiceInterface.saveTicket(ticketModel);
+=======
                 JSONObject ticket = (JSONObject) map.get("result");
                 ticketId = (String) ticket.get("uuid");
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
             }
 
             //Calling no intent function
             if (responseIntents.size() == 0)
+<<<<<<< HEAD
+                noIntentFound(userMessage);
+            else
+                findCommands(userMessage,responseIntents.get(0));
+=======
                 noIntentFound(userMessage, responseEntities.get(0));
             else
                 findCommands(userMessage,responseIntents.get(0), responseEntities.get(0));
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
 
 
             //Calling conversation end function
@@ -161,6 +201,11 @@ public class ChatService implements ChatServiceInterface {
 //    }
 
     //Function to find no intent
+<<<<<<< HEAD
+    public void noIntentFound(String userMessage) {
+        //String text = (String) userRequest.getContent();
+        //System.out.println("No Intent: "+text);
+=======
     public void noIntentFound(String userMessage, RuntimeEntity entity) {
         Report reportModel = new Report();
         reportModel.setTicketName(userMessage);
@@ -171,6 +216,7 @@ public class ChatService implements ChatServiceInterface {
         reportModel.setCreatedOn(new Date());
         reportModel.setUpdatedOn(new Date());
         reportService.addRecord(reportModel);
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
     }
 
     //Function to end conversation(delete session)
@@ -191,6 +237,26 @@ public class ChatService implements ChatServiceInterface {
     }
 
     //Function to suggest actions to csr through redis database
+<<<<<<< HEAD
+    public void findCommands(String userMessage, RuntimeIntent intent) {
+        try {
+            String currentAction = "";
+            //String relationship = "";
+
+            Map<String,String> actionMap = new HashMap<>();
+            String intentName = intent.getIntent();
+            actionMap.put("intentName",intentName);
+            //actionMap.put("relationshipName",relationship);
+
+//            List<JSONObject> suggestionsList = neo4jService.getCommandByName(actionMap);
+//            String suggestions = "Use command " + suggestionsList.get(0).get("Command name") + " and use command parameters " +
+//                    suggestionsList.get(0).get("Command parameter");
+//            SuggestionsModel new_suggestion_model = new SuggestionsModel();
+//            new_suggestion_model.setId(mongoId);
+//            new_suggestion_model.setSuggestion(suggestions);
+//            suggestionsRepo.save(new_suggestion_model);
+//            System.out.println(suggestions);
+=======
     public void findCommands(String userMessage, RuntimeIntent intent, RuntimeEntity entity) {
         try {
             String intentName = intent.getIntent();
@@ -209,6 +275,7 @@ public class ChatService implements ChatServiceInterface {
                 suggestionsRepo.save(new_suggestion_model);
 //            System.out.println(suggestions);
             }
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
 
         } catch (Exception e) {
             System.out.println("caught " + e);
@@ -216,6 +283,10 @@ public class ChatService implements ChatServiceInterface {
 
     }
 
+<<<<<<< HEAD
+    public void noCommandFound(ChatMessage userRequest) {
+        String text = (String) userRequest.getContent();
+=======
     public void noCommandFound(String userMessage, String intent, String entity) {
         Report reportModel = new Report();
         reportModel.setTicketName(userMessage);
@@ -227,6 +298,7 @@ public class ChatService implements ChatServiceInterface {
         reportModel.setCreatedOn(new Date());
         reportModel.setUpdatedOn(new Date());
         reportService.addRecord(reportModel);
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
     }
 
 
@@ -239,3 +311,7 @@ public class ChatService implements ChatServiceInterface {
     }
 
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e

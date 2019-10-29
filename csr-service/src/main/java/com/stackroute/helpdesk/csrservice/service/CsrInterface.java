@@ -16,6 +16,4 @@ public interface CsrInterface {
 
     public JSONObject noOfTickets(String email, int status);
 
-
-
 }

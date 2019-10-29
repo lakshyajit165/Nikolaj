@@ -76,22 +76,62 @@ public class Neo4jService implements Neo4jServiceRepo {
 
     public List getAll()
         {
+<<<<<<< HEAD
+
+                return neo4jRepo.getAll();
+
+        }
+
+
+//    public List addIntentAndCommand(Map map) {
+//        return neo4jRepo.addIntentAndCommand((String) map.get("commandName"),(String) map.get("commandParameter"),(String) (map.get("intentName")),(String) (map.get("intentStatus")),(Integer) (map.get("confidence")));
+//    }
+
+//    public void delete() {
+//        neo4jRepo.deleteAll();
+//        neo4jRepo.deleteAllCommand();
+//    }
+
+    public List updateConfidence(Map map) {
+        if(map.size()==3){
+
+                return neo4jRepo.updateRelationship((String) (map.get("intentName")), (String) (map.get("commandName")), (Integer) (map.get("confidence")));
+
+
+=======
                 return neo4jRepo.getAll();
         }
     public List updateConfidence(Map map) {
         if(map.size()==3){
                 return neo4jRepo.updateRelationship((String) (map.get("intentName")), (String) (map.get("commandName")), (Integer) (map.get("confidence")));
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
         }
         throw new ParameterException("Enter all the required parameters");
     }
 
 
     public List addIntentAndCommand(Map map) {
+<<<<<<< HEAD
+        List list ;
+        if(map.size()==5){
+
+//            list=neo4jRepo.addIntent((String) (map.get("intentName")), IntentStatus.valueOf((String) (map.get("intentStatus"))));
+//            list= neo4jRepo.addCommand((String) map.get("commandName"),(List) map.get("commandParameter"),(List) (map.get("intentName")),50,(String) (map.get("relationshipName")));
+            return neo4jRepo.addIntentAndCommand((String) map.get("commandName"),(List) map.get("commandParameter"),(String) (map.get("intentName")), IntentStatus.valueOf((String) (map.get("intentStatus"))),50,(String) (map.get("relationshipName")));
+//            return list;
+        }
+        else if(map.size()==4){
+//            list=neo4jRepo.addIntent((String) (map.get("intentName")), IntentStatus.valueOf((String) (map.get("intentStatus"))));
+//            list=neo4jRepo.addCommand((String) map.get("commandName"),(List) map.get("commandParameter"),(List) (map.get("intentName")),50);
+            return neo4jRepo.addIntentAndCommand((String) map.get("commandName"),(List) map.get("commandParameter"),(String) (map.get("intentName")), IntentStatus.valueOf((String) (map.get("intentStatus"))),50);
+//            return list;
+=======
         if(map.size()==5){
             return neo4jRepo.addIntentAndCommand((String) map.get("commandName"),(List) map.get("commandParameter"),(String) (map.get("intentName")), IntentStatus.valueOf((String) (map.get("intentStatus"))),50,(String) (map.get("relationshipName")));
         }
         else if(map.size()==4){
             return neo4jRepo.addIntentAndCommand((String) map.get("commandName"),(List) map.get("commandParameter"),(String) (map.get("intentName")), IntentStatus.valueOf((String) (map.get("intentStatus"))),50);
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
         }
         throw new ParameterException("Enter all the required parameters");
     }

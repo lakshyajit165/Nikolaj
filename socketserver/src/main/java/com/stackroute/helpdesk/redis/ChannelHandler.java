@@ -24,7 +24,7 @@ public class ChannelHandler {
 		RedisMessageListenerContainer container
 				= new RedisMessageListenerContainer();
 		container.setConnectionFactory(jedisConfig.jedisConnectionFactory());
-		container.addMessageListener(redisConfiguration.messageListener(), getListOfPatternTopics());
+		container.addMessageListener(redisConfiguration.messageListenerForRedis(), getListOfPatternTopics());
 		return container;
 	}
 

@@ -27,6 +27,13 @@ public class Library {
     private String reports_exchange;
     @Value("${ticket.exchange.name}")
     private String ticket_exchange;
+    @Value("${socketserver.exchange.name}")
+    private String socketserver_exchange;
+
+//    queue names
+//    socketserver queues names
+    @Value("${socketserver-ticket-closed.queue.name}")
+    private String socketserver_closed_queue_subscribe;
 
 //    queue names
 //    command-registry queues names
@@ -37,24 +44,13 @@ public class Library {
     //    command-framework queues names
     @Value("${command-executed.queue.name}")
     private String framework_executed_queue_subscribe;
-    //    csr-service queues names
+//    csr-service queues names
     @Value("${ticket-requested.queue.name}")
     private String csr_requested_queue_subscribe;
     @Value("${csr-performance-updated.queue.name}")
     private String csr_updated_queue_subscribe;
-    @Value("${csr-performance-updated-publish.queue.name}")
-    private String csr_updated_queue_publish;
-//    ticket service
-    @Value("${ticket-created.queue.name}")
-    private String ticket_created_queue_publish;
-    @Value("${ticket-updated.queue.name}")
-    private String ticket_updated_queue_publish;
-    //     optimus queues names
-    @Value("${no-intent-report-generated.queue.name}")
-    private String optimus_nointentgenerated_queue_publish;
-    @Value("${no-command-report-generated.queue.name}")
-    private String optimus_nocommandgenerated_queue_publish;
-    //      report generation queues names
+
+//      report generation queues names
     @Value("${ticket-details.queue.name}")
     private String reports_ticketdetails_queue_subscribe;
     @Value("${csr-details.queue.name}")
@@ -66,7 +62,11 @@ public class Library {
 
 
 //    queue to exchange binding keys
-//    for framework
+//    for socketserver
+    @Value("${sockerserver.ticket.closed.routing.key}")
+    private String ticket_ticket_closed;
+
+    //    for framework
     @Value("${framework.command.executed.routing.key}")
     private String framework_command_executed;
 //    ticket
@@ -114,4 +114,6 @@ public class Library {
     private String optimus_registry_exchange;
     @Value("${framework.notification.exchange.key}")
     private String framework_notification_exchange;
+    @Value("${ticket.socketserver.exchange.key}")
+    private String ticket_socketserver_exchange;
 }

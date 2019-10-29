@@ -1,10 +1,19 @@
 package com.stackroute.helpdesk.commandregistry.entity;
-
-import lombok.Data;
-
-import java.util.List;
-@Data
+import lombok.*;
+import org.springframework.data.annotation.Id;
+import java.util.Date;
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Intent {
-    private String name;
-    List<String> testStrings;
+    String uniqueId;
+    String ticketName;
+    String ticketId;
+    String intent;
+    String createdOn;
+    String updatedOn;
+    String userId;
+    String entity;
+    String reportType;
 }

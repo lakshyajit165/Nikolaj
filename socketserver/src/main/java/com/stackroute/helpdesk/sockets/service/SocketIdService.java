@@ -22,8 +22,6 @@ public class SocketIdService implements ISocketIdService{
 	public void saveSocket(SocketStore socketStore){
 		iSocketIdRepo.save(socketStore);
 		List<SocketStore> socketStore1 = (List<SocketStore>) iSocketIdRepo.findAll();
-		System.out.println("saved = " + socketStore1.get(0).getEmailId());
-		System.out.println("saved = " + socketStore1.get(0).getSocketId());
 	}
 
 	public String getCsrEmailId(String emailId){
@@ -37,5 +35,9 @@ public class SocketIdService implements ISocketIdService{
 		{
 			return "";
 		}
+	}
+
+	public void removeSocket(String emailId){
+		iSocketIdRepo.deleteById(emailId);
 	}
 }

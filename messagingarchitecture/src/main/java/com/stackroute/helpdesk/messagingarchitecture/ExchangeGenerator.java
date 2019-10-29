@@ -58,4 +58,9 @@ public class ExchangeGenerator {
 		return new TopicExchange(library.getFramework_exchange());
 	}
 
+	@Bean
+	public TopicExchange socketserverExchange(){
+		return new TopicExchange(library.getSocketserver_exchange());
+	}
+
 }

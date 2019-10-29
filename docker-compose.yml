@@ -160,25 +160,25 @@ services:
       MVN_LOCAL_REPO: /maven/home/
 
   ## command registry
-  # spring-boot-command-registry:
-  #   build: command-registry
-  #   ports:
-  #     - 8082:8082
-  #   env_file:
-  #     - ./docker-prod.env
-  #   depends_on:
-  #     - eureka-naming-server
-  #     - config-server
-  #     - zuul-api-gateway
-  #   restart: on-failure
-  #   deploy:
-  #     resources:
-  #       limits:
-  #         memory: 1000M
-  #   volumes:
-  #     - $HOME/mavenrepo/:/maven/home/
-  #   environment:
-  #     MVN_LOCAL_REPO: /maven/home/
+  spring-boot-command-registry:
+    build: command-registry
+    ports:
+      - 8082:8082
+    env_file:
+      - ./docker-prod.env
+    depends_on:
+      - eureka-naming-server
+      - config-server
+      - zuul-api-gateway
+    restart: on-failure
+    deploy:
+      resources:
+        limits:
+          memory: 1000M
+    volumes:
+      - $HOME/mavenrepo/:/maven/home/
+    environment:
+      MVN_LOCAL_REPO: /maven/home/
 
   ## optimus spring boot project
   spring-boot-optimus:

@@ -6,8 +6,11 @@ import com.stackroute.helpdesk.intentcommandmapping.model.Command;
 import com.stackroute.helpdesk.intentcommandmapping.model.Intent;
 import com.stackroute.helpdesk.intentcommandmapping.model.IntentStatus;
 import com.stackroute.helpdesk.intentcommandmapping.service.Neo4jService;
+<<<<<<< HEAD
+=======
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +31,15 @@ import static org.mockito.Mockito.when;
 public class Neo4jControllerTest {
 
     @Autowired
+<<<<<<< HEAD
+    Neo4jController neo4jController;
+
+    @MockBean
+    private Neo4jService neo4jService;
+    private Map map;
+    private List<String> list;
+    private String testParameter="testing";
+=======
     private Neo4jController neo4jController;
 
     @MockBean
@@ -37,13 +49,17 @@ public class Neo4jControllerTest {
     private List<String> list;
     private String testParameter="testing";
     private JSONObject item;
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
 
     @Before
     public void setUp(){
         this.map=new HashMap();
         this.list= new ArrayList<String>();
         list.add(testParameter);
+<<<<<<< HEAD
+=======
         item=new JSONObject();
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
     }
 
     @Test
@@ -53,18 +69,39 @@ public class Neo4jControllerTest {
         assertNotEquals("wrong data",neo4jController.getAllIntents().getBody().get("result"));
     }
 
+<<<<<<< HEAD
+
+
+    @Test()
+=======
     @Test
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
     public void addIntent() {
         Intent intent=new Intent("testing",IntentStatus.MATURE);
         when(neo4jService.addIntent(intent)).thenReturn(list);
         assertEquals(list, neo4jController.addIntent(intent).getBody().get("result"));
         assertNotEquals("wrong Data",neo4jController.addIntent(intent).getBody().get("result"));
+<<<<<<< HEAD
+//
+//        when(neo4jService.addIntent(intent)).thenReturn(Collections.singletonList(ParameterException.class));
+//        assertEquals(Collections.singletonList(ParameterException.class), neo4jController.addIntent(intent).getBody().get("result"));
+//        intent=new Intent("intentName",null);
+//        when(neo4jService.addIntent(intent)).thenReturn(Collections.singletonList(ParameterException.class));
+//        assertEquals(Collections.singletonList(ParameterException.class), neo4jController.addIntent(intent).getBody().get("result"));
+//        intent=new Intent(null,IntentStatus.MATURE);
+//        when(neo4jService.addIntent(intent)).thenReturn(Collections.singletonList(ParameterException.class));
+//        assertEquals(Collections.singletonList(ParameterException.class), neo4jController.addIntent(intent).getBody().get("result"));
+//        intent=new Intent(null,null);
+//        when(neo4jService.addIntent(intent)).thenReturn(Collections.singletonList(ParameterException.class));
+//        assertEquals(Collections.singletonList(ParameterException.class), neo4jController.addIntent(intent).getBody().get("result"));
+=======
     }
     @Test
     public void addEmptyIntent(){
         Intent intent=new Intent();
         list.clear();
         assertEquals(list,neo4jController.addIntent(intent).getBody().get("result"));
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
     }
 
     @Test
@@ -72,6 +109,28 @@ public class Neo4jControllerTest {
         Intent intent=new Intent("testing",IntentStatus.MATURE);
         when(neo4jService.updateIntentStatus(intent)).thenReturn(list);
         assertEquals(list, neo4jController.updateIntentStatus(intent).getBody().get("result"));
+<<<<<<< HEAD
+        assertNotEquals("list", neo4jController.updateIntentStatus(intent).getBody().get("result"));
+        intent=new Intent();
+        when(neo4jService.updateIntentStatus(intent)).thenReturn(Collections.singletonList(ParameterException.class));
+        assertEquals(Collections.singletonList(ParameterException.class), neo4jController.updateIntentStatus(intent).getBody().get("result"));
+        intent=new Intent("intentName",null);
+        when(neo4jService.updateIntentStatus(intent)).thenReturn(Collections.singletonList(ParameterException.class));
+        assertEquals(Collections.singletonList(ParameterException.class), neo4jController.updateIntentStatus(intent).getBody().get("result"));
+        intent=new Intent(null,IntentStatus.MATURE);
+        when(neo4jService.updateIntentStatus(intent)).thenReturn(Collections.singletonList(ParameterException.class));
+        assertEquals(Collections.singletonList(ParameterException.class), neo4jController.updateIntentStatus(intent).getBody().get("result"));
+        intent=new Intent(null,null);
+        when(neo4jService.updateIntentStatus(intent)).thenReturn(Collections.singletonList(ParameterException.class));
+        assertEquals(Collections.singletonList(ParameterException.class), neo4jController.updateIntentStatus(intent).getBody().get("result"));
+    }
+
+    @Test
+    public void addCommand() {
+        when(neo4jService.addCommand(map)).thenReturn(list);
+        assertEquals(list, neo4jController.addCommand(map).getBody().get("result"));
+        assertNotEquals("wrong data",neo4jController.addCommand(map).getBody().get("result"));
+=======
     }
     @Test
     public void addEmptyIntentForIntentStatus(){
@@ -121,6 +180,7 @@ public class Neo4jControllerTest {
         addCommand.add(item);
         when(neo4jService.addCommand(map)).thenReturn(addCommand);
         assertEquals(addCommand, neo4jController.addCommand(map).getBody().get("result"));
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
     }
 
     @Test
@@ -132,6 +192,8 @@ public class Neo4jControllerTest {
         assertEquals(list, neo4jController.updateCommandParameter(command).getBody().get("result"));
         assertNotEquals("wrong data",neo4jController.updateCommandParameter(command).getBody().get("result"));
     }
+<<<<<<< HEAD
+=======
     @Test
     public void updateCommandParameterWithEmptyData() {
         Command command=new Command();
@@ -140,10 +202,16 @@ public class Neo4jControllerTest {
         assertEquals(list, neo4jController.updateCommandParameter(command).getBody().get("result"));
 //        assertNotEquals("wrong data",neo4jController.updateCommandParameter(command).getBody().get("result"));
     }
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
 
 
     @Test
     public void addIntentAndCommand() {
+<<<<<<< HEAD
+        when(neo4jService.addIntentAndCommand(map)).thenReturn(list);
+        assertEquals(list, neo4jController.addIntentAndCommand(map).getBody().get("result"));
+        assertNotEquals("wrong data",neo4jController.addIntentAndCommand(map).getBody().get("result"));
+=======
         list.clear();
         when(neo4jService.addIntentAndCommand(map)).thenReturn(list);
         assertEquals(list, neo4jController.addIntentAndCommand(map).getBody().get("result"));
@@ -183,10 +251,32 @@ public class Neo4jControllerTest {
         result.add(item);
         when(neo4jService.addIntentAndCommand(map)).thenReturn(result);
         assertEquals(result, neo4jController.addIntentAndCommand(map).getBody().get("result"));
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
     }
 
 
     @Test
+<<<<<<< HEAD
+    public void updateRelationship() {
+        when(neo4jService.updateConfidence(map)).thenReturn(list);
+        assertEquals(list, neo4jController.updateConfidence(map).getBody().get("result"));
+        assertNotEquals("wrong data",neo4jController.updateConfidence(map).getBody().get("result"));
+    }
+
+    @Test
+    public void getCommandByName(){
+        when(neo4jService.getCommandByName("intentName","relationship")).thenReturn(list);
+        assertEquals(list,neo4jController.getCommandByName("intentName","relationship").getBody().get("result"));
+        assertNotEquals("wrong data",neo4jController.getCommandByName("intenetName","relationship").getBody().get("result"));
+
+        list.add("commandNameWithIntent");
+        when(neo4jService.getCommandByName("intentName",null)).thenReturn(list);
+        assertEquals(list,neo4jController.getCommandByName("intentName",null).getBody().get("result"));
+        assertNotEquals("wrong text",neo4jController.getCommandByName("intentName",null));
+    }
+
+
+=======
     public void updateConfidence() {
         List data=new ArrayList();
         map.put("intentName","iname1");
@@ -227,4 +317,5 @@ public class Neo4jControllerTest {
 
 
 
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
 }
