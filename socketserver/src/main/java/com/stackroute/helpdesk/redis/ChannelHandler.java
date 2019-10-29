@@ -1,6 +1,7 @@
 package com.stackroute.helpdesk.redis;
 
 import com.stackroute.helpdesk.config.JedisConfig;
+import com.stackroute.helpdesk.sockets.redisconfig.RedisConfigurations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.listener.ChannelTopic;
@@ -15,7 +16,7 @@ import java.util.List;
 public class ChannelHandler {
 
 	@Autowired
-	private RedisConfiguration redisConfiguration;
+	private RedisConfigurations redisConfiguration;
 	@Autowired
 	JedisConfig jedisConfig;
 
