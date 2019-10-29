@@ -12,6 +12,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.data.redis.connection.RedisPassword;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.PatternTopic;
@@ -21,6 +24,7 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 
 import javax.annotation.PostConstruct;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,13 +47,24 @@ public class RedisConfigurations {
 	@Bean("jedis")
 	public JedisConnectionFactory jedisConnectionFactory(){
 		System.out.println("atleast!!! jedis connection started establishing");
-		JedisConnectionFactory jedisConFactory
-				= new JedisConnectionFactory();
-		jedisConFactory.setPassword("nikolaj");
-		jedisConFactory.setHostName(redisHostName);
-		jedisConFactory.setPort(Integer.parseInt(redisPortNum));
+		RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
+		redisStandaloneConfiguration.setHostName(redisHostName);
+		redisStandaloneConfiguration.setPort(Integer.parseInt(redisPortNum));
+		redisStandaloneConfiguration.setPassword(RedisPassword.of("nikolaj"));
+
+		JedisClientConfiguration.JedisClientConfigurationBuilder jedisClientConfiguration = JedisClientConfiguration.builder();
+		jedisClientConfiguration.connectTimeout(Duration.ofSeconds(60));// 60s connection timeout
+
+		JedisConnectionFactory jedisConFactory = new JedisConnectionFactory(redisStandaloneConfiguration,
+				jedisClientConfiguration.build());
 		System.out.println("congratulations!!! jedis connection established");
 		return jedisConFactory;
+//		JedisConnectionFactory jedisConFactory
+//				= new JedisConnectionFactory();
+//		jedisConFactory.setPassword("nikolaj");
+//		jedisConFactory.setHostName(redisHostName);
+//		jedisConFactory.setPort(Integer.parseInt(redisPortNum));
+//		return jedisConFactory;
 	}
 
 	@Bean
