@@ -7,9 +7,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.redis.connection.RedisPassword;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
+
+import java.time.Duration;
 
 @Configuration
 public class RedisConfiguration {
@@ -21,11 +26,18 @@ public class RedisConfiguration {
 
 	@Bean("jedis")
 	public JedisConnectionFactory jedisConFactory() {
-		JedisConnectionFactory jedisConFactory
-				= new JedisConnectionFactory();
-		jedisConFactory.setPassword("nikolaj");
-		jedisConFactory.setHostName(redisHostName);
-		jedisConFactory.setPort(Integer.parseInt(redisPortNum));
+		System.out.println("atleast!!! jedis connection started establishing");
+		RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
+		redisStandaloneConfiguration.setHostName(redisHostName);
+		redisStandaloneConfiguration.setPort(Integer.parseInt(redisPortNum));
+		redisStandaloneConfiguration.setPassword(RedisPassword.of("nikolaj"));
+
+		JedisClientConfiguration.JedisClientConfigurationBuilder jedisClientConfiguration = JedisClientConfiguration.builder();
+		jedisClientConfiguration.connectTimeout(Duration.ofSeconds(60));// 60s connection timeout
+
+		JedisConnectionFactory jedisConFactory = new JedisConnectionFactory(redisStandaloneConfiguration,
+				jedisClientConfiguration.build());
+		System.out.println("congratulations!!! jedis connection established");
 		return jedisConFactory;
 	}
 
