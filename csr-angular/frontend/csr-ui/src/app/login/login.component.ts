@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { TicketService } from '../services/ticket.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private cookie: CookieService
   ) { }
 
   ngOnInit() {
@@ -27,9 +29,9 @@ export class LoginComponent implements OnInit {
     this.authService.doLogin(this.email, this.password)
     .then(res => {
       console.log(res.user.email);
-       // pass the csr mail on succesful login here
+       // pass the csr mail on succesful login here and create a cookie
+      this.cookie.set('csrmail', res.user.email);
       this.router.navigate(['/home/openticket'], { state: { csrmail: res.user.email }});
-      this.ticketService.setCsrMail(res.user.email);
 
     }, err => {
       console.log(err);

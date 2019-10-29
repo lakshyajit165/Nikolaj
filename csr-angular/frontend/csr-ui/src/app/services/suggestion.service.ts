@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { tick } from '@angular/core/testing';
+
 import { environment } from '../../environments/environment.prod';
 import { NoIntent } from '../model/nointent';
 
@@ -16,7 +16,9 @@ export class SuggestionService {
  constructor(private http: HttpClient) { }
  getSuggestion(id: string): Observable<Response> {
    const uri: string = this.apiGateWay + 'optimus/api/v1/suggestions?id=' + id;
-   return  this.http.get<Response>(uri);
+   return  this.http.get<Response>(uri).pipe(
+    catchError(this.handleError)
+  );
   }
   feedback(intent: string, command: string, rating: number): Observable<object> {
    const uri = this.apiGateWay + 'optimus/api/v1/confidence';
@@ -25,12 +27,27 @@ export class SuggestionService {
       intentName: intent,
       commandName: command,
       rating,
-    });
+    }).pipe(
+      catchError(this.handleError)
+    );
   }
 
   nointent(nointent: NoIntent) {
     const uri = 'http://localhost:8087/optimus/api/v1/report';
 
-    return this.http.patch<object>(uri, nointent);
+    return this.http.patch<object>(uri, nointent).pipe(
+      catchError(this.handleError)
+    );
    }
+
+    // for the error handling
+  private handleError(errorResponse: HttpErrorResponse) {
+    if (errorResponse.error instanceof ErrorEvent) {
+      console.error('client side error', errorResponse.error.message);
+    } else {
+      console.error('server side error', errorResponse);
+    }
+    return throwError('some problem is occured here.............');
+  }
+
 }

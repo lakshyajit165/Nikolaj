@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { TicketService } from '../services/ticket.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-navigation',
@@ -23,7 +24,8 @@ export class NavigationComponent implements OnInit{
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private cookie: CookieService
     ) {
       // if (this.router.getCurrentNavigation().extras.state !== undefined) {
       //   this.csrmail = this.router.getCurrentNavigation().extras.state.csrmail;
@@ -33,7 +35,7 @@ export class NavigationComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.csrmail = this.ticketService.getCsrMail();
+    this.csrmail = this.cookie.get('csrmail');
   }
 
 }
