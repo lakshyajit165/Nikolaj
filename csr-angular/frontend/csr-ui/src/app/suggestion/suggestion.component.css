@@ -1,0 +1,11 @@
+.mat-icon{
+    padding-left: 60px;
+ }
+ .details{
+    display:flex;
+    flex-direction: column;
+ }
+
+ .mat-subheading-1 {
+    text-align: left;
+ }

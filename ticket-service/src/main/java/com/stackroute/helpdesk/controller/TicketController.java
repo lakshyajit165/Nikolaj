@@ -198,13 +198,21 @@ public class TicketController implements Serializable {
         if(resolvedBy != null) {
             ticketStructure.setResolvedBy(resolvedBy);
 
+	     // update assignedTime
+            ticketStructure.setAssignedTime(new Date());
+
             // set updatedOn when csr assigns himself
             ticketStructure.setUpdatedOn(new Date());
         }else{
-            // update assignedTime
-            ticketStructure.setAssignedTime(new Date());
+           
             // set updatedOn time when ticket is resolved
             ticketStructure.setUpdatedOn(new Date());
+	      message.sendMessage(rabbitTemplate,
+                   "ticket_closed",
+                   "ticket_exchange",
+                   "socketserver.ticket.closed",
+                   ticketStructure.getRaisedBy(),
+                   "socketserver-closed-queue-subscribe");
         }
 
         System.out.println(status);

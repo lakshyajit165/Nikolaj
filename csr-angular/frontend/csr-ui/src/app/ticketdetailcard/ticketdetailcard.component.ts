@@ -55,7 +55,7 @@ export class TicketdetailcardComponent implements OnInit {
   private err = 'error';
   private msg = 'message';
   
-  private apiGateWay = 'http://localhost:8765/';
+  private apiGateWay = environment.apigateway;
 
   constructor(
     private router: Router,

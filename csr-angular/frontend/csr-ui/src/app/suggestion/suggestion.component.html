@@ -5,7 +5,7 @@
     fxLayoutGap="10px"
     fxLayoutGap.xs="0"
     *ngIf=status>
- <div class="item item-1" fxFlex="30%"  fxFlexOrder="3">{{suggestions}}  </div>
+ <div class="item item-1" fxFlex="30%">{{suggestions}}  </div>
  <div class="item item-2" fxFlex="10%">
    <mat-icon (click)="changeIconThumbUp('done')">
        {{thumbUp}}
@@ -17,7 +17,8 @@
    </mat-icon>
  </div>
 </div>
-<div *ngIf="intent==undefined">
+<div *ngIf="intents==undefined">
+  <h3 class="mat-subheading-1">This query has no intent. Feel free to suggest the following details.</h3>
    <form [formGroup]="reportForm" (ngSubmit)="onSubmit(reportForm.value)" class="details">
    <mat-form-field>
            <input matInput placeholder="Entity" formControlName="entity">

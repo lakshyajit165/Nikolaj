@@ -11,11 +11,14 @@ import { CsrResolver } from './auth/csr.resolver';
 
 
 const routes: Routes = [
+  // {
+  //    path: '', redirectTo: '/login', pathMatch: 'full'
+  // },
   {
-    path: 'csrui', redirectTo: '/login', pathMatch: 'full'
+    path: '', redirectTo: '/csr-angular', pathMatch: 'full'
   },
   {
-    path: 'login', component: LoginComponent, canActivate: [AuthGuard]
+    path: 'csr-angular', component: LoginComponent, canActivate: [AuthGuard]
   },
   {
     path: 'home', component: HomeComponent, children: [
@@ -36,7 +39,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -12,23 +12,14 @@ import { environment } from '../../environments/environment.prod';
 export class TicketService {
 
   private apiGateWay = environment.apigateway;
-  private csrmail: string;
-
 
   constructor(
     private http: HttpClient
   ) { }
 
-  setCsrMail(mail: string) {
-    this.csrmail = mail;
-  }
-
-  getCsrMail(): string {
-    return this.csrmail;
-  }
 
   assignTicket(): Observable<object> {
-    return this.http.get<Map<string, object>>(this.apiGateWay + 'csrservice/api/v1/csr/assign')
+    return this.http.get<Map<string, object>>(this.apiGateWay+'csrservice/api/v1/csr/assign')
     .pipe(
         retry(1),
         catchError(this.handleError)

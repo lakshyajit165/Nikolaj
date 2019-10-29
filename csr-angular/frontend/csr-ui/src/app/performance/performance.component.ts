@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PerformanceService } from '../services/performance.service';
-import { TicketService } from '../services/ticket.service';
 import * as moment from 'moment';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -51,8 +51,8 @@ export class PerformanceComponent implements OnInit {
 
   constructor(
     private performanceService: PerformanceService,
-    private ticketService: TicketService
-  ) { 
+    private cookie: CookieService
+  ) {
     this.barChartLabels = this.dates;
     this.barChartType = 'bar';
     this.barChartData = [
@@ -62,13 +62,16 @@ export class PerformanceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.csrmail = this.ticketService.getCsrMail();
+
+    this.csrmail = this.cookie.get('csrmail');
+    this.getDetailsTaken();
+
   }
 
   public getDetailsTaken(): void {
     this.performanceService.getDetailsTaken(this.csrmail).subscribe(res => {
       this.response1 = res;
-      this.responseTaken = this.response1[this.result][this.results].slice(0, 8);
+      this.responseTaken = this.response1[this.result][this.results];
       console.log(this.responseTaken);
 
       this.responseTaken.forEach(ele => {
@@ -82,7 +85,7 @@ export class PerformanceComponent implements OnInit {
       // });
       this.performanceService.getDetailsResolved(this.csrmail).subscribe(response => {
         this.response2 = response;
-        this.responseResolved = this.response2[this.result][this.results].slice(0, 8);
+        this.responseResolved = this.response2[this.result][this.results];
 
         this.responseResolved.forEach(ele => {
         this.queryResolvedCount.push(ele[this.total]);
@@ -99,5 +102,8 @@ export class PerformanceComponent implements OnInit {
       // console.log(this.queryTakenCount);
     });
   }
+
+
+
 
 }

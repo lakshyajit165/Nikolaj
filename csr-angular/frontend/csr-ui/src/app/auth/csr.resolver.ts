@@ -19,7 +19,7 @@ export class CsrResolver implements Resolve<FirebaseUserModel> {
           return resolve(csr);
 
       }, err => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/csr-angular']);
         return reject(err);
       });
     });

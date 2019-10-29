@@ -4,6 +4,7 @@ import { Ticket } from '../model/ticketinterface';
 import { Csr } from '../model/csrinterface';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class OpenticketComponent implements OnInit {
   constructor(
     private ticketService: TicketService,
     private router: Router,
-    private ticketSerivce: TicketService
+    private ticketSerivce: TicketService,
+    private cookie: CookieService
   ) {
     // if (this.router.getCurrentNavigation().extras.state !== undefined) {
     //   console.log(this.router.getCurrentNavigation().extras.state);
@@ -40,7 +42,7 @@ export class OpenticketComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.csrMail = this.ticketSerivce.getCsrMail();
+    this.csrMail = this.cookie.get('csrmail');
     console.log(this.csrMail);
   }
 

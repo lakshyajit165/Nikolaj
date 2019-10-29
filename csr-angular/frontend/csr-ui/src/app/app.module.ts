@@ -32,7 +32,8 @@ import { CsrService } from './auth/csr.service';
 import { CsrResolver } from './auth/csr.resolver';
 import { AuthGuard } from './auth/auth.guard';
 import { CommandModule } from 'my-command-library';
-
+import { ChartsModule } from 'ng2-charts';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -62,11 +63,12 @@ import { CommandModule } from 'my-command-library';
     ReactiveFormsModule,
     FlexLayoutModule,
     CommandModule,
+    ChartsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule
   ],
-  providers: [AuthService, CsrService, CsrResolver, AuthGuard],
+  providers: [AuthService, CsrService, CsrResolver, AuthGuard, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
