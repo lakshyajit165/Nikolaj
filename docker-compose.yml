@@ -273,6 +273,7 @@ services:
       - eureka-naming-server
       - config-server
       - zuul-api-gateway
+      - redis
     restart: on-failure
     deploy:
       resources:
