@@ -50,7 +50,7 @@ public class RedisConfigurations {
 	}
 
 	@Bean
-	@Qualifier("redisTemp")
+//	@Qualifier("redisTemp")
 	public RedisTemplate<String, User> redisTemplate() {
 		RedisTemplate<String, User> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(jedisConfig.jedisConnectionFactory());

@@ -13,16 +13,13 @@ public class JedisConfig {
 	private String redisHostName;
 	@Value("${REDIS_PORT}")
 	private String redisPortNum;
-	@Value("${REDIS_PASSWORD}")
-	private String password;
-
+	
 	@Bean
 	public JedisConnectionFactory jedisConnectionFactory(){
 		JedisConnectionFactory jedisConFactory
 				= new JedisConnectionFactory();
 		jedisConFactory.setHostName(redisHostName);
 		jedisConFactory.setPort(Integer.parseInt(redisPortNum));
-		jedisConFactory.setPassword(password);
 		return jedisConFactory;
 	}
 }
