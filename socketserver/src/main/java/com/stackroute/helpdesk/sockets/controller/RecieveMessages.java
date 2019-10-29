@@ -7,7 +7,10 @@ import com.stackroute.helpdesk.redis.ChannelHandler;
 import com.stackroute.helpdesk.redis.RedisMessagePublisher;
 import com.stackroute.helpdesk.sockets.model.SocketStore;
 import com.stackroute.helpdesk.sockets.redisrepo.ISocketIdRepo;
+<<<<<<< HEAD
 import com.stackroute.helpdesk.sockets.service.ChatStoreService;
+=======
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
 import com.stackroute.helpdesk.sockets.service.SocketIdService;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +31,12 @@ public class RecieveMessages {
     SocketIdService socketIdService;
 
     @Autowired
+<<<<<<< HEAD
     private ChatStoreService chatStoreService;
 
     @Autowired
+=======
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
     private ISocketIdRepo iSocketIdRepo;
 
     private RedisMessagePublisher redisMessagePublisher;
@@ -61,8 +67,11 @@ public class RecieveMessages {
             User user = new User();
             user.setEmailId(messageConverted.get("emailId"));
             user.setContent(messageConverted.get("content"));
+<<<<<<< HEAD
             System.out.println("storing chat");
             chatStoreService.updateChatHistory(messageConverted.get("content"), "user", "user", messageConverted.get("emailId"));
+=======
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
             Optional<SocketStore> socketStore = iSocketIdRepo.findById(messageConverted.get("emailId"));
             SocketStore socketStore1 = null;
             String csrEmailId = "";
@@ -89,7 +98,11 @@ public class RecieveMessages {
     }
 
     @MessageMapping("/send/socketid")
+<<<<<<< HEAD
 //    @SendTo("/send/socketid")
+=======
+    @SendTo("/send/socketid")
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
     public Map<String, String> getSocketId(String message){
         ObjectMapper mapper = new ObjectMapper();
         Map<String, String> messageConverted = null;

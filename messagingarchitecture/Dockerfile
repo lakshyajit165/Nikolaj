@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 #stage -1  for volume mounting maven dependencies
+=======
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
 FROM maven:3.6-jdk-11 AS build
 COPY pom.xml .
 RUN mvn -Dmaven.repo.local=$MVN_LOCAL_REPO dependency:go-offline
@@ -7,6 +10,13 @@ RUN mvn -Dmaven.repo.local=$MVN_LOCAL_REPO -f pom.xml clean package -DskipTests
 
 #stage -2 for creating the image of the project
 FROM openjdk:11
+<<<<<<< HEAD
 EXPOSE 8082
 COPY --from=build /target/messagingarchitecture-1.0.0.SNAPSHOT.jar message-architecture.jar
 ENTRYPOINT ["java","-jar","message-architecture.jar"]
+=======
+EXPOSE 8099
+COPY --from=build /target/messagingarchitecture-1.0.0.SNAPSHOT.jar message-architecture.jar
+ENTRYPOINT ["java","-jar","message-architecture.jar"]
+
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e

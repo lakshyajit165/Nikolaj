@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ExchangeToExchangeBindingGenerator {
 
-
 	private Library library;
 	private Configurations configuration;
 	private ExchangeGenerator exchangeGenerator;
@@ -46,16 +45,19 @@ public class ExchangeToExchangeBindingGenerator {
 		return BindingBuilder.bind(exchangeGenerator.reportsExchange()).to(exchangeGenerator.ticketExchange()).with(library.getTicket_reports_exchange());
 	}
 	//	csr to reports
+	//	ticket to notification
 	@Bean
 	public Binding reportsCsrExchange() {
 		return BindingBuilder.bind(exchangeGenerator.reportsExchange()).to(exchangeGenerator.csrExchange()).with(library.getCsr_reports_exchange());
 	}
 	//	optimus to registry
+	//	ticket to notification
 	@Bean
 	public Binding registryOptimusExchange() {
 		return BindingBuilder.bind(exchangeGenerator.registryExchange()).to(exchangeGenerator.optimusExchange()).with(library.getOptimus_registry_exchange());
 	}
 	//	framework to notification
+	//	ticket to notification
 	@Bean
 	public Binding notificationOptimusExchange() {
 		return BindingBuilder.bind(exchangeGenerator.notificationExchange()).to(exchangeGenerator.frameworkExchange()).with(library.getFramework_notification_exchange());

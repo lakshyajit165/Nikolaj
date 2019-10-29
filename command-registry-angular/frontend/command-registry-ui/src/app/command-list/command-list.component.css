@@ -1,0 +1,10 @@
+app-command {
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.error-msg {
+    margin: 20px 10px 20px 10px;
+    padding: 20px 10px 20px 10px;
+    text-align: center;
+}

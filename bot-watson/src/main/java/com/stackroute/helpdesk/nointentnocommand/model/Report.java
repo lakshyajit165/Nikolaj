@@ -3,7 +3,11 @@ package com.stackroute.helpdesk.nointentnocommand.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+<<<<<<< HEAD
 import org.mockito.InjectMocks;
+=======
+//import org.mockito.InjectMocks;
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;

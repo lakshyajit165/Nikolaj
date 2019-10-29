@@ -44,6 +44,7 @@ public class ReportController {
         responseObject.put("error", "No error");
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
+<<<<<<< HEAD
 //    @Patc hMapping("/report")
 //    public ResponseEntity<HashMap<String,?>> updateRecord(@RequestBody Report report){
 //        responseObject = new HashMap<>();
@@ -52,5 +53,15 @@ public class ReportController {
 //        responseObject.put("error", "No error");
 //        return new ResponseEntity<>(responseObject, HttpStatus.OK);
 //    }
+=======
+    @GetMapping("/report")
+    public ResponseEntity<HashMap<String,?>> updateRecord(){
+        responseObject = new HashMap<>();
+        responseObject.put("result", reportServiceRepo.getReport());
+        responseObject.put("message", "Successfully inserted the command report");
+        responseObject.put("error", "No error");
+        return new ResponseEntity<>(responseObject, HttpStatus.OK);
+    }
+>>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
 
 }

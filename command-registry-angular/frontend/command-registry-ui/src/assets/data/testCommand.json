@@ -1,0 +1,17 @@
+{
+    "id": "5d8b485bdb1ccd91cc24bd7c",
+    "name": "invoice",
+    "tags": ["tag1", "tag2"],
+    "desc": "this command can be used to see invoice",
+    "last_updated_on": "22/01/2019",
+    "created_on": "21/01/2019",
+    "created_by": "ABC",
+    "usage": "invoice p1",
+    "status": "active",
+    "parameters": [{
+        "parameterName": "p1",
+        "required": "required",
+        "default_value": null,
+        "description": "first parameter for invoice command kkfk fjfjdk djjdjksj jfdjnjfjd"
+    }]
+}

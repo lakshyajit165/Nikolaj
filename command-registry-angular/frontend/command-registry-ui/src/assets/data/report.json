@@ -1,0 +1,47 @@
+{
+    "result": {
+        "order_food": [{
+                "uniqueId": "12355",
+                "ticketName": "tkt2",
+                "ticketId": "2",
+                "intent": "order_food",
+                "createdOn": "21/01/2019",
+                "updatedOn": "22/01/2019",
+                "userId": "1234567890",
+                "reportType": "NoCommand"
+            },
+            {
+                "uniqueId": "12356",
+                "ticketName": "tkt2",
+                "ticketId": "2",
+                "intent": "order_food",
+                "createdOn": "21/01/2019",
+                "updatedOn": "22/01/2019",
+                "userId": "1234567890",
+                "reportType": "NoCommand"
+            }
+        ],
+        "order_status": [{
+            "uniqueId": "12353",
+            "ticketName": "tkt2",
+            "ticketId": "2",
+            "intent": "order_status",
+            "createdOn": "20/01/2019",
+            "updatedOn": "21/01/2019",
+            "userId": "1234567890",
+            "reportType": "NoCommand"
+        }],
+        "book_food": [{
+            "uniqueId": "12354",
+            "ticketName": "tkt2",
+            "ticketId": "2",
+            "intent": "book_food",
+            "createdOn": "21/01/2019",
+            "updatedOn": "22/01/2019",
+            "userId": "1234567890",
+            "reportType": "NoCommand"
+        }]
+    },
+    "message": "Successfully displayed the command report",
+    "error": "No error"
+}

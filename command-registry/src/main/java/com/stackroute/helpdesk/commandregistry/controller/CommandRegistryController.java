@@ -18,22 +18,17 @@ import java.util.concurrent.TimeoutException;
 @RequestMapping("/api/v1/commandregistry/commands")
 public class CommandRegistryController {
 
-    @Autowired
     private CommandRepository commandRepository;
 
-    CommandRegistryController(CommandRepository commandRepository)
-    {
-        this.commandRepository=commandRepository;
+    CommandRegistryController(CommandRepository commandRepository) {
+        this.commandRepository = commandRepository;
     }
+
     HashMap<String, Object> responseObject;
 
     /**
-     *
      * get all commands
-     *
-     *
-     */
-
+     * */
     @GetMapping
     public ResponseEntity<HashMap<String, Object>> getCommands() {
 

@@ -21,13 +21,13 @@ public class QueueToExchangeBindingGenerator {
 		this.queueGenerator = queueGenerator;
 		this.exchangeGenerator = exchangeGenerator;
 	}
-//	queue to exchange bindings
+	//	queue to exchange bindings
 //	socket server
 	@Bean
 	public Binding ticketClosed() {
 		return BindingBuilder.bind(queueGenerator.socketserverTicketClosedQueueSubscribe()).to(exchangeGenerator.socketserverExchange()).with(library.getTicket_ticket_closed());
 	}
-//	command framework
+	//	command framework
 	@Bean
 	public Binding frameworkCommandExecuted() {
 		return BindingBuilder.bind(queueGenerator.frameworkExecutedQueueSubscribe()).to(exchangeGenerator.frameworkExchange()).with(library.getFramework_command_executed());

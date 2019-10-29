@@ -34,6 +34,8 @@ public class Library {
 //    socketserver queues names
     @Value("${socketserver-ticket-closed.queue.name}")
     private String socketserver_closed_queue_subscribe;
+
+//    queue names
 //    command-registry queues names
     @Value("${no-intent-report-recieved.queue.name}")
     private String registry_nointentrecieved_queue_subscribe;
@@ -42,12 +44,13 @@ public class Library {
     //    command-framework queues names
     @Value("${command-executed.queue.name}")
     private String framework_executed_queue_subscribe;
-    //    csr-service queues names
+//    csr-service queues names
     @Value("${ticket-requested.queue.name}")
     private String csr_requested_queue_subscribe;
     @Value("${csr-performance-updated.queue.name}")
     private String csr_updated_queue_subscribe;
-    //      report generation queues names
+
+//      report generation queues names
     @Value("${ticket-details.queue.name}")
     private String reports_ticketdetails_queue_subscribe;
     @Value("${csr-details.queue.name}")
@@ -62,7 +65,8 @@ public class Library {
 //    for socketserver
     @Value("${sockerserver.ticket.closed.routing.key}")
     private String ticket_ticket_closed;
-//    for framework
+
+    //    for framework
     @Value("${framework.command.executed.routing.key}")
     private String framework_command_executed;
 //    ticket

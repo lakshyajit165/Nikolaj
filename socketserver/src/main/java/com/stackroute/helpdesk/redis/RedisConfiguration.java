@@ -33,11 +33,8 @@ public class RedisConfiguration {
 	@Qualifier("redisTemp")
 	public RedisTemplate<String, User> redisTemplate() {
 		RedisTemplate<String, User> redisTemplate = new RedisTemplate<>();
-		System.out.println("jedis config = " + jedisConfig.jedisConnectionFactory());
 		redisTemplate.setConnectionFactory(jedisConfig.jedisConnectionFactory());
-		System.out.println("after jedis");
 		redisTemplate.setValueSerializer(new GenericToStringSerializer<Object>(Object.class));
-		System.out.println("redis");
 		return redisTemplate;
  	}
 }
