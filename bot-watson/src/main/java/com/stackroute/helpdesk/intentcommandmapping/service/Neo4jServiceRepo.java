@@ -10,11 +10,8 @@ import java.util.Map;
 @Service
 public interface Neo4jServiceRepo {
     List getAllIntents();
-<<<<<<< HEAD
-    public List addIntent(Intent intent);
-=======
     List addIntent(Intent intent);
->>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
+
     List updateIntentStatus(Intent intent);
     List updateCommandParameter(Command command);
     List addCommand(Map map);

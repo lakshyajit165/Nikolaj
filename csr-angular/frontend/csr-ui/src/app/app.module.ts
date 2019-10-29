@@ -33,6 +33,7 @@ import { CsrResolver } from './auth/csr.resolver';
 import { AuthGuard } from './auth/auth.guard';
 import { CommandModule } from 'my-command-library';
 
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [

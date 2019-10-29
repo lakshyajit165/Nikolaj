@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 package com.stackroute.helpdesk.updateconfidence.controller;
 
 
@@ -34,7 +32,6 @@ public class UpdateConfidenceControllerTest {
         assertNotEquals("something",updateConfidenceController.updateConfidence(feedback).getBody().get("result"));
     }
 }
->>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
 //package com.stackroute.helpdesk.updateconfidence.controller;
 //
 //
@@ -63,7 +60,3 @@ public class UpdateConfidenceControllerTest {
 ////        when(updateConfidenceService.updateConfidence("intentName","commandName","relationshipName",5)).thenReturn("confidence for intent and command updated sucessfully");
 ////        assertEquals("confidence for intent and command updated sucessfully",updateConfidenceController.updateConfidence("intentName","commandName","relationshipName",5).getBody().get("result"));
 ////    }
-<<<<<<< HEAD
-//}
-=======
->>>>>>> 52dcd7afcdef3aff73473de28d3370b70f6c138e
