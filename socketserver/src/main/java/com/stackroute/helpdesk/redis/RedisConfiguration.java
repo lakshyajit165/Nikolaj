@@ -19,10 +19,10 @@ import org.springframework.data.redis.serializer.GenericToStringSerializer;
 @Configuration
 public class RedisConfiguration {
 
-	@Autowired
-	RedisMessageSubscriber redisMessageSubscriber;
-	@Autowired
-	JedisConfig jedisConfig;
+//	@Autowired
+//	RedisMessageSubscriber redisMessageSubscriber;
+//	@Autowired
+//	JedisConfig jedisConfig;
 //
 //	@Bean
 //	MessageListenerAdapter messageListenerForRedis( ) {
