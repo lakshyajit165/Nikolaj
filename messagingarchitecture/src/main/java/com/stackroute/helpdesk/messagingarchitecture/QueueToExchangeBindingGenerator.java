@@ -22,6 +22,11 @@ public class QueueToExchangeBindingGenerator {
 		this.exchangeGenerator = exchangeGenerator;
 	}
 //	queue to exchange bindings
+//	socket server
+	@Bean
+	public Binding ticketClosed() {
+		return BindingBuilder.bind(queueGenerator.socketserverTicketClosedQueueSubscribe()).to(exchangeGenerator.socketserverExchange()).with(library.getTicket_ticket_closed());
+	}
 //	command framework
 	@Bean
 	public Binding frameworkCommandExecuted() {
@@ -49,15 +54,7 @@ public class QueueToExchangeBindingGenerator {
 	public Binding reportsTicketStatusReportGenerated() {
 		return BindingBuilder.bind(queueGenerator.reportsTicketDetailsQueueSubscribe()).to(exchangeGenerator.reportsExchange()).with(library.getReports_ticketstatusreport_generated());
 	}
-	//	optimus
-	@Bean
-	public Binding optimusNoIntentReportGenerated() {
-		return BindingBuilder.bind(queueGenerator.optimusNoIntentGeneratedQueuePublish()).to(exchangeGenerator.optimusExchange()).with(library.getOptimus_nointentreport_generated());
-	}
-	@Bean
-	public Binding optimusNoCommandReportGenerated() {
-		return BindingBuilder.bind(queueGenerator.optimusNoCommandGeneratedQueuePublish()).to(exchangeGenerator.optimusExchange()).with(library.getOptimus_nocommandreport_generated());
-	}
+
 	//	registry
 	@Bean
 	public Binding registryNoIntentReportRecieved() {
@@ -67,15 +64,7 @@ public class QueueToExchangeBindingGenerator {
 	public Binding registryNoCommandReportRecieved() {
 		return BindingBuilder.bind(queueGenerator.registryNoCommandRecievedQueueSubscribe()).to(exchangeGenerator.registryExchange()).with(library.getRegistry_nocommandreport_recieved());
 	}
-	//	ticket
-	@Bean
-	public Binding ticketTicketCreated() {
-		return BindingBuilder.bind(queueGenerator.ticketCreatedQueuePublish()).to(exchangeGenerator.ticketExchange()).with(library.getTicket_ticket_created());
-	}
-	@Bean
-	public Binding ticketTicketUpdated() {
-		return BindingBuilder.bind(queueGenerator.ticketUpdatedQueuePublish()).to(exchangeGenerator.ticketExchange()).with(library.getTicket_ticket_updated());
-	}
+
 	//	csr
 	@Bean
 	public Binding csrTicketRequested() {

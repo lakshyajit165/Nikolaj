@@ -25,7 +25,7 @@ public class RedisConfiguration {
 	JedisConfig jedisConfig;
 
 	@Bean
-	MessageListenerAdapter messageListener( ) {
+	MessageListenerAdapter messageListenerForRedis( ) {
 		return new MessageListenerAdapter(redisMessageSubscriber);
 	}
 

@@ -1,21 +1,13 @@
 package com.stackroute.helpdesk.sockets.controller;
 
 import com.stackroute.helpdesk.model.User;
+import com.stackroute.helpdesk.sockets.service.ChatStoreService;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.support.MessageHeaderInitializer;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -31,14 +23,18 @@ public class SendMessages {
 		this.simpMessagingTemplate = simpMessagingTemplate;
 	}
 
+	@Autowired
+	private ChatStoreService chatStoreService;
+
 	public void sendResponse(User messageConverted, String socketId) throws JSONException {
 		Map<String, String> responseToSend = messageFormatter(messageConverted);
+		System.out.println("sending message back to user");
 		this.simpMessagingTemplate.convertAndSend("/socket-publisher/"+socketId, responseToSend);
 	}
 
 	public Map<String, String> messageFormatter(User message) throws JSONException {
-		User user = new User();
 		Map<String, String> resposeToSend = new HashMap<>();
+		chatStoreService.updateChatHistory(message.getContent(), message.getSender(), message.getType(), message.getEmailId());
 		resposeToSend.put("emailId", message.getEmailId());
 		resposeToSend.put("content", message.getContent());
 		resposeToSend.put("type", message.getType());

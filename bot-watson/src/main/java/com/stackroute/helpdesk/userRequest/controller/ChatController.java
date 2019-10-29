@@ -44,6 +44,7 @@ public class ChatController implements MessageListener {
         chatMessage.setContent(messageToSend);
         chatMessage.setEmailId(emailId);
         chatMessage.setSender("bot");
+        chatMessage.setType("bot");
         ObjectMapper objectMapper = new ObjectMapper();
         redisTemplate.convertAndSend(channelName, objectMapper.writeValueAsString(chatMessage));
         System.out.println("FROM BOT - published back to the socket server " + channelName);

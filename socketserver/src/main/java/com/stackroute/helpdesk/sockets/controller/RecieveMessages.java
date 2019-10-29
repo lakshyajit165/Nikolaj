@@ -7,6 +7,7 @@ import com.stackroute.helpdesk.redis.ChannelHandler;
 import com.stackroute.helpdesk.redis.RedisMessagePublisher;
 import com.stackroute.helpdesk.sockets.model.SocketStore;
 import com.stackroute.helpdesk.sockets.redisrepo.ISocketIdRepo;
+import com.stackroute.helpdesk.sockets.service.ChatStoreService;
 import com.stackroute.helpdesk.sockets.service.SocketIdService;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class RecieveMessages {
 
     @Autowired
     SocketIdService socketIdService;
+
+    @Autowired
+    private ChatStoreService chatStoreService;
 
     @Autowired
     private ISocketIdRepo iSocketIdRepo;
@@ -57,6 +61,8 @@ public class RecieveMessages {
             User user = new User();
             user.setEmailId(messageConverted.get("emailId"));
             user.setContent(messageConverted.get("content"));
+            System.out.println("storing chat");
+            chatStoreService.updateChatHistory(messageConverted.get("content"), "user", "user", messageConverted.get("emailId"));
             Optional<SocketStore> socketStore = iSocketIdRepo.findById(messageConverted.get("emailId"));
             SocketStore socketStore1 = null;
             String csrEmailId = "";
@@ -83,7 +89,7 @@ public class RecieveMessages {
     }
 
     @MessageMapping("/send/socketid")
-    @SendTo("/send/socketid")
+//    @SendTo("/send/socketid")
     public Map<String, String> getSocketId(String message){
         ObjectMapper mapper = new ObjectMapper();
         Map<String, String> messageConverted = null;

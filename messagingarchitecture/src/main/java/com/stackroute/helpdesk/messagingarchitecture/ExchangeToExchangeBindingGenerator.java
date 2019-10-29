@@ -25,6 +25,11 @@ public class ExchangeToExchangeBindingGenerator {
 		this.exchangeGenerator = exchangeGenerator;
 	}
 //	exchange to exchange bindings (recieverExchangeName-SenderexchangeName)
+//	ticket to socketserver
+	@Bean
+	public Binding socketserverTicketExchange() {
+		return BindingBuilder.bind(exchangeGenerator.socketserverExchange()).to(exchangeGenerator.ticketExchange()).with(library.getTicket_socketserver_exchange());
+	}
 //	ticket to csr
 	@Bean
 	public Binding csrTicketExchange() {
@@ -40,17 +45,17 @@ public class ExchangeToExchangeBindingGenerator {
 	public Binding reportsTicketExchange() {
 		return BindingBuilder.bind(exchangeGenerator.reportsExchange()).to(exchangeGenerator.ticketExchange()).with(library.getTicket_reports_exchange());
 	}
-	//	ticket to notification
+	//	csr to reports
 	@Bean
 	public Binding reportsCsrExchange() {
 		return BindingBuilder.bind(exchangeGenerator.reportsExchange()).to(exchangeGenerator.csrExchange()).with(library.getCsr_reports_exchange());
 	}
-	//	ticket to notification
+	//	optimus to registry
 	@Bean
 	public Binding registryOptimusExchange() {
 		return BindingBuilder.bind(exchangeGenerator.registryExchange()).to(exchangeGenerator.optimusExchange()).with(library.getOptimus_registry_exchange());
 	}
-	//	ticket to notification
+	//	framework to notification
 	@Bean
 	public Binding notificationOptimusExchange() {
 		return BindingBuilder.bind(exchangeGenerator.notificationExchange()).to(exchangeGenerator.frameworkExchange()).with(library.getFramework_notification_exchange());
