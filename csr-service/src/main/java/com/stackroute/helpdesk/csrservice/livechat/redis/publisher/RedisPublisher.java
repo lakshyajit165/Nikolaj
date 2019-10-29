@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 public class RedisPublisher {
 
 	@Autowired
-	@Qualifier("csr_published_messages")
 	private RedisTemplate redisTemplate;
 
 	public void publish(ChatMessage chatMessage) throws JsonProcessingException, JSONException {
