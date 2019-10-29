@@ -5,6 +5,7 @@ import { IReport } from './IReport';
 export interface ResponseFormatforService {
     result: IService[];
     errors: string;
+    message : string;
 }
 
 export interface ResponseFormatforCsr {
@@ -15,10 +16,11 @@ export interface ResponseFormatforCsr {
 export interface ResponseFormatforReport{
     result: IReport[];
     errors: string;
+    message : string;
 }
 
 export interface ResponseFormatforSize{
     result: number;
     errors: string;
+    message : string;
 }
-

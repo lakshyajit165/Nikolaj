@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Icsr } from "../interfaces/Icsr";
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { Label, Color } from 'ng2-charts';
-import { MatDatepickerInputEvent } from '@angular/material';
+import { Icsr } from '../interfaces/Icsr';
 import { ReportService } from '../services/report.service';
+import { IPerformer } from '../interfaces/IPerformer';
+import { MatTable } from '@angular/material';
+
+export interface Status {
+  value: number;
+  viewValue: string;
+ }
 
 @Component({
   selector: 'app-csrreliability',
@@ -13,66 +16,67 @@ import { ReportService } from '../services/report.service';
 })
 export class CsrreliabilityComponent implements OnInit {
 
-  event1: string;
-    event2: string;
-    response1: object;
-    result = 'result';
-    public csrReport: Icsr[];
+   @ViewChild('videoTable', {static: false}) videoTable: MatTable<Element>;
+  public csrReport: Icsr[];
+  response1: object;
+  result = 'result';
 
-    responseQuery: object[];
-    reopen: number[] = [];
-    totall: number[] = [];
-    csrMail: string[] = [];
-    efficiency: number[] = [];
-    multipliedEfficiency: number[] = [];
-    normalizedQueries: number[] = [];
-    avgRating: number[] = [];
-    succesRate: number[] = [];
+  responseQuery: object[];
+  reopen: number[] = [];
+  totall: number[] = [];
+  csrMail: string[] = [];
+  efficiency: number[] = [];
+  multipliedEfficiency: number[] = [];
+  normalizedQueries: number[] = [];
+  avgRating: number[] = [];
+  succesRate: number[] = [];
 
-    maxDate = new Date();
-    minDate = new Date(2000, 0, 1);
+  weightedEfficiency: number[] = [];
+  weightedAvgRating: number[] = [];
+  weightedSuccessRate: number[] = [];
+  csrWeightedArray: number[] = [];
+  rank: number[] = [];
+  ans: number[] = [];
+  sortable = [];
+  hash: object = [];
+  finalData: IPerformer[] = [];
+  trialData: IPerformer[] = [];
+  sortedData: IPerformer[] = [];
+  dataSource: IPerformer[] = [];
 
-    public barChartLabels: Label[];
-    public barChartType: ChartType;
-    public barChartLegend = true;
-    public barChartPlugins = [pluginDataLabels];
-    public barChartData: ChartDataSets[];
-
-    public barChartOptions: ChartOptions = {
-        responsive: true,
-        scales: { xAxes: [{}], yAxes: [{
-         ticks: {
-           beginAtZero: true
-       }
-        }] },
-        plugins: {
-          datalabels: {
-            anchor: 'end',
-            align: 'end',
-          }
-        }
-      };
-
-      public barChartColors: Color[] = [
-        { backgroundColor: '#d1f4a7' },
-        { backgroundColor: '#ccd7f6' },
-        { backgroundColor: '#f9ce80' },
-        { backgroundColor: '#dab0a4' }
-      ];
 
     constructor(private reportService: ReportService) {
-        this.barChartType = 'bar';
-
-        this.barChartData = [
-        { data : this.efficiency , label: 'Efficiency'},
-        { data : this.avgRating , label: 'Avg Rating'},
-        { data : this.succesRate , label: 'Success Rate'},
-        { data : this.normalizedQueries , label: 'Took Queries in compare to other'}
-      ];
-        this.barChartLabels = this.csrMail;
     }
 
+      displayedColumns: string[] = ['Rank', 'Name', 'Performance'];
+
     ngOnInit() { }
+
+
+  vehicleStatus: Status[] = [
+    { value: 1, viewValue: 'January' },
+    { value: 2, viewValue: 'Febuary' },
+    {value: 3, viewValue: 'March'},
+    {value: 4, viewValue: 'April'},
+    {value: 5, viewValue: 'May'},
+    {value: 6, viewValue: 'June'},
+    {value: 7, viewValue: 'July'},
+    {value: 8, viewValue: 'August'},
+    {value: 9, viewValue: 'September'},
+    {value: 10, viewValue: 'October'},
+    {value: 11, viewValue: 'November'},
+    {value: 12, viewValue: 'December'}
+   ];
+
+   Ranking: Status[] = [
+    { value: 0, viewValue: 'All' },
+    { value: 0.05, viewValue: 'Top 5%' },
+    { value: 0.15, viewValue: 'Top 15%' },
+    {value: 0.95, viewValue: 'Last 5%'},
+    {value: 0.85, viewValue: 'Last 15%'}
+   ]; 
+
+
     resetGraph() {
         this.avgRating.length = 0;
         this.efficiency.length = 0;
@@ -80,44 +84,168 @@ export class CsrreliabilityComponent implements OnInit {
         this.succesRate.length = 0;
     }
 
-    getStartDate(type: string, event: MatDatepickerInputEvent<Date>) {
+resetValues() {
+  this.weightedAvgRating.length = 0;
+  this.weightedEfficiency.length = 0;
+  this.weightedSuccessRate.length = 0;
+  this.csrWeightedArray.length = 0;
+  this.dataSource.length = 0;
+  this.csrMail.length = 0;
+  this.rank.length = 0;
+  this.ans.length = 0;
+  console.log('csrmail ki length ki value' + this.csrMail.length);
+}
 
-      this.resetGraph();
-      this.event1 = `${event.value}`;
+  calculate() {
+    this.efficiency.map(data => {
+      this.weightedEfficiency.push(data / 10);
+    });
+    this.avgRating.map(data => {
+      this.weightedAvgRating.push(data / 10);
+    });
+    this.succesRate.map(data => {
+      this.weightedSuccessRate.push(data / 2.0);
+    });
     }
 
+    weightedMeanForCsr() {
+      let ctr = 0;
+      let efficiency;
+      let normalizedQueries;
+      while (ctr < this.weightedSuccessRate.length && ctr < this.weightedAvgRating.length &&
+         ctr < this.weightedEfficiency.length && ctr < this.normalizedQueries.length) {
+        efficiency = this.weightedEfficiency[ctr];
+        normalizedQueries = this.normalizedQueries[ctr];
+        this.ans.push(this.weightedSuccessRate[ctr] + this.weightedAvgRating[ctr] +
+           parseFloat(efficiency) + parseFloat(normalizedQueries));
+        ctr++;
+     }
+    }
 
-      getEndDate(type: string, event: MatDatepickerInputEvent<Date>) {
-      this.resetGraph();
-      this.event2 = `${event.value}`;
-      this.addEvent();
+    performerListMethod() {
+      let x = 0;
+      while (x <= this.weightedSuccessRate.length) {
+        this.hash[`${this.csrMail[x]}`] = this.ans[x];
+        x++;
+      }
+   }
+
+   sortPerformerList() {
+    for (const value of Object.keys(this.hash)) {
+     for (const number in this.hash) {
+        this.sortable.push([number, this.hash[number]]);
+     }
+     this.sortable.sort(function(a, b) {
+       return b[1] - a[1];
+     });
+    }
+   }
+
+
+   rankGenerator() {
+    let i = 1;
+    const len = this.csrMail.length;
+    for (i; i <= len; i++) {
+      this.rank.push(i);
+    }
   }
 
-    addEvent() {
-        this.reportService.getCsrRelaibility(this.event1, this.event2).subscribe(
-          res => {
-              this.response1 = res;
-              console.log(res);
-              this.csrReport = this.response1[this.result];
-              console.log(this.csrReport);
-              for (const value of Object.values(this.csrReport)) {
-                console.log(value);
-                for (const key of Object.keys(value)) {
-                    console.log(key);
-                    this.csrMail.push(key);
-                    console.log(this.csrMail);
-                    console.log(typeof value[key].successRate);
-                    this.succesRate.push((value[key].successRate).toFixed(6));
-                    console.log(this.succesRate);
-                    this.efficiency.push((value[key].efficiency).toFixed(6));
-                    console.log(this.efficiency);
-                    this.normalizedQueries.push((value[key].normalizedQueriesTaken).toFixed(6));
-                    console.log(this.normalizedQueries);
-                    this.avgRating.push((value[key].avgRating).toFixed(2));
-                    console.log(this.avgRating);
-                }
-            }
+  generateData() {
+    let x = 0;
+    this.finalData.length = 0;
+    while (x < this.rank.length) {
+        this.finalData.push({
+          rank: this.rank[x],
+          name: this.csrMail[x],
+          performance: this.ans[x]
         });
-    }
+        x++;
+      }
+    return this.finalData;
+  }
+
+  onChange(newValue) {
+    this.resetGraph();
+    this.resetValues();
+    this.reportService.getCsrRelaibility(newValue).subscribe(
+      res => {
+
+        this.response1 = res;
+        this.csrReport = this.response1[this.result];
+        for (const value of Object.values(this.csrReport)) {
+          for (const key of Object.keys(value)) {
+              this.csrMail.push(key);
+              this.succesRate.push((value[key].successRate).toFixed(6));
+              this.efficiency.push((value[key].efficiency).toFixed(6));
+              this.normalizedQueries.push((value[key].normalizedQueriesTaken).toFixed(6));
+              this.avgRating.push((value[key].avgRating).toFixed(2));
+          }
+      }
+        this.calculate();
+        this.weightedMeanForCsr();
+        this.performerListMethod();
+        this.sortPerformerList();
+        this.rankGenerator();
+      });
+      }
+
+      onChangeRanking(newValue) {
+        const x = this.rank.length * newValue;
+        this.dataSource.length = 0;
+        this.dataSource.splice(0, this.trialData.length);
+        this.dataSource = [];
+
+        if (newValue === 0 ) {
+          this.trialData.length = 0 ;
+          this.generateData().filter(data => {
+            this.trialData.push(data);
+            this.dataSource.push(...this.trialData);
+            this.videoTable.renderRows();
+          });
+        }else{
+          this.trialData = [];
+          this.dataSource.push(...this.trialData);
+          this.videoTable.renderRows();
+        }
+
+        if (newValue < 0.2 && newValue > 0) {
+          this.trialData.length = 0 ;
+          this.generateData().filter(data => {
+            if (data.rank < x) {
+              this.trialData.push(data);
+              this.dataSource.push(...this.trialData);
+              this.videoTable.renderRows();
+            }
+            else{
+              this.trialData = [];
+              this.dataSource.push(...this.trialData);
+              this.videoTable.renderRows();
+            }
+          });
+        }
+        
+        
+        if (newValue > 0.8) {
+          this.trialData.length = 0 ;
+          this.generateData().filter(data => {
+            if (data.rank > x) {
+              this.trialData.push(data);
+              this.dataSource.push(...this.trialData);
+              this.videoTable.renderRows();
+            }
+            else{
+              this.trialData = [];
+              this.dataSource.push(...this.trialData);
+              this.videoTable.renderRows();
+            }
+          });
+        }
+
+        this.dataSource = this.trialData;
+       }
+
+       getRecord(Name) {
+         console.log(Name);
+       }
 
 }

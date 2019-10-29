@@ -58,8 +58,8 @@ export class ReportService {
       );
   }
 
-  getCsrRelaibility(startdate: String, enddate: String): Observable<object> {
-    this.listUrl = `${this.apiGateWay}reportservice/api/v1/reports/reliablecsr?startdate=${startdate}&enddate=${enddate}`;
+  getCsrRelaibility(monthNo: number): Observable<object> {
+    this.listUrl = `${this.apiGateWay}reportservice/api/v1/reports/reliablecsr?month=${monthNo}`;
     return this.httpClient.get<object>(this.listUrl)
       .pipe(
         retry(1),

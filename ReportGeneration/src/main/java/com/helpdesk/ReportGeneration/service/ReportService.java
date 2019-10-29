@@ -65,6 +65,7 @@ public class ReportService implements ReportInterface {
     public List<com.helpdesk.ReportGeneration.entity.Service> getDataforService() throws ParseException {
         List<Report> reports = new ArrayList<>();
         //reports = reportDao.findAll();
+        System.out.println("yahan aana chaiye " );
         Calendar calendar = Calendar.getInstance();
         Date todayDate = calendar.getTime();
         calendar.add(Calendar.DATE,-7);
@@ -76,10 +77,11 @@ public class ReportService implements ReportInterface {
     //method to get the service report which is having total no of queries of particular entities and queries solved of particular entity
     public List<com.helpdesk.ReportGeneration.entity.Service> getDataforService(String startDate, String endDate) throws ParseException {
 
+        System.out.println("yahan aana ni chaiye " );
         List<Report> reports = new ArrayList<>();
         //since the date which is coming from angular in some specific format that is yyyy-mm-dd
-        String startdateToSend = startDate + "T23:26:17.000+0000";
-        String enddateToSend = endDate + "T23:26:17.000+0000";
+        String startdateToSend = startDate + "T23:59:00.000+0000";
+        String enddateToSend = endDate + "T23:59:00.000+0000";
         reports = getTicketsbyTime(startdateToSend, enddateToSend);
         return manipulateServiceReport(reports);
     }

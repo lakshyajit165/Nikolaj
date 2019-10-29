@@ -1,34 +1,50 @@
-<div class="error-msg" *ngIf="error">
-    <p>{{ error }}</p>
+<mat-grid-list cols="2" rowHeight="2:1">
+        <mat-grid-tile>
+<div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap.lt-md="0px">
+    <mat-form-field appearance="outline" fxFlex class="status">
+        <mat-label>Select the month</mat-label>
+        <mat-select [(ngModel)]="status" (ngModelChange)="onChange($event)">
+            <mat-option *ngFor="let z of vehicleStatus" [value]="z.value">
+                {{z.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>
+</mat-grid-tile>
+<mat-grid-tile>
+<div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap.lt-md="0px">
+    <mat-form-field appearance="outline" fxFlex class="status">
+        <mat-label>Sort By</mat-label>
+        <mat-select [(ngModel)]="status1" (ngModelChange)="onChangeRanking($event)">
+            <mat-option *ngFor="let z of Ranking" [value]="z.value">
+                {{z.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+</mat-grid-tile>
+</mat-grid-list>
 
 <div>
-    <mat-form-field class="example">
-        <input matInput [matDatepicker]="picker" placeholder="select the start date" (dateInput)="getStartDate('input', $event)">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+<mat-table #videoTable [dataSource]="dataSource" class="mat-elevation-z8" class="scroll">
+    <!-- Position Column -->
+    <ng-container matColumnDef="Rank">
+        <mat-header-cell *matHeaderCellDef>Rank</mat-header-cell>
+        <mat-cell *matCellDef="let element"> #{{element.rank}} </mat-cell>
+    </ng-container>
 
+    <!-- Name Column -->
+    <ng-container matColumnDef="Name">
+        <mat-header-cell *matHeaderCellDef>CSR Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
 
-    <mat-form-field class="example">
-        <input matInput [matDatepicker]="pickerTo" placeholder="select the end date" (dateInput)="getEndDate('input', $event)">
-        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
-        <mat-datepicker #pickerTo></mat-datepicker>
-    </mat-form-field>
-</div>
+    <ng-container matColumnDef="Performance">
+            <mat-header-cell *matHeaderCellDef>Performance Factor </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.performance}} </mat-cell>
+        </ng-container>
 
-
-<div class="performance" *ngIf="!error">
-    <h1 class="mat-h1">CSR Performance Details</h1>
-    <div style="display: block">
-        <canvas baseChart
-         [datasets]="barChartData" 
-         [labels]="barChartLabels" 
-         [options]="barChartOptions"
-         [colors]="barChartColors" 
-         [plugins]="barChartPlugins" 
-         [legend]="barChartLegend" 
-         [chartType]="barChartType">
-        </canvas>
-    </div>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row (click)="getRecord(element.name)" *matRowDef="let row; columns: displayedColumns;" ></mat-row>
+</mat-table>
 </div>

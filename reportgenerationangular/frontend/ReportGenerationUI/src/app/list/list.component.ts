@@ -8,14 +8,14 @@ import { IReport } from '../interfaces/IReport';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-
+  
   panelOpenState = false;
 
   reports: IReport[] = [];
 
   defaultValue: string = 'all';
 
-  array = ['all', 'open', 'engaged', 'closed', 'bot'];
+  array = ['all', 'open', 'engaged', 'closed', 'bot' , 'callback'];
 
   page: number;
 
@@ -33,9 +33,12 @@ export class ListComponent implements OnInit {
 
   pagination: boolean;
 
+  emptyData : boolean ;
+
   constructor(public reportService: ReportService) { }
 
   ngOnInit() {
+
 
     this.status = '';
     this.page = 0;
@@ -52,6 +55,11 @@ export class ListComponent implements OnInit {
   getAllReports(value: string) {
 
     this.reportService.getReportsByStatus(value, this.page, this.limit).subscribe(data => {
+      this.emptyData = false;
+      if(data.result.length === 0)
+      {
+        this.emptyData = true;
+      }
       console.log("counting " + this.count);
       if (this.count < 5) {
         this.scrollStatus = false;
@@ -74,6 +82,7 @@ export class ListComponent implements OnInit {
     console.log('coming down')
     this.page = this.page + 1;
     this.getAllReports(this.status);
+   
   }
 
   //when something is changes in select box
@@ -108,6 +117,7 @@ export class ListComponent implements OnInit {
       this.getAllReports(this.status);
     }
   }
+
 
 
 }

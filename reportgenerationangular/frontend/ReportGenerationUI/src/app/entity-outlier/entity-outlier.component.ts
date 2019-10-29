@@ -29,6 +29,8 @@ export class EntityOutlierComponent implements OnInit {
   startDate: string;
   endDate: string;
 
+  emptyData : boolean ;
+
   public scrollStatus : boolean = true;
   
   displayedColumns: string[] = ['entity', 'queriesRaised'];
@@ -37,6 +39,11 @@ export class EntityOutlierComponent implements OnInit {
 
 
     this.reportService.getServiceReport('', '').subscribe(data => {
+      this.emptyData = false;
+      if(data.result.length === 0)
+      {
+        this.emptyData = true;
+      }
       this.serviceReport = data.result;
       console.log("service report " + this.serviceReport);
       this.serviceReport.map(element => {
@@ -129,6 +136,11 @@ export class EntityOutlierComponent implements OnInit {
   sendDates() {
     this.reportService.getServiceReport(this.startDate, this.endDate)
       .subscribe(data => {
+        this.emptyData = false;
+        if(data.result.length === 0)
+        {
+          this.emptyData = true;
+        }
         this.serviceReport = data.result;
         this.serviceReport.map(element => {
           this.entity.push(element.entity);
@@ -147,6 +159,5 @@ export class EntityOutlierComponent implements OnInit {
     console.log('konsa chart->', this.isBarChart);
   
 }
-
 
 }

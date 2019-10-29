@@ -1,3 +1,8 @@
+<div *ngIf="emptyData" class="emptyData">
+    <p class="emptyDataInfo">No report on specified range!</p>
+</div>
+
+
 <div class="main">
 
     <mat-form-field class="example">
@@ -12,6 +17,7 @@
         <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
         <mat-datepicker #pickerTo></mat-datepicker>
     </mat-form-field>
+
 
 
     <div class="container" fxLayout>

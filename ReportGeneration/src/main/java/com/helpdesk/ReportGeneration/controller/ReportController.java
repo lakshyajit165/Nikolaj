@@ -1,6 +1,7 @@
 package com.helpdesk.ReportGeneration.controller;
 
 import com.helpdesk.ReportGeneration.Repository.ReportDao;
+import com.helpdesk.ReportGeneration.actuator.HealthCheck;
 import com.helpdesk.ReportGeneration.entity.Report;
 import com.helpdesk.ReportGeneration.entity.Service;
 import com.helpdesk.ReportGeneration.service.CsrReliabilityInterface;
@@ -24,7 +25,6 @@ public class ReportController {
 
     @Autowired
     ReportInterface reportInterface;
-
 
     @Autowired
     CsrReliabilityInterface csrReliabilityInterface;
@@ -60,9 +60,9 @@ public class ReportController {
         }
 
         responseObject = new HashMap<>();
-
         responseObject.put("result", serviceReport);
         responseObject.put("error", false);
+        responseObject.put("message", "Got the service report");
 
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
@@ -85,6 +85,7 @@ public class ReportController {
         System.out.println("printing the reports here" + result);
         responseObject.put("result", result);
         responseObject.put("errors", false);
+        responseObject.put("message", "Got the reports!");
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
 
@@ -110,15 +111,9 @@ public class ReportController {
 
     //for csr reliabilty report
     @GetMapping(path="/reports/reliablecsr")
-    public ResponseEntity<HashMap<String, Object>> getReliableCSR(@RequestParam(value = "startdate", required = false) String startDate,
-                                                                  @RequestParam(value = "enddate", required = false)String endDate) throws ParseException {
+    public ResponseEntity<HashMap<String, Object>> getReliableCSR(@RequestParam(value = "month", required = false) Integer month) throws ParseException {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd yyyy HH:mm:ss 'GMT'",
-                Locale.ENGLISH);
-        Date start = formatter.parse(startDate);
-        Date end = formatter.parse(endDate);
-        csrReliabilityInterface.getStartDates(start);
-        csrReliabilityInterface.getEndDates(end);
+        csrReliabilityInterface.getMonth(month);
         responseObject = new HashMap<>();
         responseObject.put("result",csrReliabilityInterface.putHashMap().entrySet().toArray());
         responseObject.put("errors",false);
@@ -140,6 +135,7 @@ public class ReportController {
         responseObject = new HashMap<>();
         responseObject.put("result",size);
         responseObject.put("errors", false);
+        responseObject.put("message", "Got the report size!");
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
 

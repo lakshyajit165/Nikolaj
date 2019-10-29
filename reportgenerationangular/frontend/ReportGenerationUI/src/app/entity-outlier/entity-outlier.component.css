@@ -57,12 +57,30 @@
     grid-row-gap: 10px; */
 }
 
-
-/* .child {
-    height: auto;
-} */
+.mat-checkbox {
+    padding-right: 5%;
+    float: right;
+}
 
 .trying {
     height: 50%;
     width: 50%;
+}
+
+.emptyData {
+    margin-top: 5%;
+    margin-left: 10%;
+    width: 80%;
+    height: 60%;
+    margin-bottom: 15%;
+    background-color: #dacfcf30;
+}
+
+.emptyDataInfo {
+    font-size: 150%;
+    position: relative;
+    float: left;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

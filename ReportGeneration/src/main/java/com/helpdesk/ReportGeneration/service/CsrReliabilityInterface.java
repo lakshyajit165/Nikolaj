@@ -1,6 +1,7 @@
 package com.helpdesk.ReportGeneration.service;
 
 import com.helpdesk.ReportGeneration.entity.Csr;
+import org.json.simple.JSONObject;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -8,7 +9,6 @@ import java.util.HashMap;
 public interface CsrReliabilityInterface {
 
     public HashMap<String, Csr> putHashMap();
-    public void getStartDates(Date startDate);
-    public void getEndDates(Date endDate);
+    public void getMonth(Integer month);
 
 }
