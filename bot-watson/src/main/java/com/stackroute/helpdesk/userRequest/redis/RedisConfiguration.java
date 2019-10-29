@@ -11,17 +11,24 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
+import org.springframework.beans.factory.annotation.Value;
+
 
 @Configuration
 public class RedisConfiguration {
+
+	@Value("${REDIS_HOST}")
+	private String redisHostName;
+	@Value("${REDIS_PORT}")
+	private String redisPortNum;
 
 	@Bean
 	@Qualifier("jedis")
 	JedisConnectionFactory jedisConFactory() {
 		JedisConnectionFactory jedisConFactory
 				= new JedisConnectionFactory();
-		jedisConFactory.setHostName("localhost");
-		jedisConFactory.setPort(6379);
+		jedisConFactory.setHostName(redisHostName);
+		jedisConFactory.setPort(Integer.parseInt(redisPortNum));
 		return jedisConFactory;
 	}
 

@@ -19,6 +19,7 @@ import org.springframework.data.redis.serializer.GenericToStringSerializer;
 @Configuration
 public class RedisConfiguration {
 
+
 	@Autowired
 	RedisMessageSubscriber redisMessageSubscriber;
 	@Autowired

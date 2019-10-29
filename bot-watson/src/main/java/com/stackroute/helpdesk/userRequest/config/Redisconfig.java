@@ -19,6 +19,11 @@ import org.springframework.data.redis.serializer.GenericToStringSerializer;
 @EnableRedisRepositories(basePackages = "com.stackroute.helpdesk.userRequest.repo")
 public class Redisconfig {
 
+    @Value("${REDIS_HOST}")
+    private String redisHostName;
+    @Value("${REDIS_PORT}")
+    private String redisPortNum;
+
     @Bean
     public RedisTemplate<String, Object> redisTemplate() {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -29,8 +34,8 @@ public class Redisconfig {
     public JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory jedisConFactory
                 = new JedisConnectionFactory();
-        jedisConFactory.setHostName("localhost");
-        jedisConFactory.setPort(6379);
+        jedisConFactory.setHostName(redisHostName);
+        jedisConFactory.setPort(redisPortNum);
         return jedisConFactory;
     }
 }
