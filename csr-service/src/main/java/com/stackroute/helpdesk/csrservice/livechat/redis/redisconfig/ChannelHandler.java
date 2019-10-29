@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 public class ChannelHandler {
 
 	@Autowired
+	@Lazy
 	private RedisConfiguration redisConfiguration;
 
 	@Autowired
+	@Lazy
 	private RedisSubscriber redisSubscriber;
 
 	@Bean
@@ -37,6 +39,9 @@ public class ChannelHandler {
 		return new ObjectMapper();
 	}
 
+	@Bean
+	@DependsOn("jedis")
+	@Lazy
 	public ChannelTopic getChannelTopic(){
 		return new ChannelTopic("csr_message");
 	}

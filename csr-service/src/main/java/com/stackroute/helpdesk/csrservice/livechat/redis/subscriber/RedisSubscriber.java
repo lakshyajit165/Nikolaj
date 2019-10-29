@@ -23,7 +23,6 @@ public class RedisSubscriber implements MessageListener {
 	private ObjectMapper objectMapper;
 
 	@Autowired
-	@Qualifier("csr_published_messages")
 	private RedisTemplate redisTemplate;
 
 	@Autowired

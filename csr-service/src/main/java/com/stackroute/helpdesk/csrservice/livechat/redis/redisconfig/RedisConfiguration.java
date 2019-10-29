@@ -20,9 +20,10 @@ public class RedisConfiguration {
 	private String redisPortNum;
 
 	@Bean("jedis")
-	JedisConnectionFactory jedisConFactory() {
+	public JedisConnectionFactory jedisConFactory() {
 		JedisConnectionFactory jedisConFactory
 				= new JedisConnectionFactory();
+		jedisConFactory.setPassword("nikolaj");
 		jedisConFactory.setHostName(redisHostName);
 		jedisConFactory.setPort(Integer.parseInt(redisPortNum));
 		return jedisConFactory;
@@ -31,7 +32,6 @@ public class RedisConfiguration {
 	@Bean
 	@DependsOn("jedis")
 	@Lazy
-	@Qualifier("csr_published_messages")
 	public RedisTemplate<String, ChatMessage> getMessageRedisTemplate() {
 		RedisTemplate<String, ChatMessage> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(jedisConFactory());
