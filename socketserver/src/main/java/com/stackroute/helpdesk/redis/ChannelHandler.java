@@ -20,20 +20,20 @@ public class ChannelHandler {
 	@Autowired
 	JedisConfig jedisConfig;
 
-	@Bean
-	RedisMessageListenerContainer redisContainer() {
-		RedisMessageListenerContainer container
-				= new RedisMessageListenerContainer();
-		container.setConnectionFactory(jedisConfig.jedisConnectionFactory());
-		container.addMessageListener(redisConfiguration.messageListenerForRedis(), getListOfPatternTopics());
-		return container;
-	}
-
-	@Bean
-	public List<PatternTopic> getListOfPatternTopics(){
-		List<PatternTopic> patternTopicList = new ArrayList<>();
-		patternTopicList.add(new PatternTopic("*_chat_messages"));
-		patternTopicList.add(new PatternTopic("*_csr_messages"));
-		return patternTopicList;
-	}
+//	@Bean
+//	RedisMessageListenerContainer redisContainer() {
+//		RedisMessageListenerContainer container
+//				= new RedisMessageListenerContainer();
+//		container.setConnectionFactory(jedisConfig.jedisConnectionFactory());
+//		container.addMessageListener(redisConfiguration.messageListenerForRedis(), getListOfPatternTopics());
+//		return container;
+//	}
+//
+//	@Bean
+//	public List<PatternTopic> getListOfPatternTopics(){
+//		List<PatternTopic> patternTopicList = new ArrayList<>();
+//		patternTopicList.add(new PatternTopic("*_chat_messages"));
+//		patternTopicList.add(new PatternTopic("*_csr_messages"));
+//		return patternTopicList;
+//	}
 }

@@ -14,11 +14,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.PatternTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @ComponentScan("com.stackroute.helpdesk.sockets")
@@ -81,6 +85,23 @@ public class RedisConfigurations {
 		redisTemplate.setConnectionFactory(jedisConnectionFactory());
 		redisTemplate.setValueSerializer(new GenericToStringSerializer<Object>(Object.class));
 		return redisTemplate;
+	}
+
+	@Bean
+	RedisMessageListenerContainer redisContainer() {
+		RedisMessageListenerContainer container
+				= new RedisMessageListenerContainer();
+		container.setConnectionFactory(jedisConnectionFactory());
+		container.addMessageListener(messageListenerForRedis(), getListOfPatternTopics());
+		return container;
+	}
+
+	@Bean
+	public List<PatternTopic> getListOfPatternTopics(){
+		List<PatternTopic> patternTopicList = new ArrayList<>();
+		patternTopicList.add(new PatternTopic("*_chat_messages"));
+		patternTopicList.add(new PatternTopic("*_csr_messages"));
+		return patternTopicList;
 	}
 
 }
