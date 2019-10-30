@@ -14,8 +14,10 @@ import java.util.List;
 import java.util.Map;
 @Service
 public class Neo4jService implements Neo4jServiceRepo {
+
     @Autowired
     Neo4jRepo neo4jRepo;
+
     public List getAllIntents() {
         return neo4jRepo.getAllIntents();
     }
