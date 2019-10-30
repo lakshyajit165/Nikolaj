@@ -3,6 +3,7 @@ import { Icsr } from '../interfaces/Icsr';
 import { ReportService } from '../services/report.service';
 import { IPerformer } from '../interfaces/IPerformer';
 import { MatTable } from '@angular/material';
+import { ViewChild } from '@angular/core'
 
 export interface Status {
   value: number;
