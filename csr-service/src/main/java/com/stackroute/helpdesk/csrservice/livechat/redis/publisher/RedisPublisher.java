@@ -18,6 +18,7 @@ public class RedisPublisher {
 	public void publish(ChatMessage chatMessage) throws JsonProcessingException, JSONException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String messagePublished = objectMapper.writeValueAsString(chatMessage);
+		System.out.println("content = " + chatMessage.getContent());
 		redisTemplate.convertAndSend(chatMessage.getSender()+"_csr_messages", objectMapper.writeValueAsString(chatMessage));
 		System.out.println("csr publishing his messages in channel = " + chatMessage.getSender());
 		System.out.println("message converted in csr service = " +  objectMapper.writeValueAsString(chatMessage));

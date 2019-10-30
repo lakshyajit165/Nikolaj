@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import lombok.NoArgsConstructor;
-import org.json.simple.JSONObject;
 
 import java.io.Serializable;
 

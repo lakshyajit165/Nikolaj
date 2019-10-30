@@ -52,6 +52,7 @@ public class RecieveMessages {
         Map<String, String> messageConverted = null;
         try {
             messageConverted = mapper.readValue(message, Map.class);
+            System.out.println("message converted = " + messageConverted);
             ChatMessage chatMessage = new ChatMessage();
             chatMessage.setEmailId(messageConverted.get("emailId"));
             chatMessage.setContent(messageConverted.get("content"));
