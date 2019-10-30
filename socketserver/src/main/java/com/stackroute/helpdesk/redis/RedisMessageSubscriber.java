@@ -43,6 +43,7 @@ public class RedisMessageSubscriber implements MessageListener {
 		} catch (IOException | JSONException ioException) {
 			ioException.printStackTrace();
 		}
+		System.out.println("message.getbody = " + message.getBody());
 		System.out.println("Message received: " + new String(message.getBody()));
 	}
 
