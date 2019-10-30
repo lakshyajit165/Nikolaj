@@ -1,7 +1,6 @@
 package com.helpdesk.ReportGeneration.controller;
 
 import com.helpdesk.ReportGeneration.Repository.ReportDao;
-import com.helpdesk.ReportGeneration.actuator.HealthCheck;
 import com.helpdesk.ReportGeneration.entity.Report;
 import com.helpdesk.ReportGeneration.entity.Service;
 import com.helpdesk.ReportGeneration.service.CsrReliabilityInterface;
