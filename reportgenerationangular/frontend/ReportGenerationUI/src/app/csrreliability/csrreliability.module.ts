@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CsrreliabilityComponent } from '../csrreliability/csrreliability.component';
 import { ChartsModule } from 'ng2-charts';
@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material';
 import { CSRReliabilityRoutingModule } from './csrreliability-routing.module';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [CsrreliabilityComponent],
@@ -19,7 +20,11 @@ import { CSRReliabilityRoutingModule } from './csrreliability-routing.module';
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule
-  ]
+    MatInputModule,
+    MatSelectModule
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+ ]
 })
 export class CsrreliabilityModule { }
