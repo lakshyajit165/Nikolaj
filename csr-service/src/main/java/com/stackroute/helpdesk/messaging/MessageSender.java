@@ -1,5 +1,4 @@
 package com.stackroute.helpdesk.messaging;
-import org.json.simple.JSONObject;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 

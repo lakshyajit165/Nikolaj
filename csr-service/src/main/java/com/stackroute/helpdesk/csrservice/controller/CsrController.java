@@ -5,7 +5,6 @@ import com.stackroute.helpdesk.csrservice.entity.TicketStatus;
 import com.stackroute.helpdesk.messaging.MessageSender;
 import com.stackroute.helpdesk.csrservice.service.CsrInterface;
 import com.stackroute.helpdesk.messaging.MessageStructure;
-import org.json.simple.JSONObject;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
