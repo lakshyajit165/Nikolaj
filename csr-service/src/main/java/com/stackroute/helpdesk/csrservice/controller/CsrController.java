@@ -52,7 +52,7 @@ public class CsrController {
         responseObject.put(MESSAGE, "Csr created!");
         // message to reports
         message.sendMessage(rabbitTemplate,
-                "csr-ticket-assigned",
+                "csr_ticket_assigned",
                 "csr_exchange",
                 "reports.csroutlierreport.generated",
                 responseObject,
@@ -81,7 +81,7 @@ public class CsrController {
         responseObject.put(MESSAGE, "CSR updated!");
         // temporarily placed here because rating functionality is to be done
         message.sendMessage(rabbitTemplate,
-                "csr-ticket-closed",
+                "csr_ticket_closed",
                 "csr_exchange",
                 "reports.csroutlierreport.generated",
                 responseObject,
