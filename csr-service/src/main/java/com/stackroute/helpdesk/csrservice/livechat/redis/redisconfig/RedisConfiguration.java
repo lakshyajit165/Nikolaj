@@ -27,17 +27,11 @@ public class RedisConfiguration {
 	@Bean("jedis")
 	public JedisConnectionFactory jedisConFactory() {
 		System.out.println("atleast!!! jedis connection started establishing");
-		RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-		redisStandaloneConfiguration.setHostName(redisHostName);
-		redisStandaloneConfiguration.setPort(Integer.parseInt(redisPortNum));
-		redisStandaloneConfiguration.setPassword(RedisPassword.of("nikolaj"));
-
-		JedisClientConfiguration.JedisClientConfigurationBuilder jedisClientConfiguration = JedisClientConfiguration.builder();
-		jedisClientConfiguration.connectTimeout(Duration.ofSeconds(60));// 60s connection timeout
-
-		JedisConnectionFactory jedisConFactory = new JedisConnectionFactory(redisStandaloneConfiguration,
-				jedisClientConfiguration.build());
-		System.out.println("congratulations!!! jedis connection established");
+		JedisConnectionFactory jedisConFactory
+				= new JedisConnectionFactory();
+		jedisConFactory.setHostName(redisHostName);
+		jedisConFactory.setPort(Integer.parseInt(redisPortNum));
+		jedisConFactory.setPassword("nikolaj");
 		return jedisConFactory;
 	}
 

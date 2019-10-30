@@ -19,6 +19,6 @@ public class RedisPublisher {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String messagePublished = objectMapper.writeValueAsString(chatMessage);
 		redisTemplate.convertAndSend(chatMessage.getSender()+"_csr_messages", messagePublished);
-		System.out.println("csr publishing his messages");
+		System.out.println("csr publishing his messages in channel = " + chatMessage.getSender());
 	}
 }
