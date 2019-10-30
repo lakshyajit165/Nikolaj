@@ -115,10 +115,15 @@ public class ChatService implements ChatServiceInterface {
             }
 
             //Calling no intent function
-            if (responseIntents.size() == 0)
-                noIntentFound(userMessage, responseEntities.get(0));
-            else
-                findCommands(userMessage,responseIntents.get(0), responseEntities.get(0));
+            if (responseIntents.size() == 0){
+                String entity = responseEntities.size()==0?"":responseEntities.get(0).getEntity();
+                noIntentFound(userMessage, entity);
+            }
+
+            else{
+                String entity = responseEntities.size()==0?"":responseEntities.get(0).getEntity();
+                findCommands(userMessage,responseIntents.get(0), entity);
+            }
 
 
             //Calling conversation end function
@@ -165,10 +170,10 @@ public class ChatService implements ChatServiceInterface {
 //    }
 
     //Function to find no intent
-    public void noIntentFound(String userMessage, RuntimeEntity entity) {
+    public void noIntentFound(String userMessage, String entity) {
         Report reportModel = new Report();
         reportModel.setTicketName(userMessage);
-        reportModel.setEntity(entity.getEntity());
+        reportModel.setEntity(entity);
         reportModel.setTicketId(ticketId);
         reportModel.setReportType(ReportType.NoIntent);
         reportModel.setUserId("abc@gmail.com");
@@ -195,14 +200,14 @@ public class ChatService implements ChatServiceInterface {
     }
 
     //Function to suggest actions to csr through redis database
-    public void findCommands(String userMessage, RuntimeIntent intent, RuntimeEntity entity) {
+    public void findCommands(String userMessage, RuntimeIntent intent, String entity) {
         try {
             String intentName = intent.getIntent();
 
             List<JSONObject> suggestionsList = neo4jService.getCommandByName(intentName,null);
             //no command report
             if (suggestionsList == null){
-                noCommandFound(userMessage, intentName, entity.getEntity());
+                noCommandFound(userMessage, intentName, entity);
             }
             //creating suggestions
             else{
