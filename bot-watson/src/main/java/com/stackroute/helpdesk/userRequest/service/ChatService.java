@@ -94,7 +94,8 @@ public class ChatService implements ChatServiceInterface {
                 TicketModel ticketModel = new TicketModel();
                 ticketModel.setRaisedBy(userRequest.getEmailId());
                 ticketModel.setAssignedTo("bot");
-                ticketModel.setEntity(responseEntities.get(0).getEntity());
+                if (responseEntities.size()!=0)
+                    ticketModel.setEntity(responseEntities.get(0).getEntity());
                 ticketModel.setQuery(userMessage);
                 ticketModel.setType(Type.query);
                 ticketModel.setStatus(Status.open);
