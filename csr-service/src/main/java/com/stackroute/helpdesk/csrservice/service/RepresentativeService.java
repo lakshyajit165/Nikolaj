@@ -2,7 +2,7 @@ package com.stackroute.helpdesk.csrservice.service;
 
 import com.stackroute.helpdesk.csrservice.entity.CsrStructure;
 import com.stackroute.helpdesk.csrservice.repository.CsrRepository;
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
