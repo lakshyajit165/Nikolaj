@@ -29,7 +29,8 @@ public class RedisMessageSubscriber implements MessageListener {
 	@Override
 	public void onMessage(final Message message, final byte[] pattern) {
 		try {
-			System.out.println("subscriber in socket server");
+			System.out.println("subscriber in socket server" + message);
+			System.out.println("channel = " + message.getChannel());
 			User user = objectMapper.readValue(message.getBody(), User.class);
 			Optional<SocketStore> socketStoreObject = iSocketIdRepo.findById(user.getEmailId());
 			String socketId = socketStoreObject.get().getSocketId();
