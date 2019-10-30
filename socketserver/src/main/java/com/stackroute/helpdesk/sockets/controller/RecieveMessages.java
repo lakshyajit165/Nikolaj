@@ -61,7 +61,9 @@ public class RecieveMessages {
             User user = new User();
             user.setEmailId(messageConverted.get("emailId"));
             user.setContent(messageConverted.get("content"));
-            System.out.println("storing chat");
+            user.setSender("user");
+            user.setType("user");
+            System.out.println("storing chat as type = " + user.getType());
             chatStoreService.updateChatHistory(messageConverted.get("content"), "user", "user", messageConverted.get("emailId"));
             Optional<SocketStore> socketStore = iSocketIdRepo.findById(messageConverted.get("emailId"));
             SocketStore socketStore1 = null;
