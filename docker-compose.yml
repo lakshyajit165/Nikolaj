@@ -55,9 +55,14 @@ services:
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     deploy:
+      replicas: 1
       resources:
+        reservations:
+          cpus: '0.20'
+          memory: 124M
         limits:
-          memory: 1000M
+          cpus: '0.25'
+          memory: 256M
     environment:
       MVN_LOCAL_REPO: /maven/home/
   ## eureka server
@@ -71,9 +76,14 @@ services:
       - 8761:8761
     restart: on-failure
     deploy:
+      replicas: 1
       resources:
+        reservations:
+          cpus: '0.20'
+          memory: 124M
         limits:
-          memory: 1000M
+          cpus: '0.25'
+          memory: 256M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
@@ -90,9 +100,14 @@ services:
       - eureka-naming-server
     restart: on-failure
     deploy:
+      replicas: 1
       resources:
+        reservations:
+          cpus: '0.20'
+          memory: 124M
         limits:
-          memory: 1000M
+          cpus: '0.25'
+          memory: 256M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
@@ -110,9 +125,14 @@ services:
       - zuul-api-gateway
     restart: on-failure
     deploy:
+      replicas: 1
       resources:
+        reservations:
+          cpus: '0.20'
+          memory: 124M
         limits:
-          memory: 1000M
+          cpus: '0.25'
+          memory: 256M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
@@ -130,9 +150,14 @@ services:
       - zuul-api-gateway
     restart: on-failure
     deploy:
+      replicas: 1
       resources:
+        reservations:
+          cpus: '0.20'
+          memory: 124M
         limits:
-          memory: 1000M
+          cpus: '0.25'
+          memory: 256M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
@@ -151,9 +176,14 @@ services:
       - zuul-api-gateway
     restart: on-failure
     deploy:
+      replicas: 1
       resources:
+        reservations:
+          cpus: '0.20'
+          memory: 124M
         limits:
-          memory: 1000M
+          cpus: '0.25'
+          memory: 256M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
@@ -172,9 +202,14 @@ services:
       - zuul-api-gateway
     restart: on-failure
     deploy:
+      replicas: 1
       resources:
+        reservations:
+          cpus: '0.20'
+          memory: 124M
         limits:
-          memory: 1000M
+          cpus: '0.25'
+          memory: 256M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
@@ -191,9 +226,14 @@ services:
       - zuul-api-gateway
     restart: on-failure
     deploy:
+      replicas: 1
       resources:
+        reservations:
+          cpus: '0.20'
+          memory: 124M
         limits:
-          memory: 1000M
+          cpus: '0.25'
+          memory: 256M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
@@ -212,9 +252,14 @@ services:
       - zuul-api-gateway
     restart: on-failure
     deploy:
+      replicas: 1
       resources:
+        reservations:
+          cpus: '0.20'
+          memory: 124M
         limits:
-          memory: 1000M
+          cpus: '0.25'
+          memory: 256M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
@@ -233,9 +278,14 @@ services:
       - zuul-api-gateway
     restart: on-failure
     deploy:
+      replicas: 1
       resources:
+        reservations:
+          cpus: '0.20'
+          memory: 124M
         limits:
-          memory: 1000M
+          cpus: '0.25'
+          memory: 256M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
@@ -254,9 +304,14 @@ services:
       - zuul-api-gateway
     restart: on-failure
     deploy:
+      replicas: 1
       resources:
+        reservations:
+          cpus: '0.20'
+          memory: 124M
         limits:
-          memory: 1000M
+          cpus: '0.25'
+          memory: 256M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
@@ -276,9 +331,14 @@ services:
       - redis
     restart: on-failure
     deploy:
+      replicas: 1
       resources:
+        reservations:
+          cpus: '0.20'
+          memory: 124M
         limits:
-          memory: 1000M
+          cpus: '0.25'
+          memory: 256M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
@@ -297,9 +357,14 @@ services:
       - zuul-api-gateway
     restart: on-failure
     deploy:
+      replicas: 1
       resources:
+        reservations:
+          cpus: '0.20'
+          memory: 124M
         limits:
-          memory: 1000M
+          cpus: '0.25'
+          memory: 256M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
@@ -318,9 +383,14 @@ services:
       - zuul-api-gateway
     restart: on-failure
     deploy:
+      replicas: 1
       resources:
+        reservations:
+          cpus: '0.20'
+          memory: 124M
         limits:
-          memory: 1000M
+          cpus: '0.25'
+          memory: 256M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
@@ -339,9 +409,14 @@ services:
       - zuul-api-gateway
     restart: on-failure
     deploy:
+      replicas: 1
       resources:
+        reservations:
+          cpus: '0.20'
+          memory: 124M
         limits:
-          memory: 1000M
+          cpus: '0.25'
+          memory: 256M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
