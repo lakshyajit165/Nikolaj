@@ -207,7 +207,6 @@ public class TicketController implements Serializable {
                     "socketserver-closed-queue-subscribe");
 
         }else{
-            ticketStructure.setResolvedBy(resolvedBy);
 
             // update assignedTime
             ticketStructure.setAssignedTime(new Date());
@@ -216,6 +215,8 @@ public class TicketController implements Serializable {
             // set updatedOn when csr assigns himself
             ticketStructure.setUpdatedOn(new Date());
         }
+
+        ticketStructure.setResolvedBy(resolvedBy);
 
 
 
