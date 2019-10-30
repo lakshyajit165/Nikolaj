@@ -8,7 +8,7 @@ import { Chats } from '../model/Chatsinterface';
 })
 export class ChatsService {
 
-  chaturl: string = environment.url + "api/v1/socketserver/chats/";
+  chaturl: string = environment.url2 + "api/v1/socketserver/chats/";
 
   constructor(private httpClient: HttpClient) { 
   }
