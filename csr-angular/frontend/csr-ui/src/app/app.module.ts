@@ -35,6 +35,7 @@ import { CommandModule } from 'my-command-library';
 
 import { ChartsModule } from 'ng2-charts';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { CookieService } from 'ngx-cookie-service';
   entryComponents: [DialogOverviewExampleDialog ], // add command details dialog here too
   imports: [
     BrowserModule,
+    ToastrModule.forRoot({ timeOut: 3000 }),
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
