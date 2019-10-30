@@ -23,4 +23,7 @@ public interface ReportDao extends MongoRepository<Report, String> {
 
     List<Report> findAllByTicketStatus(String status);
 
+    @Query("{ '$expr': { '$eq': [{ '$month': '$createdOn' }, ?0] } }")
+    List<Report> findByCreatedOn(Integer month);
+
 }
