@@ -15,6 +15,10 @@ import { Router } from '@angular/router';
 export class ServiceReportComponent implements OnInit {
 
 
+  constructor(public reportService: ReportService, private router: Router) {
+  }
+
+
    public dataSource: IService[] = [];
 
    public serviceReport: IService[] = [];
@@ -30,41 +34,22 @@ export class ServiceReportComponent implements OnInit {
    @Input() startDate: string;
    @Input() endDate: string;
 
-  public scrollStatus : boolean = true;
+  public scrollStatus = true;
 
   displayedColumns: string[] = ['entity', 'queriesRaised'];
-  
-  ngOnInit() {
-    console.log('event 1', this.startDate, 'event 2', this.endDate)
 
 
-    this.reportService.getServiceReport('', '').subscribe(data => {
-      this.serviceReport = data.result;
-      console.log("service report " + this.serviceReport);
-      this.serviceReport.map(element => {
-        this.entity.push(element.entity);
-        this.queriesRaised.push(element.queriesRaised);
-        this.queriesResolved.push(element.queriesResolved);
-        this.leadTime.push(element.leadTime);
-        this.dataSource = this.serviceReport;
-
-      });
-    })
-  }
-
-
-  constructor(public reportService: ReportService, private router: Router) {
-  }
-
-
+  // tslint:disable-next-line: member-ordering
   public lineChartData: ChartDataSets[] = [
     { data: this.queriesRaised, label: 'Queries Raised (No)', fill: false },
     { data: this.queriesResolved, label: 'Queries Resolved (No)', fill: false },
     { data: this.leadTime, label: 'Average Lead Time (Hr)', yAxisID: 'y-axis-1', fill: false }
   ];
 
+  // tslint:disable-next-line: member-ordering
   public lineChartLabels: Label[] = this.entity;
 
+  // tslint:disable-next-line: member-ordering
   public lineChartOptions = {
 
     responsive: true,
@@ -115,6 +100,7 @@ export class ServiceReportComponent implements OnInit {
     },
   };
 
+  // tslint:disable-next-line: member-ordering
   public lineChartColors: Color[] = [
 
     { // grey
@@ -151,8 +137,27 @@ export class ServiceReportComponent implements OnInit {
     }
   ];
 
+  // tslint:disable-next-line: member-ordering
   public lineChartLegend = true;
   public lineChartType = 'line';
+
+  ngOnInit() {
+    console.log('event 1', this.startDate, 'event 2', this.endDate);
+
+
+    this.reportService.getServiceReport('', '').subscribe(data => {
+      this.serviceReport = data.result;
+      console.log('service report ' + this.serviceReport);
+      this.serviceReport.map(element => {
+        this.entity.push(element.entity);
+        this.queriesRaised.push(element.queriesRaised);
+        this.queriesResolved.push(element.queriesResolved);
+        this.leadTime.push(element.leadTime);
+        this.dataSource = this.serviceReport;
+
+      });
+    });
+  }
 
 
   sendDates() {
@@ -165,18 +170,19 @@ export class ServiceReportComponent implements OnInit {
           this.queriesRaised.push(element.queriesRaised);
           this.queriesResolved.push(element.queriesResolved);
           this.leadTime.push(element.leadTime);
-          this.dataSource=this.serviceReport;
-          console.log(data.result)
+          this.dataSource = this.serviceReport;
+          console.log(data.result);
         });
       });
   }
 
+  // tslint:disable-next-line: use-lifecycle-interface
   ngOnChanges() {
     this.resetGraph();
-   this.sendDates();
+    this.sendDates();
   }
 
-    //to empty the array of service report
+    // to empty the array of service report
     resetGraph() {
       this.entity.length = 0;
       this.queriesRaised.length = 0;

@@ -1,26 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CsrreliabilityComponent } from './csrreliability.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SomethingWentWrongComponent } from './something-went-wrong.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-describe('CsrreliabilityComponent', () => {
-  let component: CsrreliabilityComponent;
-  let fixture: ComponentFixture<CsrreliabilityComponent>;
+describe('SomethingWentWrongComponent', () => {
+  let component: SomethingWentWrongComponent;
+  let fixture: ComponentFixture<SomethingWentWrongComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule, HttpClientTestingModule ],
-            declarations: [ CsrreliabilityComponent ],
-            schemas: [
-              NO_ERRORS_SCHEMA
-            ]
+      imports: [RouterTestingModule, HttpClientTestingModule],
+      declarations: [ SomethingWentWrongComponent ],
+      schemas: [
+  NO_ERRORS_SCHEMA
+]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CsrreliabilityComponent);
+    fixture = TestBed.createComponent(SomethingWentWrongComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

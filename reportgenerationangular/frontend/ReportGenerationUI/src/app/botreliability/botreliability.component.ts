@@ -12,7 +12,7 @@ import { FormBuilder } from '@angular/forms';
 export class BotRealiabilityComponent implements OnInit {
 
   constructor(private reportService: ReportService,
-    private fb: FormBuilder) {
+              private fb: FormBuilder) {
     this.barChartType = 'bar';
     this.barChartData = [
       { data: this.totalQuery, label: 'Total Queries' },
@@ -65,7 +65,7 @@ export class BotRealiabilityComponent implements OnInit {
 
     ngOnInit() {
   }
-  
+
   getStartDate(type: string, event: MatDatepickerInputEvent<Date>) {
 
     this.resetGraph();

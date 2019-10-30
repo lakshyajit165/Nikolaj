@@ -15,8 +15,7 @@ export interface IReport {
     responseTime: string;
     intent: string[];
     rating: number;
-    resolvedBy : string;
-    reopenDate : string;
+    resolvedBy: string;
+    reopenDate: string;
 
 }
- 

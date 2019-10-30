@@ -3,7 +3,7 @@ import { Icsr } from '../interfaces/Icsr';
 import { ReportService } from '../services/report.service';
 import { IPerformer } from '../interfaces/IPerformer';
 import { MatTable } from '@angular/material';
-import { ViewChild } from '@angular/core'
+import { ViewChild } from '@angular/core';
 
 export interface Status {
   value: number;
@@ -16,6 +16,10 @@ export interface Status {
   styleUrls: ['./csrreliability.component.css']
 })
 export class CsrreliabilityComponent implements OnInit {
+
+
+    constructor(private reportService: ReportService) {
+    }
 
    @ViewChild('videoTable', {static: false}) videoTable: MatTable<Element>;
   public csrReport: Icsr[];
@@ -45,15 +49,10 @@ export class CsrreliabilityComponent implements OnInit {
   sortedData: IPerformer[] = [];
   dataSource: IPerformer[] = [];
 
-
-    constructor(private reportService: ReportService) {
-    }
-
       displayedColumns: string[] = ['Rank', 'Name', 'Performance'];
 
-    ngOnInit() { }
 
-
+  // tslint:disable-next-line: member-ordering
   vehicleStatus: Status[] = [
     { value: 1, viewValue: 'January' },
     { value: 2, viewValue: 'Febuary' },
@@ -75,7 +74,9 @@ export class CsrreliabilityComponent implements OnInit {
     { value: 0.15, viewValue: 'Top 15%' },
     {value: 0.95, viewValue: 'Last 5%'},
     {value: 0.85, viewValue: 'Last 15%'}
-   ]; 
+   ];
+
+    ngOnInit() { }
 
 
     resetGraph() {
@@ -203,7 +204,7 @@ resetValues() {
             this.dataSource.push(...this.trialData);
             this.videoTable.renderRows();
           });
-        }else{
+        } else {
           this.trialData = [];
           this.dataSource.push(...this.trialData);
           this.videoTable.renderRows();
@@ -216,16 +217,15 @@ resetValues() {
               this.trialData.push(data);
               this.dataSource.push(...this.trialData);
               this.videoTable.renderRows();
-            }
-            else{
+            } else {
               this.trialData = [];
               this.dataSource.push(...this.trialData);
               this.videoTable.renderRows();
             }
           });
         }
-        
-        
+
+
         if (newValue > 0.8) {
           this.trialData.length = 0 ;
           this.generateData().filter(data => {
@@ -233,8 +233,7 @@ resetValues() {
               this.trialData.push(data);
               this.dataSource.push(...this.trialData);
               this.videoTable.renderRows();
-            }
-            else{
+            } else {
               this.trialData = [];
               this.dataSource.push(...this.trialData);
               this.videoTable.renderRows();

@@ -22,11 +22,18 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list'
+import { MatListModule } from '@angular/material/list';
 import { ListModule } from '../app/list/list.module';
 import { CsrreliabilityModule } from './csrreliability/csrreliability.module';
 import { ServiceOutlierComponent } from './service-outlier/service-outlier.component';
-import { EntityOutlierComponent } from "./entity-outlier/entity-outlier.component";
+import { EntityOutlierComponent } from './entity-outlier/entity-outlier.component';
+
+
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpErrorInterceptor } from './errorHandling/http-error.interceptor';
+import { SomethingWentWrongComponent } from './something-went-wrong/something-went-wrong.component';
+
 
 
 @NgModule({
@@ -35,7 +42,8 @@ import { EntityOutlierComponent } from "./entity-outlier/entity-outlier.componen
     ServiceReportComponent,
     PageNotFoundComponent,
     ServiceOutlierComponent,
-    EntityOutlierComponent
+    EntityOutlierComponent,
+    SomethingWentWrongComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +56,7 @@ import { EntityOutlierComponent } from "./entity-outlier/entity-outlier.componen
     FlexLayoutModule,
     BotreliabilityModule,
     CsrreliabilityModule,
-    
+
     FormsModule,
     LayoutModule,
     MatToolbarModule,

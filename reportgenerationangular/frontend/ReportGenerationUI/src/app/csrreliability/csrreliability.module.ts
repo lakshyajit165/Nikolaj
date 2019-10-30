@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CsrreliabilityComponent } from '../csrreliability/csrreliability.component';
 import { ChartsModule } from 'ng2-charts';
@@ -25,8 +25,6 @@ import { MaterialModule } from '../material/material.module';
     MatSelectModule,
     MaterialModule
   ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
- ]
+  schemas:[ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class CsrreliabilityModule { }

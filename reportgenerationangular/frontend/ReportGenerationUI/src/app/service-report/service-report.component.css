@@ -6,8 +6,6 @@
 .main {
     padding-left: 2%;
     padding-right: 2%;
-    /* display: flex;
-    flex-wrap: wrap; */
 }
 
 .linechart {
@@ -25,7 +23,6 @@
 .scroll {
     height: 350px;
     overflow: auto;
-    /* overflow-y: scroll; */
 }
 
 .mat-header-row {
@@ -51,14 +48,7 @@
     padding-top: 2%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /* grid-column-gap: 10px;
-    grid-row-gap: 10px; */
 }
-
-
-/* .child {
-    height: auto;
-} */
 
 .trying {
     height: 50%;
