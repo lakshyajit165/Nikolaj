@@ -189,6 +189,7 @@ public class ChatService implements ChatServiceInterface {
 
     //Function to find no intent
     public void noIntentFound(String userMessage, String entity) {
+        System.out.println("Inside no intent found");
         Report reportModel = new Report();
         reportModel.setTicketName(userMessage);
         reportModel.setEntity(entity);
@@ -221,7 +222,7 @@ public class ChatService implements ChatServiceInterface {
     public void findCommands(String userMessage, RuntimeIntent intent, String entity) {
         try {
             String intentName = intent.getIntent();
-
+            System.out.println("Inside findcommands");
             List<JSONObject> suggestionsList = neo4jService.getCommandByName(intentName,null);
             //no command report
             if (suggestionsList == null){
