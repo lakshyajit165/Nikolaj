@@ -35,7 +35,7 @@ public class RedisSubscriber implements MessageListener {
 	public void onMessage(final Message message, final byte[] pattern) {
 		try {
 			ChatMessage chatMessage = objectMapper.readValue(message.getBody(), ChatMessage.class);
-			Optional<SocketStore> socketStoreObject = iSocketIdRepo.findById(chatMessage.getEmailId());
+			Optional<SocketStore> socketStoreObject = iSocketIdRepo.findById(chatMessage.getSender());
 			String socketId = socketStoreObject.get().getSocketId();
 			sendMessages.sendResponse(chatMessage, socketId);
 		} catch (IOException | JSONException ioException) {
