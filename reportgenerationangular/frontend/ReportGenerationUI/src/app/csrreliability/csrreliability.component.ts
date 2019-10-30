@@ -178,7 +178,7 @@ resetValues() {
               this.csrMail.push(key);
               this.succesRate.push((value[key].successRate).toFixed(6));
               this.efficiency.push((value[key].efficiency).toFixed(6));
-              this.normalizedQueries.push((value[key].normalizedQueriesTaken).toFixed(6));
+              this.normalizedQueries.push((value[key].normalizedQueriesTaken));
               this.avgRating.push((value[key].avgRating).toFixed(2));
           }
       }

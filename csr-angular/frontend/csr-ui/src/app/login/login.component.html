@@ -17,13 +17,15 @@
         <p>Howdy! Login here  to get started.</p>
         <mat-form-field class="example-full-width" appearance="outline">
           <mat-label>Email</mat-label>
-          <input matInput placeholder="name@example.com" type="email" [(ngModel)]="email" name="email">
+          <input matInput placeholder="name@example.com" type="email" [(ngModel)]="email" name="email" required>
+          <mat-error>Please fill in the email</mat-error>
           
         </mat-form-field>
       
         <mat-form-field class="example-full-width" appearance="outline">
           <mat-label>Password</mat-label>
-          <input matInput placeholder="Password" type="password" [(ngModel)]="password" name="password">
+          <input matInput placeholder="Password" type="password" [(ngModel)]="password" name="password" required>
+          <mat-error>Please provide a password</mat-error>
         </mat-form-field>
         <div class="btn">
           <button mat-raised-button  color="primary" (click)="login()">Submit</button>

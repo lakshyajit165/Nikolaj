@@ -1,5 +1,5 @@
 mat-card{
-    height: 700px;
+    height: 480px;
 }
 
 /* .child-msg{
@@ -16,7 +16,7 @@ mat-card{
     right: 20px;
 }
 .chat-window{
-    height: 580px;
+    height: 370px;
     overflow-y: scroll;
 }
 

@@ -8,17 +8,13 @@
 
 }
 
-.assignme {
-    width: 80%;
-}
 
 .background {
-    background-image: url('../../assets/background1.jpg');
+    background-image: url('../../assets/landing.jpg');
     background-attachment: fixed;
     background-size: cover;
-    min-height: 80%;
+    min-height: 100%;
 }
-
 
 
 i{

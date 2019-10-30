@@ -3,7 +3,7 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar style="background-color: #C5CAE9;">
+    <mat-toolbar style="background-color: #C5CAE9;" class="side-toolbar">
       <p> {{ csrmail }} </p>
     </mat-toolbar>
     <mat-nav-list>
@@ -36,8 +36,8 @@
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>
-    <div class="footer">
+    <!-- <div class="footer">
       <p class="footer-copyright">&copy; Copyright 2019 | Nikolaj</p>
-    </div>
+    </div> -->
   </mat-sidenav-content>
 </mat-sidenav-container>

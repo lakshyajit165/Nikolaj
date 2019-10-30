@@ -6,6 +6,15 @@
   width: 260px;
 }
 
+.side-toolbar {
+  background-color: #E1BEE7;
+  height: 200px;
+}
+
+.side-toolbar p {
+  margin-top: auto;
+}
+
 .sidenav .mat-toolbar {
   background: inherit;
 }
@@ -24,6 +33,3 @@ mat-toolbar {
   margin-right: 5px;
 }
 
-.footer .footer-copyright {
-  text-align:center;
-}
