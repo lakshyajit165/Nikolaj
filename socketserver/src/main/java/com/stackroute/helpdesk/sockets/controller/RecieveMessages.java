@@ -61,7 +61,6 @@ public class RecieveMessages {
             User user = new User();
             user.setEmailId(messageConverted.get("emailId"));
             user.setContent(messageConverted.get("content"));
-            user.setSender(messageConverted.get("sender"));
             user.setType(messageConverted.get("type"));
             System.out.println("storing chat as type = " + user.getType());
             chatStoreService.updateChatHistory(messageConverted.get("content"), "user", "user", messageConverted.get("emailId"));
@@ -75,11 +74,13 @@ public class RecieveMessages {
             if(!csrEmailId.isEmpty()) {
                 if (csrEmailId.contains("com")) {
                     user.setSender(socketStore1.getCsrEmailId());
+                    System.out.println("user sender = " + user.getSender());
                     redisMessagePublisher.publish(user, "csr_message");
                     System.out.println("inside csr");
                 }
                 else {
                     redisMessagePublisher.publish(user, "bot_message");
+                    user.setSender("bot");
                     System.out.println("inside bot");
                 }
             }
