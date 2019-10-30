@@ -84,6 +84,7 @@ public class RedisConfigurations {
 	@Bean
 	@DependsOn("jedis")
 	@Lazy
+	@Qualifier("userBean")
 	public RedisTemplate<String, User> redisTemplate() {
 		RedisTemplate<String, User> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(jedisConnectionFactory());
