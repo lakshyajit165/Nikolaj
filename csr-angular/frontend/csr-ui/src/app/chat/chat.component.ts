@@ -44,6 +44,7 @@ export class ChatComponent implements OnInit {
     if(this.router.getCurrentNavigation().extras.state !== undefined) {
       this.ticket = this.router.getCurrentNavigation().extras.state.ticket;
       this.usermail = this.ticket.raisedBy;
+      console.log("this is user email in constructor " + this.usermail);
     }  
 
     //this.usermail = "saswat3@gmail.com"
@@ -63,6 +64,7 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
 
     this.csrmail = this.cookie.get("csrmail");
+    console.log("csr mail ngonit "+ this.csrmail);
     //this.csrmail = "csr@gmail.com";
     this.uuId = this.uuid();
     this.initializeWebSocketConnection();
@@ -114,7 +116,7 @@ export class ChatComponent implements OnInit {
 
 sendMessageWhenEstablished() {
   console.log("when estd");
-  let socketStorage: SocketStorage = { emailId: this.usermail, socketId: this.uuId };
+  let socketStorage: SocketStorage = { emailId: this.csrmail, socketId: this.uuId };
   //let message: Message = { content: this.uuId, emailId: 'this.userForm.value.fromId', type: this.userForm.value.toId, sender:'CHAT' };
   this.stompClient.send("/socket-subscriber/send/socketid", {}, JSON.stringify(socketStorage));
   console.log("when estd sent the socket message as = "+socketStorage);
