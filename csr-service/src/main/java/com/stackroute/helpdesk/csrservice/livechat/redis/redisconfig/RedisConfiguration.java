@@ -38,6 +38,7 @@ public class RedisConfiguration {
 	@Bean
 	@DependsOn("jedis")
 	@Lazy
+	@Qualifier("chatmessage")
 	public RedisTemplate<String, ChatMessage> getMessageRedisTemplate() {
 		RedisTemplate<String, ChatMessage> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(jedisConFactory());
