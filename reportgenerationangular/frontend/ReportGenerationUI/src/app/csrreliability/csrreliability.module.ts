@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material';
 import { CSRReliabilityRoutingModule } from './csrreliability-routing.module';
 import { MatSelectModule } from '@angular/material/select';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [CsrreliabilityComponent],
@@ -21,7 +22,8 @@ import { MatSelectModule } from '@angular/material/select';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MaterialModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
