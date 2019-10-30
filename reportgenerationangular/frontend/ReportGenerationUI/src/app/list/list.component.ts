@@ -8,12 +8,12 @@ import { IReport } from '../interfaces/IReport';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-
+  
   panelOpenState = false;
 
   reports: IReport[] = [];
 
-  defaultValue = 'all';
+  defaultValue: string = 'all';
 
   array = ['all', 'open', 'engaged', 'closed', 'bot' , 'callback'];
 
@@ -21,7 +21,7 @@ export class ListComponent implements OnInit {
 
   limit: number;
 
-  scrollStatus = true;
+  scrollStatus: boolean = true;
 
   status: string;
 
@@ -29,11 +29,11 @@ export class ListComponent implements OnInit {
 
   noOfDocuments: number;
 
-  totalNoOfDocuments = 0;
+  totalNoOfDocuments: number = 0;
 
   pagination: boolean;
 
-  emptyData: boolean ;
+  emptyData : boolean ;
 
   constructor(public reportService: ReportService) { }
 
@@ -46,8 +46,8 @@ export class ListComponent implements OnInit {
     this.reportService.getSize(this.status).subscribe(data => {
       this.count = data.result;
       this.noOfDocuments = data.result;
-      console.log('counting ' + this.count);
-    });
+      console.log("counting " + this.count);
+    })
     this.getAllReports(this.status);
 
   }
@@ -56,10 +56,12 @@ export class ListComponent implements OnInit {
 
     this.reportService.getReportsByStatus(value, this.page, this.limit).subscribe(data => {
       this.emptyData = false;
-      if (data.result.length === 0) {
+      if(data.result.length === 0)
+      {
         this.emptyData = true;
       }
-      console.log('counting ' + this.count);
+      console.log("status kya aara h" + data.status);
+      console.log("counting " + this.count);
       if (this.count < 5) {
         this.scrollStatus = false;
       }
@@ -67,24 +69,24 @@ export class ListComponent implements OnInit {
         this.pagination = true;
       }
       this.count = this.count - this.limit;
-      console.log('i m printing this' + data.result);
+      console.log("i m printing this" + data.result);
       console.log(data.result);
       this.totalNoOfDocuments = this.totalNoOfDocuments + data.result.length;
-      this.reports.push(...data.result);              // array destructuring.....
-      console.log('here ' + this.reports);
-    });
+      this.reports.push(...data.result);              //array destructuring.....
+      console.log("here " + this.reports)
+    })
 
   }
 
 
   onScroll() {
-    console.log('coming down');
+    console.log('coming down')
     this.page = this.page + 1;
     this.getAllReports(this.status);
-
+   
   }
 
-  // when something is changes in select box
+  //when something is changes in select box
   selectionChange(value) {
 
     this.scrollStatus = true;
@@ -102,15 +104,17 @@ export class ListComponent implements OnInit {
       this.reportService.getSize(this.status).subscribe(data => {
         this.count = data.result;
         this.noOfDocuments = data.result;
-        console.log('counting ' + this.count);
-      });
+        console.log("counting " + this.count);
+      })
       this.getAllReports(this.status);
-    } else {
+    }
+
+    else {
       this.reportService.getSize(this.status).subscribe(data => {
         this.count = data.result;
         this.noOfDocuments = data.result;
-        console.log('counting ' + this.count);
-      });
+        console.log("counting " + this.count);
+      })
       this.getAllReports(this.status);
     }
   }
