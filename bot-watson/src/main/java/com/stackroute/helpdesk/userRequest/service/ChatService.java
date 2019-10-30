@@ -114,33 +114,37 @@ public class ChatService implements ChatServiceInterface {
                 System.out.println("ticket id inside post query "+ticketId);
             }
 
-            else if (responseIntents.size()==0){
-                TicketModel ticketModel = new TicketModel();
-                ticketModel.setRaisedBy(userRequest.getEmailId());
-                ticketModel.setAssignedTo("bot");
-                if (responseEntities.size()!=0)
-                    ticketModel.setEntity(responseEntities.get(0).getEntity());
-                ticketModel.setQuery(userMessage);
-                ticketModel.setType(Type.query);
-                ticketModel.setStatus(Status.open);
-                ticketModel.setIntent(intents);
-                final String uri = "http://15.206.36.205:8765/ticket-service/api/v1/tickets";
-                //final String uri = "http://localhost:8765/ticket-service/api/v1/tickets";
-                RestTemplate restTemplate = new RestTemplate();
-                HttpEntity<TicketModel> request = new HttpEntity<>(ticketModel);
-                ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity( uri, request, LinkedHashMap.class);
-                System.out.println(map);
-                System.out.println("database inserted");
-                ObjectMapper mapper = new ObjectMapper();
-                TicketModel ticket = mapper.convertValue(map.getBody().get("result"),TicketModel.class);
-                ticketId = ticket.getUuid().toString();
-            }
+//            else if (responseIntents.size()==0){
+//                TicketModel ticketModel = new TicketModel();
+//                ticketModel.setRaisedBy(userRequest.getEmailId());
+//                ticketModel.setAssignedTo("bot");
+//                if (responseEntities.size()!=0)
+//                    ticketModel.setEntity(responseEntities.get(0).getEntity());
+//                ticketModel.setQuery(userMessage);
+//                ticketModel.setType(Type.query);
+//                ticketModel.setStatus(Status.open);
+//                ticketModel.setIntent(intents);
+//                final String uri = "http://15.206.36.205:8765/ticket-service/api/v1/tickets";
+//                //final String uri = "http://localhost:8765/ticket-service/api/v1/tickets";
+//                RestTemplate restTemplate = new RestTemplate();
+//                HttpEntity<TicketModel> request = new HttpEntity<>(ticketModel);
+//                ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity( uri, request, LinkedHashMap.class);
+//                System.out.println(map);
+//                System.out.println("database inserted");
+//                ObjectMapper mapper = new ObjectMapper();
+//                TicketModel ticket = mapper.convertValue(map.getBody().get("result"),TicketModel.class);
+//                ticketId = ticket.getUuid().toString();
+//            }
             //Calling no intent function
             if (responseIntents.size() == 0){
-                String entity =responseEntities.size()==0?"":responseEntities.get(0).getEntity();
+
+                //String entity =responseEntities.size()==0?"":responseEntities.get(0).getEntity();
+                RuntimeEntity entity  = responseEntities.get(0);
                 noIntentFound(userMessage, entity);}
             else {
-                String entity =responseEntities.size()==0?"":responseEntities.get(0).getEntity();
+
+                //String entity =responseEntities.size()==0?"":responseEntities.get(0).getEntity();
+                RuntimeEntity entity  = responseEntities.get(0);
                 findCommands(userMessage, responseIntents.get(0), entity);
             }
 
@@ -188,11 +192,11 @@ public class ChatService implements ChatServiceInterface {
 //    }
 
     //Function to find no intent
-    public void noIntentFound(String userMessage, String entity) {
+    public void noIntentFound(String userMessage, RuntimeEntity entity) {
         System.out.println("Inside no intent found");
         Report reportModel = new Report();
         reportModel.setTicketName(userMessage);
-        reportModel.setEntity(entity);
+        reportModel.setEntity(entity.getEntity());
         reportModel.setTicketId(ticketId);
         reportModel.setReportType(ReportType.NoIntent);
         reportModel.setUserId("abc@gmail.com");
@@ -219,14 +223,14 @@ public class ChatService implements ChatServiceInterface {
     }
 
     //Function to suggest actions to csr through redis database
-    public void findCommands(String userMessage, RuntimeIntent intent, String entity) {
+    public void findCommands(String userMessage, RuntimeIntent intent, RuntimeEntity entity) {
         try {
             String intentName = intent.getIntent();
             System.out.println("Inside findcommands");
             List<JSONObject> suggestionsList = neo4jService.getCommandByName(intentName,null);
             //no command report
             if (suggestionsList == null){
-                noCommandFound(userMessage, intentName, entity);
+                noCommandFound(userMessage, intentName, entity.getEntity());
                 System.out.println("No command found inside findcommands");
             }
             //creating suggestions
