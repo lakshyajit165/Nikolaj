@@ -11,7 +11,6 @@ import java.util.Map;
 public interface Neo4jServiceRepo {
     List getAllIntents();
     List addIntent(Intent intent);
-
     List updateIntentStatus(Intent intent);
     List updateCommandParameter(Command command);
     List addCommand(Map map);
