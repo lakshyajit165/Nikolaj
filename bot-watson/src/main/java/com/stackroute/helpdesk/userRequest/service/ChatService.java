@@ -1,6 +1,7 @@
 package com.stackroute.helpdesk.userRequest.service;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.assistant.v1.Assistant;
 import com.ibm.watson.assistant.v1.model.*;
@@ -104,11 +105,13 @@ public class ChatService implements ChatServiceInterface {
                 //final String uri = "http://localhost:8765/ticket-service/api/v1/tickets";
                 RestTemplate restTemplate = new RestTemplate();
                 HttpEntity<TicketModel> request = new HttpEntity<>(ticketModel);
-                Map map = restTemplate.postForObject( uri, request, Map.class);
+                ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity( uri, request, LinkedHashMap.class);
                 System.out.println(map);
                 System.out.println("database inserted");
-                JSONObject ticket = (JSONObject) map.get("result");
-                ticketId = (String) ticket.get("uuid");
+                ObjectMapper mapper = new ObjectMapper();
+                TicketModel ticket = mapper.convertValue(map.getBody().get("result"),TicketModel.class);
+                ticketId = ticket.getUuid().toString();
+                System.out.println("ticket id inside post query "+ticketId);
             }
 
             //Calling no intent function
