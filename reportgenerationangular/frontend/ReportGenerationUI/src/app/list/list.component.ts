@@ -46,7 +46,6 @@ export class ListComponent implements OnInit {
     this.reportService.getSize(this.status).subscribe(data => {
       this.count = data.result;
       this.noOfDocuments = data.result;
-      console.log("counting " + this.count);
     })
     this.getAllReports(this.status);
 
@@ -60,8 +59,6 @@ export class ListComponent implements OnInit {
       {
         this.emptyData = true;
       }
-      console.log("status kya aara h" + data.status);
-      console.log("counting " + this.count);
       if (this.count < 5) {
         this.scrollStatus = false;
       }
@@ -69,11 +66,8 @@ export class ListComponent implements OnInit {
         this.pagination = true;
       }
       this.count = this.count - this.limit;
-      console.log("i m printing this" + data.result);
-      console.log(data.result);
       this.totalNoOfDocuments = this.totalNoOfDocuments + data.result.length;
       this.reports.push(...data.result);              //array destructuring.....
-      console.log("here " + this.reports)
     })
 
   }
@@ -104,7 +98,6 @@ export class ListComponent implements OnInit {
       this.reportService.getSize(this.status).subscribe(data => {
         this.count = data.result;
         this.noOfDocuments = data.result;
-        console.log("counting " + this.count);
       })
       this.getAllReports(this.status);
     }
@@ -113,7 +106,6 @@ export class ListComponent implements OnInit {
       this.reportService.getSize(this.status).subscribe(data => {
         this.count = data.result;
         this.noOfDocuments = data.result;
-        console.log("counting " + this.count);
       })
       this.getAllReports(this.status);
     }
