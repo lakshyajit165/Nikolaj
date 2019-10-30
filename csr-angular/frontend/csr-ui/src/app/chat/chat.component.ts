@@ -41,12 +41,12 @@ export class ChatComponent implements OnInit {
     private router: Router
   ) {
     
-    // if(this.router.getCurrentNavigation().extras.state !== undefined) {
-    //   this.ticket = this.router.getCurrentNavigation().extras.state.ticket;
-    //   this.usermail = this.ticket.raisedBy;
-    // }  
+    if(this.router.getCurrentNavigation().extras.state !== undefined) {
+      this.ticket = this.router.getCurrentNavigation().extras.state.ticket;
+      this.usermail = this.ticket.raisedBy;
+    }  
 
-    this.usermail = "saswat3@gmail.com"
+    //this.usermail = "saswat3@gmail.com"
     
     this.chatservice.getChats(this.usermail).subscribe(data => {
       
@@ -62,8 +62,8 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
 
-    //this.csrmail = this.cookie.get("csrmail");
-    this.csrmail = "csr@gmail.com";
+    this.csrmail = this.cookie.get("csrmail");
+    //this.csrmail = "csr@gmail.com";
     this.uuId = this.uuid();
     this.initializeWebSocketConnection();
     
