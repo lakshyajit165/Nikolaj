@@ -24,8 +24,8 @@ public class RedisMessagePublisher implements MessagePublisher {
 	public void publish(User user, String channelName) throws JsonProcessingException, JSONException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String userString = objectMapper.writeValueAsString(user);
-		System.out.println("publishing in bot_message channel on query coming from socket server " + user.getEmailId());
 		System.out.println("sender = " + user.getSender());
 		redisTemplate.convertAndSend(channelName, userString);
+		System.out.println("publishing in channel on query coming from socket server " + channelName);
 	}
 }
