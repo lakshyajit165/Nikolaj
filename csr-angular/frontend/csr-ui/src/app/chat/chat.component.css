@@ -1,13 +1,57 @@
 mat-card{
-    height: 480px;
+    height: 700px;
 }
 
-mat-form-field{
+/* .child-msg{
+    overflow-wrap: break-word;
+} */
+
+.chat-full-width{
     width: 80%;
     margin-right: 5px;
 }
 
+#report-button{
+    position: absolute;
+    right: 20px;
+}
 .chat-window{
-    height: 370px;
-    overflow-x: scroll;
+    height: 580px;
+    overflow-y: scroll;
+}
+
+.align-left{
+    text-align: left;
+    margin-right:auto;
+    background-color: #d3d3d3;
+}
+.align-right{
+    text-align: right;
+    margin-left: auto;
+    background-color:#9FA8DA;
+    /* background-color: #EEEDED; */
+}
+.message{
+    /* text-align: left; */
+    padding: 20px 10px 20px 10px;
+    overflow-wrap: break-word;
+    margin-bottom: 5px;
+    width: 40%;
+    border-radius: 25px;
+    /* width: 80%; */
+    /* margin-left:auto; */
+    /* margin-right: auto; */
+}
+
+.user-chat{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+    padding: 30px 20px 30px 20px;   
+    /* text-align: center; */
+}
+
+form{
+    text-align: center;
 }

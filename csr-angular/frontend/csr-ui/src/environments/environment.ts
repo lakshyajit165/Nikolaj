@@ -11,7 +11,8 @@ export const environment = {
     projectId: 'angular-firebase-auth-19c56',
     storageBucket: 'angular-firebase-auth-19c56.appspot.com',
     messagingSenderId: '648816135107'
-  }
+  },
+  url: 'http://172.23.234.65:8182/'
 };
 
 /*

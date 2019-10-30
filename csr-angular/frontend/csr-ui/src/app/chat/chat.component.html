@@ -1,25 +1,39 @@
-<!-- <p>chat works!</p> -->
-
-<mat-card>
-        <mat-card-header style="background-color:primary">
+<div class="user-chat">
+    <mat-card>
+        <mat-card-header>
           
             <mat-card-title>Live Chat</mat-card-title>
-            
+    
+            <button mat-raised-button color="secondary" id="report-button" (click)="openDialog()">Report a problem</button>
         </mat-card-header>
         <hr>
         <mat-card-content>
-            <div class="chat-window">
+            <div class="chat-window"
+                 #scrollMe
+                 [scrollTop]="scrollMe.scrollHeight">
+    
+                
+                <div 
+                      *ngFor="let msg of messages">
+                      <div *ngIf="msg.type === 'user'" class="align-right message" >{{msg.content}}</div>
+                      <div *ngIf="msg.type === 'csr'"  class ="align-left message" >{{msg.content}}</div> 
+                      <div *ngIf="msg.type === 'bot'"  class ="align-left message" >{{msg.content}}</div>
+                </div>
+                    
             </div>
     
             <div class="chat-form">
                 <form>
-                    <mat-form-field class="example-full-width" appearance="outline">
-                        <input matInput placeholder="Start chat...">
+                    <mat-form-field class="chat-full-width" appearance="outline">
+                        <input matInput  #message id="chatmessage">
                     </mat-form-field>
-                    <button mat-fab color="primary"> <mat-icon>send</mat-icon></button>
+                    <button mat-fab color="primary"
+                    (click)="sendMessage(message.value)"> <mat-icon>send</mat-icon>
+                    </button>
                 </form>
             </div>
     
         </mat-card-content>
-</mat-card>
+    </mat-card>
+    </div>
     
