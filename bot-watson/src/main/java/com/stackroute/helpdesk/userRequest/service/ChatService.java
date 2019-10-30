@@ -89,7 +89,7 @@ public class ChatService implements ChatServiceInterface {
 
             //calling generate ticket function(should be called only once and should not be greeting message")
             //if (!((responseIntents.size()!=0)&&(responseIntents.get(0).getIntent().equals("greetings")))){
-            if (!responseIntents.get(0).getIntent().equals("Greetings")) {
+            if (!((responseIntents.size()!=0)&&(responseIntents.get(0).getIntent().equals("Greetings")))) {
                 TicketModel ticketModel = new TicketModel();
                 ticketModel.setRaisedBy(userRequest.getEmailId());
                 ticketModel.setAssignedTo("bot");
