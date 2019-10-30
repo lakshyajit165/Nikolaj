@@ -33,6 +33,9 @@ public class TicketListener {
     @RabbitListener(queues = "${ticket-details.queue.name}")
     public void receiveMessage(final MessagingResponse messagingResponse) throws Exception {
 
+
+        System.out.println("idhar to pehle bhi aara tha...");
+
         Object object = messagingResponse.getEventData();
         Object jsonObject1 = ((LinkedHashMap) object).get("result");
 

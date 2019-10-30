@@ -18,7 +18,7 @@ import java.util.LinkedHashMap;
 /**
  * Message Listener for RabbitMQ
  */
-@Component
+@Service
 public class MessageListener {
 
     private SocketIdService socketIdService;
