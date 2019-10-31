@@ -34,7 +34,7 @@ mat-form-field {
 
 .infinityscroll {
     /* padding-top: 4%; */
-    height: 22rem;
+    height: 30rem;
     overflow: scroll;
     overflow-x: hidden;
     /* overflow-y: scroll; */
@@ -101,7 +101,7 @@ section {
 }
 
 .title {
-    font-size: 120%;
+    font-size: 150%;
 }
 
 .dateCheck {
@@ -126,4 +126,8 @@ section {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.font {
+    font-size: 120%;
 }

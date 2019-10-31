@@ -34,8 +34,8 @@ export class ReportService {
 
 
   // service report 1.all time data 2. on the basis of date
-  getSize(date: string): Observable<ResponseFormatforSize> {
-    this.listUrl = `${this.apiGateWay}reportservice/api/v1/reportsize?status=${date}`;
+  getSize(status: string): Observable<ResponseFormatforSize> {
+    this.listUrl = `${this.apiGateWay}reportservice/api/v1/reportsize?status=${status}`;
     return this.httpClient.get<ResponseFormatforSize>(this.listUrl);
   }
 
