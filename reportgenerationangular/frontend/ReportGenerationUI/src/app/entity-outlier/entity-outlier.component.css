@@ -90,3 +90,7 @@
 .mat-header-cell {
     font-size: 100%;
 }
+
+.mat-checkbox {
+    font-size: 130%;
+}
