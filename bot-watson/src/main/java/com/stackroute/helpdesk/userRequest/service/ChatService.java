@@ -209,14 +209,18 @@ public class ChatService implements ChatServiceInterface {
             }
             //creating suggestions
             else{
+                if((Integer)suggestionsList.get(0).get("Confidence")>90){
+                    //execute()
+                }
+                else{
                 String suggestions = "Use command " + suggestionsList.get(0).get("Command name");
                 SuggestionsModel new_suggestion_model = new SuggestionsModel();
                 new_suggestion_model.setId(ticketId);
                 new_suggestion_model.setSuggestion(suggestions);
                 suggestionsRepo.save(new_suggestion_model);
-          System.out.println(suggestions);
+                System.out.println(suggestions);
                 System.out.println(new_suggestion_model);
-            }
+            }}
 
         } catch (Exception e) {
             System.out.println("caught " + e);
