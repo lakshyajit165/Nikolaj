@@ -15,13 +15,13 @@ export class SuggestionService {
   private url = '';
  constructor(private http: HttpClient) { }
  getSuggestion(id: string): Observable<Response> {
-   const uri: string = this.apiGateWay + 'optimus/api/v1/suggestions?id=' + id;
+   const uri: string = this.apiGateWay + 'botwatson/optimus/api/v1/suggestions?id=' + id;
    return  this.http.get<Response>(uri).pipe(
     catchError(this.handleError)
   );
   }
   feedback(intent: string, command: string, rating: number): Observable<object> {
-   const uri = this.apiGateWay + 'optimus/api/v1/confidence';
+   const uri = this.apiGateWay + 'botwatson/optimus/api/v1/confidence';
    return  this.http.patch<object>(uri,
     {
       intentName: intent,
@@ -33,7 +33,7 @@ export class SuggestionService {
   }
 
   nointent(nointent: NoIntent) {
-    const uri = 'http://localhost:8087/optimus/api/v1/report';
+    const uri = this.apiGateWay + 'botwatson/optimus/api/v1/report';
 
     return this.http.patch<object>(uri, nointent).pipe(
       catchError(this.handleError)
