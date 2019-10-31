@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { HttpErrorResponse } from '@angular/common/http';
 import { retry, catchError } from 'rxjs/operators';
 import { Report } from '../track-issue/track-issue.component';
@@ -12,7 +12,7 @@ import { IReportResponse } from '../model/IReportResponse';
 })
 export class TrackIssueService {
 
-  private url = environment.trackIssueUrl;
+  private apiGatewayUrl = environment.apiGatewayUrl;
   private intentCommandMappingUrl = environment.intentCommandMappingUrl;
      constructor(private httpClient: HttpClient) { }
 
@@ -27,7 +27,7 @@ export class TrackIssueService {
     }
 
     mapIntentCommand(intentName: string, commandName: string) {
-      return this.httpClient.post(this.intentCommandMappingUrl, intentName);
+      return this.httpClient.post(this.apiGatewayUrl + this.intentCommandMappingUrl, intentName);
     }
     // getReportsByType(type: string , page: number): Observable<IReportResponse> {
     //   this.url = `http://localhost:9003/api/v1/commandregistry/reports/type?reports=${type}&page=${page}`;

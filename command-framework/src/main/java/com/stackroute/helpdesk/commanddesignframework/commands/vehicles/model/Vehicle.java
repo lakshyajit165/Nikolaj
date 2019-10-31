@@ -1,24 +1,32 @@
 package com.stackroute.helpdesk.commanddesignframework.commands.vehicles.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.UUID;
 
 @Getter
 @Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Vehicle {
-    private String id;
-    private String zoneid;
+
+    private String id = UUID.randomUUID().toString().substring(30);
+    private String zoneId;
     private String registrationNo;
-    private String insurance_no;
-    private String status;
-    private Type type;
-    private Date time;
-    private String lastServiceDate;
-    private String vehiclePurchased;
+    private String insuranceNo;
+    private VehicleStatus status;
+    private VehicleType vehicleType;
+    private LocalDate lastServiceDate;
+    private LocalDate purchasedDate;
+    private String chassisNumber;
+
+    public Vehicle(String id, String zoneId, String registrationNo) {
+        this.id = id;
+        this.zoneId = zoneId;
+        this.registrationNo = registrationNo;
+    }
+
 }

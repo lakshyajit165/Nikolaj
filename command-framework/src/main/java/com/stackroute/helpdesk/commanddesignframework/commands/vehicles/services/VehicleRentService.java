@@ -1,7 +1,5 @@
 package com.stackroute.helpdesk.commanddesignframework.commands.vehicles.services;
 
-import com.stackroute.helpdesk.commanddesignframework.commands.vehicles.model.Type;
-import com.stackroute.helpdesk.commanddesignframework.commands.vehicles.model.Vehicle;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
