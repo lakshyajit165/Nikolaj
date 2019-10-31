@@ -13,7 +13,8 @@ export const environment = {
     messagingSenderId: '648816135107'
   },
   url: "http://15.206.36.205:8765/csrservice/",
-  url2: "http://15.206.36.205:8765/socketserver/"
+  url2: "http://15.206.36.205:8765/socketserver/",
+  apigateway: 'http://15.206.36.205:8765/'
 };
 
 /*
