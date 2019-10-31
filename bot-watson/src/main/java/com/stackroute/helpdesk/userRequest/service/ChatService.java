@@ -213,7 +213,7 @@ public class ChatService implements ChatServiceInterface {
                     //execute()
                 }
                 else{
-                String suggestions = "Use command " + suggestionsList.get(0).get("Command name");
+                String suggestions = (String) suggestionsList.get(0).get("Command name");
                 SuggestionsModel new_suggestion_model = new SuggestionsModel();
                 new_suggestion_model.setId(ticketId);
                 new_suggestion_model.setSuggestion(suggestions);
