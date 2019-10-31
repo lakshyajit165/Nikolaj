@@ -225,15 +225,15 @@ services:
       - config-server
       - zuul-api-gateway
     restart: on-failure
-    deploy:
-      replicas: 1
-      resources:
-        reservations:
-          cpus: '0.20'
-          memory: 124M
-        limits:
-          cpus: '0.25'
-          memory: 256M
+#    deploy:
+#      replicas: 1
+#      resources:
+#        reservations:
+#          cpus: '0.20'
+#          memory: 124M
+#        limits:
+#          cpus: '0.25'
+#          memory: 256M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
