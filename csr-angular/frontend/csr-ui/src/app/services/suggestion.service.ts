@@ -26,9 +26,9 @@ export class SuggestionService {
    console.log(intent, command, rating);
    return  this.http.patch<object>(uri,
     {
-      intentName: intent,
-      commandName: command,
-      rating,
+      "intentName": intent,
+      "commandName" : command,
+      "rating": rating,
     }).pipe(
       catchError(this.handleError)
     );
