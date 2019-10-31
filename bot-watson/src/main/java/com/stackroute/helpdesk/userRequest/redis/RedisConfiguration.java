@@ -35,7 +35,7 @@ public class RedisConfiguration {
 
 	@Bean
 	@DependsOn("jedisRedisConfiguration")
-	@Lazy
+//	@Lazy
 	@Qualifier("messagingTemplate")
 	public RedisTemplate<String, ChatMessageFormat> getMessageRedisTemplate() {
 		RedisTemplate<String, ChatMessageFormat> redisTemplate = new RedisTemplate<>();

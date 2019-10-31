@@ -24,7 +24,7 @@ public class Redisconfig {
 
     @Bean
     @DependsOn("jedis")
-    @Lazy
+//    @Lazy
     public RedisTemplate<String, Object> redisTemplate() {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(jedisConnectionFactory());
