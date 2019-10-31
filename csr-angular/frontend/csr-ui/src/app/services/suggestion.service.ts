@@ -21,7 +21,9 @@ export class SuggestionService {
   );
   }
   feedback(intent: string, command: string, rating: number): Observable<object> {
+  
    const uri = this.apiGateWay + 'botwatson/optimus/api/v1/confidence';
+   console.log(intent, command, rating);
    return  this.http.patch<object>(uri,
     {
       intentName: intent,
