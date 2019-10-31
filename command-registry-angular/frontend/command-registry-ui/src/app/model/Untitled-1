@@ -1,0 +1,19 @@
+DirectChildren=[{
+    name: "noCommand",
+    children: []
+}];
+
+{
+    name: "entity-1",
+    children: []
+};
+
+                {
+                 "name": "intent1",
+                 "children": [
+                  {"name": "query1", "size": 3938},
+                  {"name": "query2", "size": 3812},
+                  {"name": "query3", "size": 6714},
+                  {"name": "query4", "size": 743}
+                 ]
+                },

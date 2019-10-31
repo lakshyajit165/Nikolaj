@@ -1,11 +1,11 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
         <mat-toolbar>
-            <mat-icon>menu</mat-icon> Menu
+            <mat-icon>menu</mat-icon>
         </mat-toolbar>
         <mat-nav-list>
-            <a mat-list-item routerLink="/commandlist"><mat-icon aria-hidden="false">home</mat-icon>Command List</a>
-            <a mat-list-item routerLink="/trackissue"><mat-icon>trending_up</mat-icon>Track Issues</a>
+            <a mat-list-item routerLink="/commandlist">Command List</a>
+            <a mat-list-item routerLink="/trackissue">Track Issues</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

@@ -15,16 +15,16 @@ import org.springframework.stereotype.Service;
 public class ChannelHandler {
 
 	@Autowired
-//	@Lazy
+	@Lazy
 	private RedisConfiguration redisConfiguration;
 
 	@Autowired
-//	@Lazy
+	@Lazy
 	private ChatController chatController;
 
 	@Bean
 	@DependsOn("jedisRedisConfiguration")
-//	@Lazy
+	@Lazy
 	public RedisMessageListenerContainer redisContainer() {
 		RedisMessageListenerContainer container
 				= new RedisMessageListenerContainer();
@@ -34,7 +34,7 @@ public class ChannelHandler {
 	}
 	@Bean
 	@DependsOn("jedisRedisConfiguration")
-//	@Lazy
+	@Lazy
 	public ObjectMapper getObjectMapper(){
 		return new ObjectMapper();
 	}
@@ -45,7 +45,7 @@ public class ChannelHandler {
 
 	@Bean
 	@DependsOn("jedisRedisConfiguration")
-//	@Lazy
+	@Lazy
 	public MessageListenerAdapter messageListener() {
 		return new MessageListenerAdapter(chatController);
 	}

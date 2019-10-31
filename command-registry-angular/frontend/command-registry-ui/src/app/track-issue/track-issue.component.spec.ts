@@ -1,9 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { TrackIssueComponent } from './track-issue.component';
+
 import { MaterialModule } from '../material/material.module';
-import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { IssueFilterPipe } from '../pipes/issue-filter.pipe';
+import { IntentFilterPipe } from '../pipes/intent-filter.pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
+
+
 
 describe('TrackIssueComponent', () => {
   let component: TrackIssueComponent;
@@ -12,8 +16,9 @@ describe('TrackIssueComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
 
-      declarations: [ TrackIssueComponent],
-      imports: [MaterialModule, FormsModule, HttpClientTestingModule, BrowserAnimationsModule]
+      declarations: [ TrackIssueComponent, IssueFilterPipe,
+        IntentFilterPipe ],
+      imports: [MaterialModule, NgxPaginationModule]
     })
     .compileComponents();
   }));

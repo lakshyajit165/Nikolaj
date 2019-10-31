@@ -131,15 +131,10 @@ public class CsrController {
 //        Object message = rabbitTemplate.receiveAndConvert(CSR_REQUESTED_QUEUE);
         System.out.println("inside controller");
         MessageStructure m = (MessageStructure) rabbitTemplate.receiveAndConvert(CSR_REQUESTED_QUEUE);
-        // System.out.println("***********" + rabbitTemplate.receiveAndConvert(CSR_REQUESTED_QUEUE)) ;
-        //   System.out.println(m.toString());
+
         System.out.println(m);
         responseObject = new HashMap<>();
-        // HashMap<String, Object> result = new HashMap<>();
-        //result = (HashMap<String, Object>) m.getEventData();
-        //responseObject = m.getEventData();
-        //Object result = result.get("result");
-        //JSONObject jsonObject = (JSONObject) result.get("result");
+
         responseObject.put(RESULT, m.getEventData());
         responseObject.put(ERRORS, false);
         responseObject.put(MESSAGE, "ticket assigned!");

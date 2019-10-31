@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { retry, catchError } from 'rxjs/operators';
-// import { IReportResponse } from '../model/IReportResponse';
+import { Report } from '../track-issue/track-issue.component';
+import { IReportResponse } from '../model/IReportResponse';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TrackIssueService {
 
-  private apiGatewayUrl = environment.apiGatewayUrl;
+  private url = environment.trackIssueUrl;
   private intentCommandMappingUrl = environment.intentCommandMappingUrl;
-  private reportUrl = environment.reportUrl;
      constructor(private httpClient: HttpClient) { }
 
     private errorHandler(errorResponse: HttpErrorResponse) {
@@ -27,9 +27,17 @@ export class TrackIssueService {
     }
 
     mapIntentCommand(intentName: string, commandName: string) {
-      return this.httpClient.post(this.apiGatewayUrl + this.intentCommandMappingUrl, intentName);
+      return this.httpClient.post(this.intentCommandMappingUrl, intentName);
     }
-    getReportsByType(type: string): Observable<object> {
-      return this.httpClient.get<object>(this.apiGatewayUrl + this.reportUrl + type);
-    }
+    // getReportsByType(type: string , page: number): Observable<IReportResponse> {
+    //   this.url = `http://localhost:9003/api/v1/commandregistry/reports/type?reports=${type}&page=${page}`;
+    //   console.log('url' + this.url);
+    //   return this.httpClient.get<IReportResponse>(`http://localhost:9003/reports/type?type=${type}&page=${page}`);
+    // }
+    // getReportsByType(type: string): Observable<IReportResponse> {
+    //   // url = `http://localhost:9003/api/v1/commandregistry/reports/type?type=${type}`;
+    //   this.url = `http://15.206.36.205:8765/api/v1/commandregistry/reports/type?type=${type}`;
+    //   return this.httpClient.get<IReportResponse>(this.url);
+   // }
+
 }

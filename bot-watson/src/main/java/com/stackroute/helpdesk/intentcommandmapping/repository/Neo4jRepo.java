@@ -1,7 +1,5 @@
 package com.stackroute.helpdesk.intentcommandmapping.repository;
 
-import com.stackroute.helpdesk.intentcommandmapping.model.Intent;
-
 import com.stackroute.helpdesk.intentcommandmapping.model.IntentStatus;
 import org.json.simple.JSONObject;
 import org.springframework.data.neo4j.annotation.Query;
@@ -11,9 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-
 public interface Neo4jRepo extends Neo4jRepository{
-
 
     @Query("MATCH (i:Intent) RETURN i.intentName AS `Intent name`,i.intentStatus AS `Intent status`")
     List<JSONObject> getAllIntents();

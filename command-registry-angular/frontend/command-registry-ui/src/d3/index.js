@@ -1,21 +1,30 @@
+
+
+
+let dataToSend;
 function load(selected) {
+        let matrix
         let url;
         console.log(selected);
-
+        
         if (selected === 'NoCommand-0') {
-                url = 'http://localhost:3002/data2';
+              //  url = 'http://localhost:3002/data2';
+                url='http://localhost:9003/api/v1/commandregistry/reports/type?type=NoCommand';
+            
+                
         }
         else {
-                url = 'http://localhost:3001/data3'
+            // url = 'http://localhost:3001/data3';
+         url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoIntent';
         }
 
-        const format = d3.format(",d");
-        const width = 932;
-        const radius = width / 6;
+        let format = d3.format(",d");
+        let width = 932;
+        let radius = width / 6;
 
 
 
-        const arc = d3.arc()
+        let arc = d3.arc()
                 .startAngle(d => d.x0)
                 .endAngle(d => d.x1)
                 .padAngle(d => Math.min((d.x1 - d.x0) / 2, 0.005))
@@ -23,8 +32,8 @@ function load(selected) {
                 .innerRadius(d => d.y0 * radius)
                 .outerRadius(d => Math.max(d.y0 * radius, d.y1 * radius - 1));
 
-        const partition = data => {
-                const root = d3.hierarchy(data)
+        let partition = data => {
+                let root = d3.hierarchy(data)
                         .sum(d => d.size)
                         .sort((a, b) => b.value - a.value);
                 return d3.partition()
@@ -33,9 +42,9 @@ function load(selected) {
         }
 
         d3.json(url).then(data => {
-                console.log(data);
-                const root = partition(data);
-                const color = d3.scaleOrdinal().range(d3.quantize(d3.interpolateRainbow, data.children.length + 1));
+               console.log( 'hii',data.result);
+                let root = partition(data.result);
+                let color = d3.scaleOrdinal().range(d3.quantize(d3.interpolateRainbow, data.result.children.length + 1));
 
                 root.each(d => d.current = d);
 
@@ -43,10 +52,10 @@ function load(selected) {
                         .style("width", "100%")
                         .style("height", "auto")
                         .style("font", "10px sans-serif");
-                const g = svg.append("g")
+                let g = svg.append("g")
                         .attr("transform", `translate(${width / 2},${width / 2})`);
 
-                const path = g.append("g")
+                let path = g.append("g")
                         .selectAll("path")
                         .data(root.descendants().slice(1))
                         .join("path")
@@ -65,7 +74,7 @@ function load(selected) {
                 path.append("title")
                         .text(d => `${d.ancestors().map(d => d.data.name).reverse().join("/")}\n${format(d.value)}`);
 
-                const label = g.append("g")
+                let label = g.append("g")
                         .attr("pointer-events", "none")
                         .attr("text-anchor", "middle")
                         .style("user-select", "none")
@@ -77,7 +86,7 @@ function load(selected) {
                         .attr("transform", d => labelTransform(d.current))
                         .text(d => d.data.name);
 
-                const parent = g.append("circle")
+                let parent = g.append("circle")
                         .datum(root)
                         .attr("r", radius)
                         .attr("fill", "none")
@@ -85,20 +94,61 @@ function load(selected) {
                         .on("click", clicked);
 
                 function clicked(p) {
+                        
+                        // TrackIssueComponent.getAnyThing();
+                        if(p.depth==3){
+                                
+                        dataToSend=p.data.children;
+                        // sendData();
+                        // console.log('data to send',dataToSend);
+                         matrix = p.data.children;
+                        //  dataToSend = matrix;  
+                               let tr = d3.select(".querylist tbody")
+                                .selectAll("tr")
+                                .data(matrix)
+                                .enter().append("tr");
+                           
+                               let td = tr.selectAll("td")
+                                .data(function(d, i) { return Object.values(d); })
+                                .enter().append("td")
+                                  .text(function(d) { return d; });
+                                  
+
+                        console.log('hello',p.data);
+                        // dataToSend=p.data.children;
+                        //  sendData(p.data.children);
+                        //   console.log('data to send',dataToSend);
+                                                  
+                }
+                // else{
+                //          matrix = [];
+                           
+                //                tr = d3.select(".querylist tbody")
+                //                 .selectAll("tr")
+                //                 .data(matrix)
+                //                 .enter().append("tr");
+                           
+                //                td = tr.selectAll("td")
+                //                 .data(function(d, i) { return Object.values(d); })
+                //                 .enter().append("td")
+                //                   .text(function(d) { return d; });
+
+                //         console.log('hello',p.data);
+                //          this.dataToSend=p.data.children;
+                //         //  sendData(p.data.children);
+                        
+                // }
                         parent.datum(p.parent || root);
 
                         root.each(d => d.target = {
+                               // console.log("hello",d);
                                 x0: Math.max(0, Math.min(1, (d.x0 - p.x0) / (p.x1 - p.x0))) * 2 * Math.PI,
                                 x1: Math.max(0, Math.min(1, (d.x1 - p.x0) / (p.x1 - p.x0))) * 2 * Math.PI,
                                 y0: Math.max(0, d.y0 - p.depth),
                                 y1: Math.max(0, d.y1 - p.depth)
                         });
 
-                        const t = g.transition().duration(750);
-
-                        // Transition the data on all arcs, even the ones that aren’t visible,
-                        // so that if this transition is interrupted, entering arcs will start
-                        // the next transition from the desired position.
+                        let t = g.transition().duration(750);
                         path.transition(t)
                                 .tween("data", d => {
                                         const i = d3.interpolate(d.current, d.target);
@@ -131,5 +181,16 @@ function load(selected) {
                         return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
                 }
         });
+        
+        
+        
 }
-// }
+// function sendData(){
+        //         return this.p.data.children;
+        // }
+
+function sendData(){
+        // console.log(data);
+        // console.log(dataToSend)
+        return dataToSend;
+}

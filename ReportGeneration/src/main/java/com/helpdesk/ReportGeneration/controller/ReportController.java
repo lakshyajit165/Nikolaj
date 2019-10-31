@@ -39,7 +39,6 @@ public class ReportController {
         responseObject.put("result", report);
         responseObject.put("message", "Success!");
         responseObject.put("error", "false");
-        System.out.println(responseObject);
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
 
@@ -52,11 +51,24 @@ public class ReportController {
 
         if(startDate!= null && !startDate.isEmpty() && endDate!= null && !endDate.isEmpty())
         {
+            System.out.println("*************** yahan aaya 1");
             serviceReport = reportInterface.getDataforService(startDate,endDate);
         }
+        else if(startDate == "" && endDate!= null && !endDate.isEmpty())
+        {
+            System.out.println("*************** yahan aaya 2");
+            serviceReport = reportInterface.getDataforService("",endDate);
+        }
+        else if(endDate =="" && startDate!= null && !startDate.isEmpty())
+        {
+            System.out.println("*************** yahan aaya 3");
+            serviceReport = reportInterface.getDataforService(startDate,"");
+        }
         else {
+            System.out.println("*************** yahan aaya 4");
             serviceReport = reportInterface.getDataforService();
         }
+
 
         responseObject = new HashMap<>();
         responseObject.put("result", serviceReport);
@@ -80,8 +92,6 @@ public class ReportController {
             result = reportInterface.getReportsByStatus((page !=null) ? page : 0,(limit !=null) ? limit : 10);
         }
         responseObject = new HashMap<>();
-        System.out.println((page !=null) ? page : 0);
-        System.out.println("printing the reports here" + result);
         responseObject.put("result", result);
         responseObject.put("errors", false);
         responseObject.put("message", "Got the reports!");
@@ -103,7 +113,6 @@ public class ReportController {
         result.add(reportInterface.getTicketsReopen(start,end));
         responseObject.put("result", result);
         responseObject.put("errors", false);
-        System.out.println("This is response of the end point "+responseObject);
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
 

@@ -18,6 +18,16 @@ export class ReportService {
 
   // service report 1.all time data 2. on the basis of date
   getServiceReport(startdate: string, enddate: string): Observable<ResponseFormatforService> {
+    if(startdate === undefined )
+    {
+      startdate = '';
+    
+    }
+
+    if(enddate === undefined )
+    {
+      enddate = '';
+    }
     this.listUrl = `${this.apiGateWay}reportservice/api/v1/report/service?startdate=${startdate}&enddate=${enddate}`;
     return this.httpClient.get<ResponseFormatforService>(this.listUrl);
   }

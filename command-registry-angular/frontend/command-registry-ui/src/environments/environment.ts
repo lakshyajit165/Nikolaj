@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   commandUrl: '/command-registry-angular/assets/data/commands.json',
   trackIssueUrl: '/command-registry-angular/assets/data/report.json',
-  intentCommandMappingUrl: 'http://15.206.36.205:8765/'
+  intentCommandMappingUrl: 'http://localhost:8082/api/v1/commandregistry/commands'
 };
 
 /*

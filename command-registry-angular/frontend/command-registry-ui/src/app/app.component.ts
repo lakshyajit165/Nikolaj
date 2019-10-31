@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import '../../src/d3/index.js';
+import '../../src/d3/index1.js';
+
+
 
 @Component({
   selector: 'app-root',

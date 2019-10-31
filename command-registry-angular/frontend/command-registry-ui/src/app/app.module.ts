@@ -1,12 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
+import { MatTableModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { CommandListComponent, CommandDetailsDialogComponent } from './command-list/command-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { TrackIssueService } from './services/track-issue.service';
 import { MaterialModule } from './material/material.module';
@@ -17,7 +20,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { CommandService } from './services/command.service';
 import { TrackIssueComponent } from './track-issue/track-issue.component';
 import { CommandModule } from 'my-command-library';
-import { CommandListComponent } from './command-list/command-list.component';
+import * as d3 from 'd3';
 
 @NgModule({
   declarations: [
@@ -28,11 +31,13 @@ import { CommandListComponent } from './command-list/command-list.component';
     IssueFilterPipe,
     IntentFilterPipe,
     CommandFilterPipe,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    CommandDetailsDialogComponent
   ],
-  entryComponents: [],
+  entryComponents: [CommandDetailsDialogComponent],
   imports: [
     BrowserModule,
+    MatTableModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
@@ -41,7 +46,8 @@ import { CommandListComponent } from './command-list/command-list.component';
     HttpClientModule,
     ReactiveFormsModule,
     MaterialModule,
-    CommandModule
+     CommandModule,
+     MatProgressBarModule
   ],
   providers: [CommandService, TrackIssueService],
   bootstrap: [AppComponent]

@@ -40,10 +40,8 @@ FROM node:latest
 WORKDIR /app
 COPY package.json /app/
 RUN npm install
-RUN npm install -g @angular/cli
-RUN npm install ngx-pagination --save
-COPY . /app
+#RUN npm install -g @angular/cli
+COPY . .
 
-
-CMD ["ng" ,"serve", "--host", "0.0.0.0","--disableHostCheck","true"]
+CMD ["npm" ,"start"," --", "--host", "0.0.0.0","--disableHostCheck","true"]
 

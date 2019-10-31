@@ -97,11 +97,14 @@ public class Neo4jService implements Neo4jServiceRepo {
     }
 
     public List getCommandByName(String intentName,String relationshipName) {
+        System.out.println("inside get command by name");
         List<JSONObject> list;
         if(relationshipName==null){
+            System.out.println("inside if in command by name");
             list=neo4jRepo.getCommandByName(intentName);
         }
         else{
+            System.out.println("inside else in command by name");
             System.out.println(neo4jRepo.getCommandByName(intentName,relationshipName));
             list=neo4jRepo.getCommandByName(intentName,relationshipName);
         }

@@ -15,9 +15,9 @@ import { IssueFilterPipe } from './pipes/issue-filter.pipe';
 import { IntentFilterPipe } from './pipes/intent-filter.pipe';
 import { CommandFilterPipe } from './pipes/command-filter.pipe';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
-import { CommandModule } from 'my-command-library';
 
-describe('AppComponent', () => {
+
+fdescribe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -28,7 +28,7 @@ describe('AppComponent', () => {
         IssueFilterPipe,
         IntentFilterPipe,
         CommandFilterPipe,
-        PagenotfoundComponent
+        PagenotfoundComponent,
       ],
       imports: [
         BrowserModule,
@@ -39,8 +39,7 @@ describe('AppComponent', () => {
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
-        MaterialModule,
-        CommandModule
+        MaterialModule
       ]
     }).compileComponents();
   }));

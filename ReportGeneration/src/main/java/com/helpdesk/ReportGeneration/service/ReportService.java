@@ -18,6 +18,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -64,8 +65,6 @@ public class ReportService implements ReportInterface {
 
     public List<com.helpdesk.ReportGeneration.entity.Service> getDataforService() throws ParseException {
         List<Report> reports = new ArrayList<>();
-        //reports = reportDao.findAll();
-        System.out.println("yahan aana chaiye " );
         Calendar calendar = Calendar.getInstance();
         Date todayDate = calendar.getTime();
         calendar.add(Calendar.DATE,-7);
@@ -77,9 +76,24 @@ public class ReportService implements ReportInterface {
     //method to get the service report which is having total no of queries of particular entities and queries solved of particular entity
     public List<com.helpdesk.ReportGeneration.entity.Service> getDataforService(String startDate, String endDate) throws ParseException {
 
-        System.out.println("yahan aana ni chaiye " );
+        Calendar calendar = Calendar.getInstance();
+        Date todayDate = calendar.getTime();
+        calendar.add(Calendar.DATE,-7);
+        Date formerdate = calendar.getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
         List<Report> reports = new ArrayList<>();
         //since the date which is coming from angular in some specific format that is yyyy-mm-dd
+        if(startDate == "")
+        {
+            System.out.println("dekha......former date...7 din purani kya ari h" + formerdate);
+            startDate = dateFormat.format(formerdate);
+        }
+        if(endDate == "")
+        {
+            endDate = dateFormat.format(date);
+            System.out.println("dekha......aaj ki date in end date " + endDate);
+        }
         String startdateToSend = startDate + "T23:59:00.000+0000";
         String enddateToSend = endDate + "T23:59:00.000+0000";
         reports = getTicketsbyTime(startdateToSend, enddateToSend);

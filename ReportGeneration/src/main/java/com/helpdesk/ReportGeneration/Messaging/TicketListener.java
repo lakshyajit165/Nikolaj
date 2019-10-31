@@ -115,9 +115,7 @@ public class TicketListener {
 
                     Report report = new Report();
                     String superSecretId = (String) ((LinkedHashMap) (jsonObject1)).get("uuid");
-                    System.out.println("helllllllll " + superSecretId);
                     report = reportInterface.getReportById(UUID.fromString(superSecretId).toString());
-                    System.out.println("$$$$$$$$$$$$" + report);
                     //changes in ticketStatus and UpdatedOn
                     //for parsing the date that is coming in the timestamp format
                     Long updatedOn = (Long) ((LinkedHashMap) (jsonObject1)).get("updatedOn");

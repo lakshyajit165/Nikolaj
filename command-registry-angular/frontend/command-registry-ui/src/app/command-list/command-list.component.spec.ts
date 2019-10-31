@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommandService } from '../services/command.service';
 import { CommandListComponent } from './command-list.component';
-import { CommandModule } from 'my-command-library';
+// import { CommandsComponent } from '../commands/commands.component';
 
 describe('CommandListComponent', () => {
   let component: CommandListComponent;
@@ -14,13 +14,14 @@ describe('CommandListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommandListComponent, CommandFilterPipe ],
+      declarations: [ CommandListComponent, CommandFilterPipe
+        // CommandsComponent
+      ],
       imports: [
         MaterialModule,
         NgxPaginationModule,
         FormsModule,
-        HttpClientTestingModule,
-        CommandModule
+        HttpClientTestingModule
 
       ],
       providers: [

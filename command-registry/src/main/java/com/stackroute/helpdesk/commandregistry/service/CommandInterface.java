@@ -1,12 +1,12 @@
 package com.stackroute.helpdesk.commandregistry.service;
 
-import com.stackroute.helpdesk.commandregistry.commandstorage.model.CommandDetails;
+import com.stackroute.helpdesk.commandregistry.entity.Commands;
 
 import java.util.List;
 
 public interface CommandInterface {
-     List<CommandDetails> getCommands();
-     CommandDetails addCommands(CommandDetails commands);
+     List<Commands> getCommands();
+     Commands addCommands(Commands commands);
 
 
 }
