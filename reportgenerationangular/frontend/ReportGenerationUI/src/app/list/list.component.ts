@@ -8,8 +8,6 @@ import { IReport } from '../interfaces/IReport';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  
-  panelOpenState = false;
 
   reports: IReport[] = [];
 
@@ -74,7 +72,6 @@ export class ListComponent implements OnInit {
 
 
   onScroll() {
-    console.log('coming down')
     this.page = this.page + 1;
     this.getAllReports(this.status);
    
