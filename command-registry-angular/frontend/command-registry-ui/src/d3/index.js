@@ -9,13 +9,13 @@ function load(selected) {
         
         if (selected === 'NoCommand-0') {
               //  url = 'http://localhost:3002/data2';
-                url='http://localhost:9003/api/v1/commandregistry/reports/type?type=NoCommand';
+                url='http://15.206.36.205:8765/command-registry-angular/api/v1/commandregistry/reports/type?type=NoCommand';
             
                 
         }
         else {
             // url = 'http://localhost:3001/data3';
-         url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoIntent';
+         url='http://15.206.36.205:8765/command-registry-angular/api/v1/commandregistry/reports/type?type=NoIntent';
         }
 
         let format = d3.format(",d");

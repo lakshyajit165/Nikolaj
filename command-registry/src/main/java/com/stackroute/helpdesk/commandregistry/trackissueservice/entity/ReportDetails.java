@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Document(collection = "reports")
+@Document(collection = "nointentnocommand")
 public class ReportDetails {
     @Id
     String id;

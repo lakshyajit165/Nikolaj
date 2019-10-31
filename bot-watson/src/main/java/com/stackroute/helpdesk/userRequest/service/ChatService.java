@@ -214,7 +214,8 @@ public class ChatService implements ChatServiceInterface {
                 new_suggestion_model.setId(ticketId);
                 new_suggestion_model.setSuggestion(suggestions);
                 suggestionsRepo.save(new_suggestion_model);
-//            System.out.println(suggestions);
+          System.out.println(suggestions);
+                System.out.println(new_suggestion_model);
             }
 
         } catch (Exception e) {
