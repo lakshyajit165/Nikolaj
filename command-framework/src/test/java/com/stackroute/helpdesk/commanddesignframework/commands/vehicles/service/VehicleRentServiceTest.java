@@ -1,6 +1,5 @@
 package com.stackroute.helpdesk.commanddesignframework.commands.vehicles.service;
 
-import com.stackroute.helpdesk.commanddesignframework.commands.vehicles.model.Type;
 import com.stackroute.helpdesk.commanddesignframework.commands.vehicles.services.VehicleRentService;
 import org.json.simple.JSONObject;
 import org.junit.Before;
@@ -13,7 +12,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
