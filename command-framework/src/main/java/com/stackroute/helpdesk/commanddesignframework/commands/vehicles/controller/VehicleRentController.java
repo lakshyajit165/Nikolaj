@@ -1,8 +1,8 @@
 package com.stackroute.helpdesk.commanddesignframework.commands.vehicles.controller;
 
-import com.stackroute.helpdesk.commanddesignframework.commands.vehicles.model.Type;
+import com.stackroute.helpdesk.commanddesignframework.commands.offers.model.Campaign;
+import com.stackroute.helpdesk.commanddesignframework.commands.vehicles.model.Vehicle;
 import com.stackroute.helpdesk.commanddesignframework.commands.vehicles.services.VehicleRentService;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @RestController
 public class VehicleRentController {
@@ -24,13 +24,21 @@ public class VehicleRentController {
 
     @GetMapping("/particulartypevehiclerent")
     public ResponseEntity<Object> getParticularTypeVehiclesRent(@RequestParam("param0") String typeOfVehicle){
-        JSONObject jsonObject = restTemplate.getForObject("http://localhost:3000/result", JSONObject.class);
-        return new ResponseEntity<>(vehicleRentService.getParticularTypeVehicleRent(jsonObject, typeOfVehicle), HttpStatus.OK);
+        ResponseEntity<Vehicle> jsonObject = restTemplate.getForEntity("http://umove-dev.stackroute.io:8095/api/v1/types?name="+typeOfVehicle, Vehicle.class);
+        System.out.println(jsonObject.getBody());
+        String result = jsonObject.getBody().getVehicleType().getName() + "'s cost per km = " + jsonObject.getBody().getVehicleType().getCostPerKm() + " and cost per minute = " + jsonObject.getBody().getVehicleType().getCostPerMin();
+        ArrayList<String> resultList = new ArrayList<>();
+        resultList.add(result);
+        return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
 
     @GetMapping("/alltypevehiclerent")
     public ResponseEntity<Object> getAllVehicleTypeRent(){
-        JSONObject jsonObject = restTemplate.getForObject("http://localhost:3000/result", JSONObject.class);
-        return new ResponseEntity<>(vehicleRentService.getAllTypeVehicleRent(jsonObject), HttpStatus.OK);
+        ResponseEntity<Vehicle> jsonObject = restTemplate.getForEntity("http://umove-dev.stackroute.io:8095/api/v1/types", Vehicle.class);
+        ArrayList<String> resultList = new ArrayList<>();
+            System.out.println(jsonObject.getBody());
+        String result = jsonObject.getBody().getVehicleType().getName() + "'s cost per km = " + jsonObject.getBody().getVehicleType().getCostPerKm() + " and cost per minute = " + jsonObject.getBody().getVehicleType().getCostPerMin();
+        resultList.add(result);
+        return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
 }
