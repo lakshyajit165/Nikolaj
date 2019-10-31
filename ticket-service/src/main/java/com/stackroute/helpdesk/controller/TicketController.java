@@ -195,7 +195,7 @@ public class TicketController implements Serializable {
 //        newTicketStructure.setStatus(Status.values()[status]);
 
 
-        if(resolvedBy != null) {
+        if(responseType != null) {
             System.out.println("inside resolved by not equals null");
             // set updatedOn time when ticket is resolved
             ticketStructure.setUpdatedOn(new Date());
