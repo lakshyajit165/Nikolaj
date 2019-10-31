@@ -67,6 +67,7 @@ this.suggestion.feedback(this.intents[0], this.suggestedCommand.suggestion, 0)
 });
 }
 public onSubmit(updatedReportDetails){
+  this.intents = ['defined'];
 updatedReportDetails.id=this.ticketId;
 this.suggestion.nointent(updatedReportDetails)
 .subscribe(data =>{
