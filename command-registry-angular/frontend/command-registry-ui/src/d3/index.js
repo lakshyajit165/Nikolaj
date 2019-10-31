@@ -15,7 +15,8 @@ function load(selected) {
         }
         else {
             // url = 'http://localhost:3001/data3';
-         url='http://15.206.36.205:8765/commandregistr/api/v1/commandregistry/reports/type?type=NoIntent';
+            url='http://15.206.36.205:8765/commandregistry/api/v1/commandregistry/reports/type?type=NoIntent';
+                // url='http://15.206.36.205:8765/commandregistry/api/v1/commandregistry/reports/type?type=NoIntent';
         }
 
         let format = d3.format(",d");
