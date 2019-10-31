@@ -120,7 +120,7 @@ public class ReportService implements ReportServiceRepo {
 
 
                 List<String> words = findingIntents(report.getTicketName());
-                if (words.isEmpty()) {
+                if (words==null) {
                     List<Report> reportList = new ArrayList<>();
                     reportList.add(report);
                     finalIntent.put("Unknown_Intent", reportList);
