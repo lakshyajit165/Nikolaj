@@ -136,13 +136,13 @@ public class ChatService implements ChatServiceInterface {
                 ticketId = ticket.getUuid().toString();
             }
             //Calling no intent function
-            if (responseIntents.size() == 0){
-                String entity =responseEntities.size()==0?"":responseEntities.get(0).getEntity();
-                noIntentFound(userMessage, entity);}
-            else {
-                String entity =responseEntities.size()==0?"":responseEntities.get(0).getEntity();
-                findCommands(userMessage, responseIntents.get(0), entity);
-            }
+//            if (responseIntents.size() == 0){
+//                String entity =responseEntities.size()==0?"":responseEntities.get(0).getEntity();
+//                noIntentFound(userMessage, entity);}
+//            else {
+//                String entity =responseEntities.size()==0?"":responseEntities.get(0).getEntity();
+//                findCommands(userMessage, responseIntents.get(0), entity);
+//            }
 
             //Calling conversation end function
             if (responseFromBot.equals("Thank you for your rating")) {

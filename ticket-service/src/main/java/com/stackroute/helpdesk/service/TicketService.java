@@ -11,7 +11,10 @@ import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TicketService implements TicketInterface {
@@ -51,40 +54,89 @@ public class TicketService implements TicketInterface {
     @Override
     public JSONObject noOfQueryTaken(String csrMail){
 
-        MatchOperation matchOperation = match(Criteria.where("assignedTo").is(csrMail).exists(true)
-                .orOperator(Criteria.where("resolvedBy").is(csrMail).exists(true)));
-
-        GroupOperation groupOperation = group("assignedTime").count().as("total");
-
-        Aggregation aggregation = newAggregation(matchOperation,
-                groupOperation,project("total").and("_id").as("totalCount").andExclude("_id"));
-
-        //System.out.println("***********" + aggregation);
-        AggregationResults<TicketStructure> result = mongoTemplate.aggregate(aggregation,"tickets", TicketStructure.class);
-
-        System.out.println("this is result of aggregate for query taken" + result.getRawResults());
-        System.out.println("this is result of aggregate for query taken" + new JSONObject(result.getRawResults()).toJSONString());
-        return new JSONObject(result.getRawResults());
+        HashSet<String> unique=new HashSet<>();
+        Map<String,Integer> queryTaken=new HashMap();
+        Integer count;
+        List<TicketStructure> trial1= ticketRepository.findByAssignedTo(csrMail);
+        for (TicketStructure ticket: trial1){
+            String[] format;
+           // format = ticket.getassignedTime().toString().split(" ");
+            format = ticket.getAssignedTime().toString().split(" ");
+            String date=format[2].concat(format[1].concat(format[5]));
+            if(unique.contains(date)){
+                count=queryTaken.get(date);
+                queryTaken.put(date,count+1);
+            }
+            else{
+                unique.add(date);
+                queryTaken.put(date,1);
+            }
+        }
+        return new JSONObject(queryTaken);
     }
 
     @Override
     public JSONObject noOfQueryResolved(String csrMail){
 
-        MatchOperation matchOperation = match(Criteria.where("status").is("closed")
-                .andOperator(Criteria.where("resolvedBy").is(csrMail).exists(true)));
+        HashSet<String> unique=new HashSet<>();
+        Map<String,Integer> queryResolved=new HashMap();
+        Integer count;
+        List<TicketStructure> trial1= ticketRepository.findByResolvedBy(csrMail);
+        for (TicketStructure report:trial1){
+            String[] format;
 
-        GroupOperation groupOperation = group("assignedTime").count().as("total");
+            format=report.getAssignedTime().toString().split(" ");
 
-        Aggregation aggregation = newAggregation(matchOperation,
-                groupOperation,project("total").and("_id").as("totalCount").andExclude("_id"));
-        //System.out.println("***********" + aggregation);
-
-        AggregationResults<TicketStructure> result = mongoTemplate.aggregate(aggregation,"tickets", TicketStructure.class);
-
-        System.out.println("this is result of aggregate for query taken" + result.getRawResults());
-        System.out.println("this is result of aggregate for query taken" + new JSONObject(result.getRawResults()).toJSONString());
-
-        return new JSONObject(result.getRawResults());
+            String date=format[2].concat(format[1].concat(format[5]));
+            if(unique.contains(date)){
+                count=queryResolved.get(date);
+                queryResolved.put(date,count+1);
+            }
+            else{
+                unique.add(date);
+                queryResolved.put(date,1);
+            }
+        }
+        return new JSONObject(queryResolved);
     }
+
+//    @Override
+//    public JSONObject noOfQueryTaken(String csrMail){
+//
+//        MatchOperation matchOperation = match(Criteria.where("assignedTo").is(csrMail).exists(true)
+//                .orOperator(Criteria.where("resolvedBy").is(csrMail).exists(true)));
+//
+//        GroupOperation groupOperation = group("assignedTime").count().as("total");
+//
+//        Aggregation aggregation = newAggregation(matchOperation,
+//                groupOperation,project("total").and("_id").as("totalCount").andExclude("_id"));
+//
+//        //System.out.println("***********" + aggregation);
+//        AggregationResults<TicketStructure> result = mongoTemplate.aggregate(aggregation,"tickets", TicketStructure.class);
+//
+//        System.out.println("this is result of aggregate for query taken" + result.getRawResults());
+//        System.out.println("this is result of aggregate for query taken" + new JSONObject(result.getRawResults()).toJSONString());
+//        return new JSONObject(result.getRawResults());
+//    }
+//
+//    @Override
+//    public JSONObject noOfQueryResolved(String csrMail){
+//
+//        MatchOperation matchOperation = match(Criteria.where("status").is("closed")
+//                .andOperator(Criteria.where("resolvedBy").is(csrMail).exists(true)));
+//
+//        GroupOperation groupOperation = group("assignedTime").count().as("total");
+//
+//        Aggregation aggregation = newAggregation(matchOperation,
+//                groupOperation,project("total").and("_id").as("totalCount").andExclude("_id"));
+//        //System.out.println("***********" + aggregation);
+//
+//        AggregationResults<TicketStructure> result = mongoTemplate.aggregate(aggregation,"tickets", TicketStructure.class);
+//
+//        System.out.println("this is result of aggregate for query taken" + result.getRawResults());
+//        System.out.println("this is result of aggregate for query taken" + new JSONObject(result.getRawResults()).toJSONString());
+//
+//        return new JSONObject(result.getRawResults());
+//    }
 
 }

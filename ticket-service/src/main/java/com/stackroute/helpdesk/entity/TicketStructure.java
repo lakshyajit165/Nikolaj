@@ -39,8 +39,6 @@ public class TicketStructure implements Serializable {
     private Date createdOn;
     private Date assignedTime;
 
-
-
     private Date updatedOn;
     private String assignedTo;
     private int rating;
@@ -48,11 +46,18 @@ public class TicketStructure implements Serializable {
 
     private Type type;
 
+
     private Status status;
     private ResponseType responseType;
 
     private String resolvedBy;
 
     private Date reopenTime;
+
+    public Date getAssignedTime() {
+        return assignedTime;
+    }
+
+
 }
 

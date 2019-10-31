@@ -1,4 +1,5 @@
 package com.stackroute.helpdesk.intentcommandmapping.repository;
+import com.stackroute.helpdesk.intentcommandmapping.model.Intent;
 import com.stackroute.helpdesk.intentcommandmapping.model.IntentStatus;
 import org.json.simple.JSONObject;
 import org.springframework.data.neo4j.annotation.Query;
@@ -6,7 +7,7 @@ import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
-public interface Neo4jRepo extends Neo4jRepository{
+public interface Neo4jRepo extends Neo4jRepository<Intent,String>{
     @Query("MATCH (i:Intent) RETURN i.intentName AS `Intent name`,i.intentStatus AS `Intent status`")
     List<JSONObject> getAllIntents();
     @Query("merge(i:Intent{intentName: {name},intentStatus: {status}}) RETURN i.intentName as `Intent name`, i.intentStatus as `Intent status`")

@@ -16,4 +16,8 @@ public interface TicketRepository extends MongoRepository<TicketStructure, Strin
 
     @Query("{ 'status': ?0 }")
     public List<TicketStructure> getTicketsByStatus(String status);
+
+    List<TicketStructure> findByAssignedTo(String csrMail);
+
+    List<TicketStructure> findByResolvedBy(String csrMail);
 }
