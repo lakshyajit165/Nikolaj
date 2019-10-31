@@ -2,26 +2,18 @@ package com.stackroute.helpdesk.commandregistry.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-
-import org.bson.types.ObjectId;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 import javax.validation.constraints.NotBlank;
-import java.util.*;
-
-//import javax.annotation.processing.Generated;
-
-
-//import javax.annotation.processing.Generated;
-
-import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+//import javax.annotation.processing.Generated;
+
+
+//import javax.annotation.processing.Generated;
 
 
 @ToString
@@ -48,7 +40,7 @@ public class Commands
     private String status;
 
 
-    private List<Parameters> parameters=new ArrayList<>();
+    private List<Parameters> parametersList;
 
 
 

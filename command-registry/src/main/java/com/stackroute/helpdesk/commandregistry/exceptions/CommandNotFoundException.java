@@ -1,7 +1,4 @@
-package com.stackroute.helpdesk.commandregistry.Exceptions;
-
-
-import com.stackroute.helpdesk.commandregistry.entity.Commands;
+package com.stackroute.helpdesk.commandregistry.exceptions;
 
 
 import org.springframework.http.HttpStatus;

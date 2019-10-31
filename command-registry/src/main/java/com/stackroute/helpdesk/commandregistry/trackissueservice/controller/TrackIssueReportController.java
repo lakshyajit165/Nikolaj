@@ -17,7 +17,8 @@ import java.util.concurrent.TimeoutException;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class TrackIssueReportController {
 
     @Autowired
