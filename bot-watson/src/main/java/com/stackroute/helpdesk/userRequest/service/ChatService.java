@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.cloud.sdk.core.service.security.IamOptions;
 import com.ibm.watson.assistant.v1.Assistant;
 import com.ibm.watson.assistant.v1.model.*;
-import com.stackroute.helpdesk.intentcommandmapping.repository.Neo4jRepo;
 import com.stackroute.helpdesk.intentcommandmapping.service.Neo4jService;
 import com.stackroute.helpdesk.intentcommandmapping.service.Neo4jServiceRepo;
 import com.stackroute.helpdesk.nointentnocommand.model.Report;
@@ -40,7 +39,7 @@ public class ChatService implements ChatServiceInterface {
     @Autowired
     private SuggestionsRepo suggestionsRepo;
     @Autowired
-    private Neo4jRepo neo4jRepo;
+    private Neo4jServiceRepo neo4jService;
     @Autowired
     private ReportServiceRepo reportService;
 
@@ -117,26 +116,23 @@ public class ChatService implements ChatServiceInterface {
 
             //Calling no intent function
             if (responseIntents.size() == 0){
-                String entity = responseEntities.size()==0?"":responseEntities.get(0).getEntity();
-                noIntentFound(userMessage, entity);
+                String entity= responseEntities.size()==0?"":responseEntities.get(0).getEntity();
+                noIntentFound(userMessage, entity);}
+            else {
+                String entity= responseEntities.size()==0?"":responseEntities.get(0).getEntity();
+                findCommands(userMessage, responseIntents.get(0), entity);
             }
-
-            else{
-                String entity = responseEntities.size()==0?"":responseEntities.get(0).getEntity();
-                findCommands(userMessage,responseIntents.get(0), entity);
-            }
-
 
             //Calling conversation end function
-            if (responseFromBot.equals("Thank you for your rating")) {
-                //endConversation();
-                //updateTicket();
-            }
+//            if (responseFromBot.equals("Thank you for your rating")) {
+//                //endConversation();
+//                //updateTicket();
+//            }
 
 
             //Calling agent escalation function
-            if (responseFromBot.equals("Sure connecting you to a customer representative"))
-                connectToCsr();
+    //            if (responseFromBot.equals("Sure connecting you to a customer representative"))
+    //                connectToCsr();
 
 
             //System.out.println(response);
@@ -204,26 +200,21 @@ public class ChatService implements ChatServiceInterface {
     public void findCommands(String userMessage, RuntimeIntent intent, String entity) {
         try {
             String intentName = intent.getIntent();
-            System.out.println("inside find commands");
-            List<JSONObject> suggestionsList = neo4jRepo.getCommandByName("book","ok");
+            System.out.println("In suggestions");
+            List<JSONObject> suggestionsList = neo4jService.getCommandByName(intentName,"");
             //no command report
+            System.out.println(suggestionsList);
             if (suggestionsList == null){
-                System.out.println("inside find commands and if");
                 noCommandFound(userMessage, intentName, entity);
-                System.out.println("inside find commands and if successfully");
-
             }
             //creating suggestions
             else{
-                System.out.println("inside find commands and else");
-                System.out.println("suggestions list = " + suggestionsList);
-                System.out.println("suggestions list = " + suggestionsList.get(0));
                 String suggestions = "Use command " + suggestionsList.get(0).get("Command name");
                 SuggestionsModel new_suggestion_model = new SuggestionsModel();
                 new_suggestion_model.setId(ticketId);
                 new_suggestion_model.setSuggestion(suggestions);
                 suggestionsRepo.save(new_suggestion_model);
-                System.out.println(suggestions);
+//            System.out.println(suggestions);
             }
 
         } catch (Exception e) {
