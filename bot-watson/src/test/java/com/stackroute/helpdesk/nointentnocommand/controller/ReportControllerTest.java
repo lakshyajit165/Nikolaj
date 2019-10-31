@@ -3,6 +3,7 @@ package com.stackroute.helpdesk.nointentnocommand.controller;
 import com.stackroute.helpdesk.nointentnocommand.model.Report;
 import com.stackroute.helpdesk.nointentnocommand.model.ReportType;
 import com.stackroute.helpdesk.nointentnocommand.model.UpdateReport;
+import com.stackroute.helpdesk.nointentnocommand.service.ReportService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
