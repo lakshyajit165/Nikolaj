@@ -12,8 +12,9 @@ export const environment = {
     storageBucket: 'angular-firebase-auth-19c56.appspot.com',
     messagingSenderId: '648816135107'
   },
-  url: "http://15.206.36.205:8765/csrservice/",
-  url2: "http://15.206.36.205:8765/socketserver/"
+  url: "https://nikolaj-dev.stackroute.io/csrservice/",
+  url2: "https://nikolaj-dev.stackroute.io/socketserver/",
+  apigateway: 'http://15.206.36.205:8765/'
 };
 
 /*
