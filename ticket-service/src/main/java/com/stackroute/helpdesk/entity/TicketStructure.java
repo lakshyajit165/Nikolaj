@@ -54,9 +54,9 @@ public class TicketStructure implements Serializable {
 
     private Date reopenTime;
 
-    public Date getAssignedTime() {
-        return assignedTime;
-    }
+//    public Date getAssignedTime() {
+//        return this.assignedTime;
+//    }
 
 
 }
