@@ -3,6 +3,7 @@ package com.stackroute.helpdesk.userRequest.controller;
 import com.stackroute.helpdesk.userRequest.model.ChatMessage;
 import com.stackroute.helpdesk.userRequest.model.SuggestionsModel;
 import com.stackroute.helpdesk.userRequest.service.ChatServiceInterface;
+import com.stackroute.helpdesk.userRequest.service.SimulationServiceInterface;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,9 @@ public class SuggestionsController {
 
     @Autowired
     private ChatServiceInterface chatServiceInterface;
+
+    @Autowired
+    private SimulationServiceInterface simulationServiceInterface;
 
     @GetMapping("/suggestions")
     public ResponseEntity<HashMap<String,?>> getSuggestions(@RequestParam String id){
@@ -48,7 +52,7 @@ public class SuggestionsController {
         responseObject = new HashMap<>();
         ChatMessage simulationMessage = new ChatMessage();
         simulationMessage.setContent(query);
-        responseObject.put("result", chatServiceInterface.postQuery(simulationMessage));
+        responseObject.put("result", simulationServiceInterface.postQuery(simulationMessage));
         responseObject.put("message", "Successfully given suggestions");
         responseObject.put("error", "No error");
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
