@@ -1,11 +1,14 @@
 package com.stackroute.helpdesk.commanddesignframework.commands.invoice.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.helpdesk.commanddesignframework.commands.invoice.model.Payment;
 import com.stackroute.helpdesk.commanddesignframework.commands.invoice.service.InvoiceService;
 import com.stackroute.helpdesk.commanddesignframework.commands.offers.model.Campaign;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,20 +33,27 @@ public class InvoiceController {
     @GetMapping("/lastinvoice")
     public ResponseEntity<Object> getLastInvoice(@RequestParam("param0") String userId){
         ResponseEntity<Object> invoices = restTemplate.getForEntity("http://umove-dev.stackroute.io:8094/api/v1/rides/payments/" + userId, Object.class);
-        AtomicReference<List<Payment>> paymentList = new AtomicReference<>();
-        ((LinkedHashMap) invoices.getBody()).forEach((object1, object2) -> {
-            System.out.println("object1 = " + object1);
-            System.out.println("object2 = " + (List<Payment>)object2);
-            paymentList.set((List<Payment>) object2);
+        List<Payment> campaignList = (List<Payment>) (((LinkedHashMap)invoices.getBody()).get("data"));
+        ArrayList<String> resultList = new ArrayList<>();
+        campaignList.forEach(campaign -> {
+            System.out.println("campaign = " + campaign);
+            String result = "Got the invoice";
+            resultList.add(result);
         });
-        return new ResponseEntity<>(invoiceService.getPreviousInvoices(paymentList.get(),1), HttpStatus.OK);
+        return new ResponseEntity<>(invoiceService.getPreviousInvoices(campaignList,1), HttpStatus.OK);
     }
 
     @GetMapping("/previousinvoices")
     public ResponseEntity<Object> getPreviousInvoices(@RequestParam("param0") String userId) throws ClassNotFoundException {
-        ResponseEntity payment = restTemplate.getForEntity("http://umove-dev.stackroute.io:8094/api/v1/rides/payments/" + userId, Object.class);
         List<Payment> paymentList = new ArrayList<>();
-        return new ResponseEntity<>(invoiceService.getPreviousInvoices(paymentList,10), HttpStatus.OK);
+        HttpEntity<List<Payment>> request = new HttpEntity<>(paymentList);
+        ResponseEntity<LinkedHashMap> payment = restTemplate.getForEntity("http://umove-dev.stackroute.io:8094/api/v1/rides/payments/" + userId, LinkedHashMap.class);
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println("data = " + payment.getBody().get("data"));
+        System.out.println("values = " + payment.getBody().values());
+        System.out.println("dataclass = " + payment.getBody().get("data").getClass());
+        List<Payment> paymentList1 = mapper.convertValue(payment.getBody().get("data"), new TypeReference<List<Payment>>(){});
+        return new ResponseEntity<>(invoiceService.getPreviousInvoices(paymentList1,10), HttpStatus.OK);
     }
 
 }

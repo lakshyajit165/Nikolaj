@@ -23,18 +23,9 @@ public class MessageListenerForNoIntent {
     private static final Logger log = LoggerFactory.getLogger(MessageListenerForNoCommand.class);
     @RabbitListener(queues = "${no-intent-report-recieved.queue.name}")
     public void receiveMessageForNoIntentReport(MessagingResponse recievedObjectInJson) throws Exception {
-        if(recievedObjectInJson.getEventData() == "")
-        System.out.println("event data = " + recievedObjectInJson.getEventData());
-        System.out.println("body = " + (LinkedHashMap)recievedObjectInJson.getEventData());
-        if((String)(((LinkedHashMap) recievedObjectInJson.getEventData()).get("NoIntent")) == "Well done by developers.Currently all quries have commands"){
-            System.out.println("inside if");
-        }else {
-            System.out.println("inside else");
-            JSONObject jsonObject = (JSONObject)((LinkedHashMap)recievedObjectInJson.getEventData()).get("body");
-            reportService.printJsonObject1(jsonObject);
-        }
-//        (LinkedHashMap)((LinkedHashMap) recievedObjectInJson.getEventData()).get()
-//        JSONObject jsonObject = (JSONObject)((LinkedHashMap)recievedObjectInJson.getEventData()).get("body");
+        recievedObjectInJson.getEventData();
+        JSONObject jsonObject = (JSONObject)((LinkedHashMap)recievedObjectInJson.getEventData()).get("result");
+        reportService.printJsonObject1(jsonObject);
         try {
             log.info("message added to the no intent queue");
         } catch (HttpClientErrorException ex) {
