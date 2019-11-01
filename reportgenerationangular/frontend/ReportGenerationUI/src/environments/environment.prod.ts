@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  url: 'http://localhost:9003/',
+  url: 'https://nikolaj-dev.stackroute.io/socketserver/',
   apigateway: 'https://nikolaj-dev.stackroute.io/'
 };
