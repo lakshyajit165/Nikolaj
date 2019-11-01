@@ -41,20 +41,20 @@ public class InvoiceService {
     }
 
 
-    public List<String> getPreviousInvoices(List<Payment> paymentList, int numberOfInvoices){
-    paymentList = paymentList.stream().limit(numberOfInvoices).collect(Collectors.toList());
+    public List<String> getPreviousInvoices() throws Exception {
+//    paymentList = paymentList.stream().limit(numberOfInvoices).collect(Collectors.toList());
     List<String> bookingsList = new ArrayList<>();
-    Arrays.stream(paymentList.toArray()).forEach((invoice) -> {
-        try {
-            bookingsList.add((String)getResultData((Payment) invoice));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    });
+//    Arrays.stream(paymentList.toArray()).forEach((invoice) -> {
+//        try {
+            bookingsList.add((String)getResultData());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    });
     return bookingsList;
  }
 
- public String getResultData(Payment invoice) throws Exception {
+ public String getResultData() throws Exception {
         String resultString = "<html>\n" +
                 "<head>\n" +
                 "\t<meta charset=\"utf-8\">\n" +
@@ -65,12 +65,12 @@ public class InvoiceService {
                 "</head>\n" +
                 "<body>\n" +
                 "\t<div class=\"jumbotron\">\n" +
-                "\t\t<h1>OrderId :</h1>\n" + invoice.getPaymentId() +
+                "\t\t<h1>OrderId :</h1>\n" + "EXM765HJ" +
                 "\t\t<div class=\"text-center  w-25\">\n" +
-                "\t\t\t<p>Ride Id: </p>\n" + invoice.getRideId() +
-                "\t\t\t<p>Distance: </p>\n" + invoice.getDistance() +
-                "\t\t\t<p>Total charge: </p>\n" + invoice.getAmountPaid() +
-                "\t\t\t<p>Payment Mode: </p>\n" + invoice.getPaymentMethodId() +
+                "\t\t\t<p>Ride Id: </p>\n" + "POMNFS567" +
+                "\t\t\t<p>Distance: </p>\n" + "5.6km" +
+                "\t\t\t<p>Total charge: </p>\n" + "38rs" +
+                "\t\t\t<p>Payment Mode: </p>\n" + "paytm wallet" +
                 "\t\t</div>\n" +
                 "\t</div>\n" +
                 "</body>\n" +

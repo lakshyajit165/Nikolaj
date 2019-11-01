@@ -14,17 +14,15 @@ import java.util.List;
 @ToString
 @Component("vehicleDetails")
 public class CommandDetails implements ICommandDetail {
-	private String name = "vehicle";
-	private String description = "returns the rent for vehicles of the services";
+	private String name = "vehiclerent";
+	private String description = "returns the rent for vehicles of the umove";
 	private String[] tags = {"vehicles", "rent"};
-	private String usage;
-	private String status;
+	private String usage = "/vehiclerent";
+	private String status = "published";
 	private List<Parameter> parameterList = new ArrayList<>();
 
 	public void declareParameters(){
-		Parameter parameter1 = new Parameter("vehicleType", "defines the type of vehicle to get the rent of", "false");
 		List<Parameter> parameterList = new ArrayList<>();
-		parameterList.add(parameter1);
 		this.parameterList=parameterList;
 	}
 }

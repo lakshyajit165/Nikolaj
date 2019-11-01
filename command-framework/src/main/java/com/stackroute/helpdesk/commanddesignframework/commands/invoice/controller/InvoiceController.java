@@ -31,29 +31,31 @@ public class InvoiceController {
     private RestTemplate restTemplate;
 
     @GetMapping("/lastinvoice")
-    public ResponseEntity<Object> getLastInvoice(@RequestParam("param0") String userId){
-        ResponseEntity<Object> invoices = restTemplate.getForEntity("http://umove-dev.stackroute.io:8094/api/v1/rides/payments/" + userId, Object.class);
-        List<Payment> campaignList = (List<Payment>) (((LinkedHashMap)invoices.getBody()).get("data"));
+    public ResponseEntity<Object> getLastInvoice(@RequestParam("param0") String userId) throws Exception {
+//        ResponseEntity<Object> invoices = restTemplate.getForEntity("http://umove-dev.stackroute.io:8094/api/v1/rides/payments/" + userId, Object.class);
+//        List<Payment> campaignList = (List<Payment>) (((LinkedHashMap)invoices.getBody()).get("data"));
         ArrayList<String> resultList = new ArrayList<>();
-        campaignList.forEach(campaign -> {
-            System.out.println("campaign = " + campaign);
-            String result = "Got the invoice";
+//        campaignList.forEach(campaign -> {
+//            System.out.println("campaign = " + campaign);
+            String result = "invoice has been sent in the mail";
             resultList.add(result);
-        });
-        return new ResponseEntity<>(invoiceService.getPreviousInvoices(campaignList,1), HttpStatus.OK);
+//        });
+        invoiceService.getPreviousInvoices();
+        return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
 
-    @GetMapping("/previousinvoices")
-    public ResponseEntity<Object> getPreviousInvoices(@RequestParam("param0") String userId) throws ClassNotFoundException {
-        List<Payment> paymentList = new ArrayList<>();
-        HttpEntity<List<Payment>> request = new HttpEntity<>(paymentList);
-        ResponseEntity<LinkedHashMap> payment = restTemplate.getForEntity("http://umove-dev.stackroute.io:8094/api/v1/rides/payments/" + userId, LinkedHashMap.class);
-        ObjectMapper mapper = new ObjectMapper();
-        System.out.println("data = " + payment.getBody().get("data"));
-        System.out.println("values = " + payment.getBody().values());
-        System.out.println("dataclass = " + payment.getBody().get("data").getClass());
-        List<Payment> paymentList1 = mapper.convertValue(payment.getBody().values(), new TypeReference<List<Payment>>(){});
-        return new ResponseEntity<>(invoiceService.getPreviousInvoices(paymentList1,10), HttpStatus.OK);
-    }
+//    @GetMapping("/previousinvoices")
+//    public ResponseEntity<Object> getPreviousInvoices(@RequestParam("param0") String userId) throws ClassNotFoundException {
+//        List<Payment> paymentList = new ArrayList<>();
+//        HttpEntity<List<Payment>> request = new HttpEntity<>(paymentList);
+//        ResponseEntity<LinkedHashMap> payment = restTemplate.getForEntity("http://umove-dev.stackroute.io:8094/api/v1/rides/payments/" + userId, LinkedHashMap.class);
+//        ObjectMapper mapper = new ObjectMapper();
+//        System.out.println("data = " + payment.getBody().get("data"));
+//        System.out.println("values = " + payment.getBody().values());
+//        System.out.println("dataclass = " + payment.getBody().get("data").getClass());
+//        List<Payment> paymentList1 = mapper.convertValue(payment.getBody().values(), new TypeReference<List<Payment>>(){});
+////        return new ResponseEntity<>(invoiceService.getPreviousInvoices(paymentList1,10), HttpStatus.OK);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
 }
