@@ -33,7 +33,7 @@ public class MessageListener {
     @RabbitListener(queues = "${app2.queue.name}")
     public void receiveMessageForApp1(MessagingResponse recievedObjectInString) throws Exception {
         System.out.println(recievedObjectInString.getEventData());
-        if(recievedObjectInString.getEventName() == "command_response_pdf") {
+        if(recievedObjectInString.getEventName().contentEquals("command_response_pdf")) {
             String result = (String) ((LinkedHashMap)recievedObjectInString.getEventData()).get("body");
             System.out.println(result);
             try {
@@ -52,9 +52,16 @@ public class MessageListener {
                 throw new AmqpRejectAndDontRequeueException(e);
             }
         }
-        else if (recievedObjectInString.getEventName() == "ticket_updated") {
+        else if (recievedObjectInString.getEventName().contentEquals("ticket_updated")) {
+            System.out.println("ticket recieved");
             TicketStructure ticket = (TicketStructure) ((LinkedHashMap)recievedObjectInString.getEventData()).get("body");
-            sender.sendResponseViaEmail(ticket.getRaisedBy(), "Update on your issue!", "<html>\n" +
+            System.out.println("ticket raised by = " + ticket.getRaisedBy());
+            System.out.println("ticket query by = " + ticket.getQuery());
+            System.out.println("ticket Id by = " + ticket.getId());
+            System.out.println("ticket status by = " + ticket.getStatus());
+            System.out.println("ticket resolved by by = " + ticket.getResolvedBy());
+
+            sender.sendResponseViaEmailWithoutAttachment(ticket.getRaisedBy(), "Update on your issue!", "<html>\n" +
                     "<body>\n" +
                     "<h1>Dear Customer </h1>" +
                     "<p> Your ticket with id " + ticket.getId() + "has been resolved!</p>" +
@@ -64,6 +71,7 @@ public class MessageListener {
                     "<p><strong>Resolved by:  </strong>" + ticket.getResolvedBy() + "</p>" +
                     "</body>\n" +
                     "</html>", file, "no");
+            System.out.println("ticket sent in the mail " + ticket.getQuery());
         }
     }
     public File convertToPdf(String resultObject) throws Exception {
