@@ -42,20 +42,17 @@ export class PerformanceComponent implements OnInit {
     }
   };
 
-  public barChartLabels: Label[] = this.dates;
+  public barChartLabels: Label[];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [pluginDataLabels];
-  public barChartData: ChartDataSets[] = [
-        {data: this.queryTakenCount , label: 'Queries Taken'},
-        {data : this.queryResolvedCount, label : 'Queries Resolved'}
-      ];
+  public barChartData: ChartDataSets[];
 
 
   constructor(
     private performanceService: PerformanceService,
     private cookie: CookieService
-  ) { 
+  ) {
     console.log(this.dates);
     console.log(this.queryResolvedCount);
     console.log(this.queryTakenCount);
@@ -105,6 +102,13 @@ export class PerformanceComponent implements OnInit {
 
         console.log(this.queryResolvedCount);
 
+        this.barChartData = [
+          {data: this.queryTakenCount , label: 'Queries Taken'},
+          {data : this.queryResolvedCount, label : 'Queries Resolved'}
+        ];
+
+        this.barChartLabels = this.dates;
+
         // this.responseResolved.forEach(ele => {
         // this.queryResolvedCount.push(ele[this.total]);
       });
@@ -118,7 +122,7 @@ export class PerformanceComponent implements OnInit {
 
       // console.log(this.dates);
       // console.log(this.queryTakenCount);
-    
+
   }
 
 
