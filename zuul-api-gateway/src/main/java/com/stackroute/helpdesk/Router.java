@@ -16,7 +16,7 @@ public class Router {
         return "forward:csr-angular";
     }
 
-    @GetMapping("/reports")
+    @GetMapping("/report-angular")
     public String redirectToReportGenerationUi(){
         return "forward:report-angular";
     }
