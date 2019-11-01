@@ -117,17 +117,19 @@ public class ReportService implements ReportServiceRepo {
         HashSet<String> uniqueIntents=new HashSet<String>();
         for(Report report:reports) {
             if (report.getIntent() == null) {
-
-
+                System.out.println("null intent");
                 List<String> words = findingIntents(report.getTicketName());
+                System.out.println("words"+words);
                 if (words==null) {
+                    System.out.println("clustering null");
                     List<Report> reportList = new ArrayList<>();
                     reportList.add(report);
                     finalIntent.put("Unknown_Intent", reportList);
                     uniqueIntents.add("Unknown_Intent");
                 } else {
-
+                    System.out.println("words not null");
                     for (String word : words) {
+                        System.out.println("words not null if");
                         if (uniqueIntents.contains(word)) {
                             List<Report> listReports = finalIntent.get(word)    ;
                             finalIntent.put(word, listReports);
@@ -157,6 +159,7 @@ public class ReportService implements ReportServiceRepo {
     }
 
     public List findingIntents(String text) {
+        System.out.println("find intents");
         Properties props = new Properties();
         props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref");
         StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
