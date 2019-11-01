@@ -15,10 +15,10 @@ const routes: Routes = [
   //    path: '', redirectTo: '/login', pathMatch: 'full'
   // },
   {
-    path: '', redirectTo: '/csr-angular', pathMatch: 'full'
+    path: '', redirectTo: '/csrservice', pathMatch: 'full'
   },
   {
-    path: 'csr-angular', component: LoginComponent, canActivate: [AuthGuard]
+    path: 'csrservice', component: LoginComponent, canActivate: [AuthGuard]
   },
   {
     path: 'home', component: HomeComponent, children: [
