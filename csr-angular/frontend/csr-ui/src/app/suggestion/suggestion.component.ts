@@ -12,9 +12,6 @@ styleUrls: ['./suggestion.component.css']
 })
 export class SuggestionComponent implements OnInit {
 
-  feedBack: Feedback;
-
-
 
 constructor(private suggestion: SuggestionService, private form:FormBuilder) { }
  @Input() ticketId: string;
@@ -24,6 +21,13 @@ suggestedCommand: Suggestion;
 result = 'result';
 status: boolean;
 feedback: object;
+
+feedBack: Feedback = {
+  intentName: '',
+  commandName: '',
+  rating: 0
+};
+
  id: string;
  suggestions: string;
 public thumbUp = 'thumb_up';
@@ -48,6 +52,7 @@ ngOnInit() {
         this.status = false;
       }
     });
+
 }
 public changeIconThumbUp(newIcon: string ) {
   this.thumbUp = newIcon ;
@@ -77,7 +82,7 @@ this.suggestion.feedback(this.feedBack)
   console.log(this.feedback);
 });
 }
-public onSubmit(updatedReportDetails){
+public onSubmit(updatedReportDetails) {
   this.intents = ['defined'];
 updatedReportDetails.id=this.ticketId;
 this.suggestion.nointent(updatedReportDetails)
