@@ -50,7 +50,7 @@ public class Payment {
     private String paymentId;
 
     
-    private LocalDateTime deductedAt;
+    private String deductedAt;
 
     
     private PaymentStatus status;
