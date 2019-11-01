@@ -1,4 +1,4 @@
-package com.stackroute.helpdesk.commanddesignframework.commands.invoice.command;
+package com.stackroute.helpdesk.commanddesignframework.commands.invoice.controller.command;
 
 import com.stackroute.helpdesk.commanddesignframework.commands.ICommandDetail;
 import lombok.*;
@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Component("invoiceDetails")
-public class CommandDetailsPreviousInvoice implements ICommandDetail {
+public class CommandDetails implements ICommandDetail {
 	private String name = "previous invoice";
 	private String description = "returns the invoice of the user";
 	private String[] tags = {"invoice", "billing", "payment"};
