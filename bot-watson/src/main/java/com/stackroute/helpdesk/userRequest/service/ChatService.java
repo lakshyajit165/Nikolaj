@@ -94,6 +94,7 @@ public class ChatService implements ChatServiceInterface {
 
             //Calling no intent function
             if (responseIntents.size() == 0) {
+                System.out.println("inside calling no intent");
                 String entity = responseEntities.size() == 0 ? "" : responseEntities.get(0).getEntity();
                 noIntentFound(userMessage, entity);
                 ticketGenerate("open");
@@ -108,7 +109,7 @@ public class ChatService implements ChatServiceInterface {
 //                //updateTicket();
 //            }
 
-            if(this.responseFromCommand.equals(""))
+            if(!(this.responseFromCommand.equals("")))
                 responseFromBot = this.responseFromCommand;
 
             //System.out.println(response);
@@ -135,7 +136,7 @@ public class ChatService implements ChatServiceInterface {
         List<String> intents = new LinkedList<>();
         for (int i = 0; i < responseIntents.size(); i++)
             intents.add(responseIntents.get(i).getIntent());
-        if ((responseIntents.size() != 0) && (!(responseIntents.get(0).getIntent().equals("Greetings")))) {
+        if (((responseIntents.size() != 0) && (!(responseIntents.get(0).getIntent().equals("Greetings")))) || (responseIntents.size()==0)) {
             System.out.println("Inside ticket creation in chat service");
             TicketModel ticketModel = new TicketModel();
             ticketModel.setRaisedBy(userRequest.getEmailId());
