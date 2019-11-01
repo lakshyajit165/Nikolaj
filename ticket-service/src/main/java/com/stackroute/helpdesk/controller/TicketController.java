@@ -79,12 +79,14 @@ public class TicketController implements Serializable {
 
         // send message from ticket exchange to csr queue
 //        message.sendMessage(rabbitTemplate, "ticket_created", "csr.ticket.requested", ticketStructure, "csr-requested-queue-subscribe");
-        message.sendMessage(rabbitTemplate,
-                "ticket_created",
-                "ticket_exchange",
-                "csr.ticket.requested",
-                responseObject,
-                "csr-requested-queue-subscribe");
+        if(newTicketStructure.getStatus() == 0) {
+            message.sendMessage(rabbitTemplate,
+                    "ticket_created",
+                    "ticket_exchange",
+                    "csr.ticket.requested",
+                    responseObject,
+                    "csr-requested-queue-subscribe");
+        }
 
 
         // send message from ticket exchange to reports queue
