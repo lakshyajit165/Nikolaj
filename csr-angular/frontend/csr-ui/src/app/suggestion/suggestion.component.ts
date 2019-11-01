@@ -54,9 +54,12 @@ ngOnInit() {
     });
 
 }
+
+
 public changeIconThumbUp(newIcon: string ) {
   this.thumbUp = newIcon ;
   this.thumbDown = '';
+  console.log('inside thnumbs up');
   console.log(this.intents[0]);
   console.log( this.suggestedCommand.suggestion);
   this.feedBack.intentName = this.intents[0];
@@ -68,9 +71,12 @@ public changeIconThumbUp(newIcon: string ) {
     console.log(this.feedback);
   });
 }
+
+
 public changeIconThumbDown(newIcon: string) {
 this.thumbUp = '' ;
 this.thumbDown = newIcon;
+console.log('inside thnumbs down');
 console.log(this.intents[0]);
 console.log( this.suggestedCommand.suggestion);
 this.feedBack.intentName = this.intents[0];
@@ -82,6 +88,8 @@ this.suggestion.feedback(this.feedBack)
   console.log(this.feedback);
 });
 }
+
+
 public onSubmit(updatedReportDetails) {
   this.intents = ['defined'];
 updatedReportDetails.id=this.ticketId;
