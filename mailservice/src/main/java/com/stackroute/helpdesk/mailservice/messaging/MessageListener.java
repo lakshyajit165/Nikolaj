@@ -1,6 +1,7 @@
 package com.stackroute.helpdesk.mailservice.messaging;
 
 import com.stackroute.helpdesk.mailservice.Sender;
+import com.stackroute.helpdesk.mailservice.pdfConverter.PdfConverter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.ObjectInputStream;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -29,22 +31,25 @@ public class MessageListener {
     @Autowired
     private Sender sender;
 
+    @Autowired
+    private PdfConverter pdfConverter;
+
     private static final Logger log = LoggerFactory.getLogger(MessageListener.class);
+    private File file;
 
     @RabbitListener(queues = "${app2.queue.name}")
     public void receiveMessageForApp1(MessagingResponse recievedObjectInString) throws Exception {
         System.out.println(recievedObjectInString.getEventData());
-//        System.out.println(((LinkedHashMap) (recievedObjectInString.getEventData())).get("body"));
-        String filePath = (String)((LinkedHashMap)recievedObjectInString.getEventData()).get("body");
-        System.out.println(filePath);
-//        if (((String) messagingResponse.getEventName()).equalsIgnoreCase("command_response_pdf")) {
+        if(recievedObjectInString.getEventName() == "command_response_pdf") {
+            String result = (String) ((LinkedHashMap)recievedObjectInString.getEventData()).get("body");
+            System.out.println(result);
             try {
-                sender.sendResponseViaEmail("ayush.modi10@gmail.com", "Trial 101111 - rabbit mq mail sending", "<html>\n" +
+                file = convertToPdf(result);
+                sender.sendResponseViaEmail("ayush.modi10@gmail.com", "Invoice", "<html>\n" +
                         "<body>\n" +
-                        "<h1>Trial 101</h1>\n" +
-                        "<h2>Rabbit mq with mail service</h2>\n" +
+                        "<h1>Please find the attached pdf for your requested invoices.</h1>\n" +
                         "</body>\n" +
-                        "</html>", filePath);
+                        "</html>", file);
             } catch (HttpClientErrorException ex) {
                 if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
                     log.info("Delay...");
@@ -55,3 +60,8 @@ public class MessageListener {
             }
         }
     }
+    public File convertToPdf(String resultObject) throws Exception {
+        file = pdfConverter.convertToPdf(resultObject);
+        return file;
+    }
+}

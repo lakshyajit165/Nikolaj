@@ -32,5 +32,8 @@ public interface ReportInterface {
 
     public JSONObject getTicketsReopen(Date startdate, Date endDate);
 
+    public void saveDummyReports(List<Report> report);
+
+
 
 }

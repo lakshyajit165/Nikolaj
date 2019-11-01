@@ -227,4 +227,11 @@ public class ReportService implements ReportInterface {
     }
 
 
+    public void saveDummyReports(List<Report> report)
+    {
+        System.out.println("report list = " + report);
+        reportDao.saveAll(report);
+    }
+
+
 }

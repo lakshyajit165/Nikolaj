@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.HashMap;
 
 /**
@@ -33,7 +34,7 @@ public class MessageSender {
                 new ResponseEntity<>(data, HttpStatus.OK),
                 exchange,
                 routingKey,
-                "app-1-queue"
+                "notification.mail.sent-queue-subscribe"
         );
 
         System.out.println("messaging response = " + messagingResponse);
