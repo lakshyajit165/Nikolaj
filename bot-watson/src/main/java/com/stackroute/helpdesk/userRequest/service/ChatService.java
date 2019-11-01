@@ -227,6 +227,7 @@ public class ChatService implements ChatServiceInterface {
                     HttpEntity<String> request = new HttpEntity<>("");
                     ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity(url, request, LinkedHashMap.class);
                     List<String> listCommand = (List<String>) map.getBody().get("result");
+
                     for (String commandResponse : listCommand)
                         this.responseFromCommand += commandResponse;
                 } else {
