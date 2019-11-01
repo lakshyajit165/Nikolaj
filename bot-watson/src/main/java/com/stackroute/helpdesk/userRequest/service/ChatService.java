@@ -211,12 +211,13 @@ public class ChatService implements ChatServiceInterface {
                 }
                 else{
                 String suggestions = (String) suggestionsList.get(0).get("Command name");
+                if(!suggestions.equals("")){
                 SuggestionsModel new_suggestion_model = new SuggestionsModel();
                 new_suggestion_model.setId(ticketId);
                 new_suggestion_model.setSuggestion(suggestions);
                 suggestionsRepo.save(new_suggestion_model);
                 System.out.println(suggestions);
-                System.out.println(new_suggestion_model);
+                System.out.println(new_suggestion_model);}
             }}
 
         } catch (Exception e) {
@@ -242,8 +243,15 @@ public class ChatService implements ChatServiceInterface {
 
     @Override
     public SuggestionsModel getSuggestions(String id) {
+        SuggestionsModel newSuggestion=new SuggestionsModel();
+        try{
         Optional<SuggestionsModel> suggestions = suggestionsRepo.findById(id);
-        SuggestionsModel newSuggestion = suggestions.get();
+
+            System.out.println(suggestions);
+             newSuggestion = suggestions.get();
+
+        }
+        catch(Exception e){}
         return newSuggestion;
     }
 
