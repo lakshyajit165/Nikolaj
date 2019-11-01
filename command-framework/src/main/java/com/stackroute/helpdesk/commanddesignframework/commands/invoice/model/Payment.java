@@ -50,7 +50,7 @@ public class Payment {
     private String paymentId;
 
     
-    private String deductedAt;
+    private Object deductedAt;
 
     
     private PaymentStatus status;
