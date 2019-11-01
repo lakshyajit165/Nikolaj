@@ -1,4 +1,4 @@
-package com.stackroute.helpdesk.mailservice;
+package com.stackroute.helpdesk.mailservice.mailing;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,8 +37,8 @@ public class Sender {
 	private static Authenticator authenticator;
 	private static Session session;
 
-	public String sendResponseViaEmail(String mailTo, String emailSubject, String emailBody, File filepath) throws Exception {
-		MimeMessage message = setBody(emailBody, emailSubject, mailTo, filepath);
+	public String sendResponseViaEmail(String mailTo, String emailSubject, String emailBody, File filepath, String attachment) throws Exception {
+		MimeMessage message = setBody(emailBody, emailSubject, mailTo, filepath, attachment);
 		try {
 			// Send message
 			Transport.send(message);
@@ -52,7 +52,7 @@ public class Sender {
 		}
 	}
 
-	public MimeMessage setBody(String emailBody, String emailSubject, String mailTo, Object filepath) throws Exception {
+	public MimeMessage setBody(String emailBody, String emailSubject, String mailTo, File filepath, String attachment) throws Exception {
 //      creating properties for the mail service
 		if (properties == null)
 			properties = setProperties();
@@ -75,13 +75,14 @@ public class Sender {
 		message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailTo));
 		// Set Subject: header field
 		message.setSubject(emailSubject);
-
+		if(attachment == "yes") {
 //		File responsePdf = new File(filepath);
-		File responsePdf = (File)filepath;
+			File responsePdf = (File) filepath;
 //		File responsePdf = pdfConverter.convertToPdf(emailBody);
-		attachmentBodyPart.attachFile(responsePdf);
+			attachmentBodyPart.attachFile(responsePdf);
 //      attaching the pdf file created to the email to be sent
-		multipart.addBodyPart(attachmentBodyPart);
+			multipart.addBodyPart(attachmentBodyPart);
+		}
 //      Now set the actual message
 		message.setContent(multipart);
 //      returning the email body created
