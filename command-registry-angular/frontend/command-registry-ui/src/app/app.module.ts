@@ -32,6 +32,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { NocommandmappedComponent } from './nocommandmapped/nocommandmapped.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { HomeComponent } from './home/home.component';
     PagenotfoundComponent,
     CommandDetailsDialogComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    NocommandmappedComponent
 
   ],
   entryComponents: [CommandDetailsDialogComponent],
