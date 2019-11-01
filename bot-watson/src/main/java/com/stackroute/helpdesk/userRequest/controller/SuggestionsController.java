@@ -32,8 +32,8 @@ public class SuggestionsController {
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
 
-    @PostMapping("/rating")
-    public ResponseEntity<HashMap<String,?>> getRating(@RequestBody Integer rating){
+    @GetMapping("/rating")
+    public ResponseEntity<HashMap<String,?>> getRating(@RequestParam Integer rating){
 //        SuggestionsModel suggestionsModel=new SuggestionsModel("1","abc");
         responseObject = new HashMap<>();
 //        responseObject.put("result", suggestionsModel);
