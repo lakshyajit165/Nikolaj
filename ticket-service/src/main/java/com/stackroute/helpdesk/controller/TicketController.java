@@ -200,6 +200,7 @@ public class TicketController implements Serializable {
         if(responseType != null) {
             System.out.println("inside resolved by not equals null");
             // set updatedOn time when ticket is resolved
+            newTicketStructure.setAssignedTo(resolvedBy);
             newTicketStructure.setUpdatedOn(new Date());
             message.sendMessage(rabbitTemplate,
                     "ticket_closed",
