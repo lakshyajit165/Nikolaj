@@ -42,23 +42,29 @@ export class PerformanceComponent implements OnInit {
     }
   };
 
-  public barChartLabels: Label[];
-  public barChartType: ChartType;
+  public barChartLabels: Label[] = this.dates;
+  public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [pluginDataLabels];
-  public barChartData: ChartDataSets[];
+  public barChartData: ChartDataSets[] = [
+        {data: this.queryTakenCount , label: 'Queries Taken'},
+        {data : this.queryResolvedCount, label : 'Queries Resolved'}
+      ];
 
 
   constructor(
     private performanceService: PerformanceService,
     private cookie: CookieService
-  ) {
-    this.barChartLabels = this.dates;
-    this.barChartType = 'bar';
-    this.barChartData = [
-        {data: this.queryTakenCount , label: 'Queries Taken'},
-        {data : this.queryResolvedCount, label : 'Queries Resolved'}
-      ];
+  ) { 
+    console.log(this.dates);
+    console.log(this.queryResolvedCount);
+    console.log(this.queryTakenCount);
+    // this.barChartLabels = this.dates;
+    // this.barChartType = 'bar';
+    // this.barChartData = [
+    //     {data: this.queryTakenCount , label: 'Queries Taken'},
+    //     {data : this.queryResolvedCount, label : 'Queries Resolved'}
+    //   ];
   }
 
   ngOnInit() {
