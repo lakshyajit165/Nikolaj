@@ -75,8 +75,8 @@ public class InvoiceService {
                 "\t</div>\n" +
                 "</body>\n" +
                 "</html>";
-        File filePath = convertToPdf(resultString);
-        sendToQueue(filePath);
+//        File filePath = convertToPdf(resultString);
+        sendToQueue(resultString);
 //     return "The ride was booked on "+(String)invoice.get("bookedAt") +
 //             " with a "+(String)((LinkedHashMap)invoice.get("vehicle")).get("name") +
 //             " for "+(String)invoice.get("distance") +
@@ -92,10 +92,10 @@ public class InvoiceService {
         file = pdfConverter.convertToPdf(resultObject);
                 return file;
     }
-    public void sendToQueue(File filePath){
+    public void sendToQueue(String data){
         messageSender.sendMessage(rabbitTemplate,
                 exchangeName,
                 routingKey,
-                filePath);
+                data);
     }
 }

@@ -27,7 +27,7 @@ public class MessageSender {
      * @param routingKey
      * @param data
      */
-    public void sendMessage(RabbitTemplate rabbitTemplate, String exchange, String routingKey, File data) {
+    public void sendMessage(RabbitTemplate rabbitTemplate, String exchange, String routingKey, String data) {
 
         MessagingResponse messagingResponse = new MessagingResponse(
                 "command_response_pdf",
