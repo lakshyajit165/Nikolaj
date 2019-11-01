@@ -58,7 +58,7 @@ export class ListComponent implements OnInit {
       //   this.emptyData = true;
       //   console.log("inside if");
       // }
-      if (this.count < 5) {
+      if (this.count < 10) {
         this.scrollStatus = false;
       }
       if (data.result.length > 0) {
