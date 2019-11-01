@@ -32,6 +32,17 @@ public class SuggestionsController {
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
 
+    @PostMapping("/rating")
+    public ResponseEntity<HashMap<String,?>> getRating(@RequestBody Integer rating){
+//        SuggestionsModel suggestionsModel=new SuggestionsModel("1","abc");
+        responseObject = new HashMap<>();
+//        responseObject.put("result", suggestionsModel);
+        responseObject.put("result", chatServiceInterface.updateConfidence(rating));
+        responseObject.put("message", "Successfully given suggestions");
+        responseObject.put("error", "No error");
+        return new ResponseEntity<>(responseObject, HttpStatus.OK);
+    }
+
     @GetMapping("/simulation")
     public ResponseEntity<HashMap<String,?>> getSimulationResponse(@RequestParam String query){
         responseObject = new HashMap<>();

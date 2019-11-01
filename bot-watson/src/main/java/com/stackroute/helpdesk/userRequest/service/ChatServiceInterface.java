@@ -15,5 +15,7 @@ public interface ChatServiceInterface {
     //void endConversation();
     void connectToCsr();
 
+    String updateConfidence(Integer rating);
+
 
 }

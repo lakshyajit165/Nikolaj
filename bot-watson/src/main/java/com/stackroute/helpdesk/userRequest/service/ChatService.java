@@ -12,6 +12,8 @@ import com.stackroute.helpdesk.nointentnocommand.service.ReportServiceRepo;
 import com.stackroute.helpdesk.ticketservice.model.Status;
 import com.stackroute.helpdesk.ticketservice.model.TicketModel;
 import com.stackroute.helpdesk.ticketservice.model.Type;
+import com.stackroute.helpdesk.updateconfidence.model.Feedback;
+import com.stackroute.helpdesk.updateconfidence.updateconfidenceservice.UpdateConfidenceService;
 import com.stackroute.helpdesk.userRequest.model.ChatMessage;
 import com.stackroute.helpdesk.userRequest.model.SuggestionsModel;
 import com.stackroute.helpdesk.userRequest.repo.SuggestionsRepo;
@@ -40,6 +42,8 @@ public class    ChatService implements ChatServiceInterface {
     private SuggestionsRepo suggestionsRepo;
     @Autowired
     private Neo4jServiceRepo neo4jService;
+    @Autowired
+    private UpdateConfidenceService updateConfidenceService;
     @Autowired
     private ReportServiceRepo reportService;
 
@@ -126,7 +130,9 @@ public class    ChatService implements ChatServiceInterface {
     }
 
     //Function to update confidence
-    public void updateConfidence() {
+    public String updateConfidence(Integer rating) {
+        Feedback feedback=new Feedback("suggestion","suggested",rating);
+        return updateConfidenceService.updateConfidence(feedback);
     }
 
     public void ticketGenerate(String status){
