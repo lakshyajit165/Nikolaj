@@ -34,7 +34,7 @@ public class MessageSender {
                 new ResponseEntity<>(data, HttpStatus.OK),
                 exchange,
                 routingKey,
-                "app-1-queue"
+                "notification.mail.sent-queue-subscribe"
         );
 
         System.out.println("messaging response = " + messagingResponse);
