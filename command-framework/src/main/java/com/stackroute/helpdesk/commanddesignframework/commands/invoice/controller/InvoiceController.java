@@ -32,15 +32,15 @@ public class InvoiceController {
 
     @GetMapping("/lastinvoice")
     public ResponseEntity<Object> getLastInvoice(@RequestParam("param0") String userId){
-        ResponseEntity<Object> invoices = restTemplate.getForEntity("http://umove-dev.stackroute.io:8094/api/v1/rides/payments/" + userId, Object.class);
-        List<Payment> campaignList = (List<Payment>) (((LinkedHashMap)invoices.getBody()).get("data"));
+//        ResponseEntity<Object> invoices = restTemplate.getForEntity("http://umove-dev.stackroute.io:8094/api/v1/rides/payments/" + userId, Object.class);
+//        List<Payment> campaignList = (List<Payment>) (((LinkedHashMap)invoices.getBody()).get("data"));
         ArrayList<String> resultList = new ArrayList<>();
-        campaignList.forEach(campaign -> {
-            System.out.println("campaign = " + campaign);
-            String result = "Got the invoice";
+//        campaignList.forEach(campaign -> {
+//            System.out.println("campaign = " + campaign);
+            String result = "invoice has been sent in the mail";
             resultList.add(result);
-        });
-        return new ResponseEntity<>(invoiceService.getPreviousInvoices(campaignList,1), HttpStatus.OK);
+//        });
+        return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
 
     @GetMapping("/previousinvoices")
@@ -52,7 +52,7 @@ public class InvoiceController {
         System.out.println("data = " + payment.getBody().get("data"));
         System.out.println("values = " + payment.getBody().values());
         System.out.println("dataclass = " + payment.getBody().get("data").getClass());
-        List<Payment> paymentList1 = mapper.convertValue(payment.getBody().get("data"), new TypeReference<List<Payment>>(){});
+        List<Payment> paymentList1 = mapper.convertValue(payment.getBody().values(), new TypeReference<List<Payment>>(){});
         return new ResponseEntity<>(invoiceService.getPreviousInvoices(paymentList1,10), HttpStatus.OK);
     }
 
