@@ -10,10 +10,7 @@
   align-content: center;
 }
 
-::ng-deep .partitionSVG
-{
-font: 30px;
-} 
+
 /* .querydiv
 {
 align: right;
