@@ -49,6 +49,9 @@ public class InvoiceController {
         HttpEntity<List<Payment>> request = new HttpEntity<>(paymentList);
         ResponseEntity<LinkedHashMap> payment = restTemplate.getForEntity("http://umove-dev.stackroute.io:8094/api/v1/rides/payments/" + userId, LinkedHashMap.class);
         ObjectMapper mapper = new ObjectMapper();
+        System.out.println("data = " + payment.getBody().get("data"));
+        System.out.println("values = " + payment.getBody().values());
+        System.out.println("dataclass = " + payment.getBody().get("data").getClass());
         List<Payment> paymentList1 = mapper.convertValue(payment.getBody().get("data"), new TypeReference<List<Payment>>(){});
         return new ResponseEntity<>(invoiceService.getPreviousInvoices(paymentList1,10), HttpStatus.OK);
     }
