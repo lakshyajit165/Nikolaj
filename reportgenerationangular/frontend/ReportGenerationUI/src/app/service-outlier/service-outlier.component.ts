@@ -58,19 +58,19 @@ export class ServiceOutlierComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('event 1', this.startDate, 'event 2', this.endDate);
+    // console.log('event 1', this.startDate, 'event 2', this.endDate);
 
-    this.reportService.getServiceReport('', '').subscribe(data => {
-      this.serviceReport = data.result;
-      console.log('service report ' + this.serviceReport);
-      this.serviceReport.map(element => {
-        this.entity.push(element.entity);
-        this.queriesRaised.push(element.queriesRaised);
-        this.queriesResolved.push(element.queriesResolved);
-        this.leadTime.push(element.leadTime);
+    // this.reportService.getServiceReport('', '').subscribe(data => {
+    //   this.serviceReport = data.result;
+    //   console.log('service report ' + this.serviceReport);
+    //   this.serviceReport.map(element => {
+    //     this.entity.push(element.entity);
+    //     this.queriesRaised.push(element.queriesRaised);
+    //     this.queriesResolved.push(element.queriesResolved);
+    //     this.leadTime.push(element.leadTime);
 
-      });
-    });
+    //   });
+    // });
 
   }
 
