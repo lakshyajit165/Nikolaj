@@ -5,6 +5,7 @@ import { retry, catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment.prod';
 import { NoIntent } from '../model/nointent';
+import { Feedback } from '../model/feedback';
 
 @Injectable({
  providedIn: 'root'
@@ -20,16 +21,11 @@ export class SuggestionService {
     catchError(this.handleError)
   );
   }
-  feedback(intent: string, command: string, rating: number): Observable<object> {
+  feedback(feedback : Feedback): Observable<object> {
   
    const uri = this.apiGateWay + 'botwatson/optimus/api/v1/confidence';
-   console.log(intent, command, rating);
-   return  this.http.patch<object>(uri,
-    {
-      "intentName": intent,
-      "commandName" : command,
-      "rating": rating,
-    }).pipe(
+   console.log(feedback);
+   return  this.http.patch<object>(uri, feedback).pipe(
       catchError(this.handleError)
     );
   }

@@ -8,6 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { DevResolver } from './auth/dev.resolver';
 import { HomeComponent } from './home/home.component';
+import { NocommandmappedComponent } from './nocommandmapped/nocommandmapped.component';
+
 
 
 
@@ -27,6 +29,7 @@ const routes: Routes = [
       { path: 'trackissue', component: TrackIssueComponent, resolve: { data: DevResolver } }
     ]
   },
+  { path: 'nomapped', component: NocommandmappedComponent  },
   { path: '**', component: PagenotfoundComponent }
 ];
 
