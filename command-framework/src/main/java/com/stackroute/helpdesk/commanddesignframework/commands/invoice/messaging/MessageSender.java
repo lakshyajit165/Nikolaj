@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.HashMap;
 
 /**
@@ -26,7 +27,7 @@ public class MessageSender {
      * @param routingKey
      * @param data
      */
-    public void sendMessage(RabbitTemplate rabbitTemplate, String exchange, String routingKey, String data) {
+    public void sendMessage(RabbitTemplate rabbitTemplate, String exchange, String routingKey, File data) {
 
         MessagingResponse messagingResponse = new MessagingResponse(
                 "command_response_pdf",

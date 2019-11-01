@@ -16,7 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1")
 public class ReportController {
 
@@ -148,6 +147,19 @@ public class ReportController {
     }
 
 
+    //to save the data in the database , just for initial requirement
+    @PostMapping(path = "/dummy")
+    public ResponseEntity<HashMap<String, Object>> addDummyReport(@RequestBody List<Report> object) {
+        List<Report> report = (List<Report>) object;
+        System.out.println("report = wa" + report);
+        reportInterface.saveDummyReports(report);
+        responseObject = new HashMap<>();
+        responseObject.put("result", report);
+        responseObject.put("message", "Success!");
+        responseObject.put("error", "false");
+        System.out.println(responseObject);
+        return new ResponseEntity<>(responseObject, HttpStatus.OK);
+    }
 
 
 }
