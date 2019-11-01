@@ -21,7 +21,7 @@ public class MessageListenerForNoCommand {
     @RabbitListener(queues = "${no-command-report-recieved.queue.name}")
     public void receiveMessageForNoCommandReport(MessagingResponse recievedObjectInJson) throws Exception {
         recievedObjectInJson.getEventData();
-        JSONObject jsonObject = (JSONObject)((LinkedHashMap)recievedObjectInJson.getEventData()).get("body");
+        JSONObject jsonObject = (JSONObject)((LinkedHashMap)recievedObjectInJson.getEventData()).get("result");
         reportService.printJsonObject1(jsonObject);
 //        System.out.println();
         try {

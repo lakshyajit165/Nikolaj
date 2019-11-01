@@ -26,7 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 @Service
-public class ChatService implements ChatServiceInterface {
+public class    ChatService implements ChatServiceInterface {
 
     private Assistant assistant;
     private String workSpaceId;
@@ -223,12 +223,16 @@ public class ChatService implements ChatServiceInterface {
                     ticketGenerate("closed");
                     //execute()
                     String suggestions = (String) suggestionsList.get(0).get("Command name");
-                    String url = "https://nikolaj-dev.stackroute.io/api/v1/commandregistry/execute/"+suggestions;
+                    System.out.println("suggestions variable "+suggestions);
+                    String url = "https://nikolaj-dev.stackroute.io/commandregistry /api/v1/commandregistry/execute/"+suggestions;
                     RestTemplate restTemplate = new RestTemplate();
-                    HttpEntity<String> request = new HttpEntity<>("");
-                    ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity(url, request, LinkedHashMap.class);
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("csrUserId", "lk@gmail.com");
+                    HttpEntity<JSONObject> request = new HttpEntity<>(jsonObject);
+                    ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity(url, request , LinkedHashMap.class);
+                    System.out.println("Map variable "+map);
                     List<String> listCommand = (List<String>) map.getBody().get("result");
-
+                    System.out.println(" List command variable "+listCommand);
                     for (String commandResponse : listCommand)
                         this.responseFromCommand += commandResponse;
                 } else {
