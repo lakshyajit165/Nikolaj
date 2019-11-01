@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class OfferController {
     @Autowired
@@ -17,13 +19,17 @@ public class OfferController {
     @Autowired
     private OfferService offerService;
     @GetMapping("/alloffers")
-    public ResponseEntity<Object> getAllOffers(@RequestParam("param0") String userId){
-        ResponseEntity<Campaign> jsonObject = restTemplate.getForEntity("http://umove-dev.stackroute.io:8095/api/v1/campaigns", Campaign.class);
+    public ResponseEntity<Object> getAllOffers(){
+        ResponseEntity<Object> jsonObject = restTemplate.getForEntity("http://umove-dev.stackroute.io:8095/api/v1/campaigns", Object.class);
+        List<Campaign> campaignList = new ArrayList<>();
+        campaignList = (List<Campaign>) jsonObject.getBody();
         System.out.println(jsonObject.getBody());
-        String result = "Get " + jsonObject.getBody().getDiscountPercent() + "% on " + jsonObject.getBody().getName() +
-                " from " + jsonObject.getBody().getStartDate() + " to " + jsonObject.getBody().getEndDate();
         ArrayList<String> resultList = new ArrayList<>();
-        resultList.add(result);
+        campaignList.forEach(campaign -> {
+            String result = "Get " + campaign.getDiscountPercent() + "% on " + campaign.getName() +
+                    " from " + campaign.getStartDate() + " to " + campaign.getEndDate();
+            resultList.add(result);
+        });
         return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
 }

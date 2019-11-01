@@ -15,18 +15,14 @@ import java.util.List;
 @Component("offersDetails")
 public class CommandDetails implements ICommandDetail {
 	private String name = "offers";
-	private String description = "returns the offers available to the user";
+	private String description = "returns the list of all offers available to the user";
 	private String[] tags = {"offers", "coupons"};
-	private String usage;
-	private String status;
+	private String usage = "/offers";
+	private String status = "published";
 	private List<Parameter> parameterList = new ArrayList<>();
 
 	public void declareParameters(){
-		Parameter parameter1 = new Parameter("userId", "unique userid of the user", "true");
-		Parameter parameter2 = new Parameter("numberOfCoupons", "number of the offers to get the details of", "true");
 		List<Parameter> parameterList = new ArrayList<>();
-		parameterList.add(parameter1);
-		parameterList.add(parameter2);
 		this.parameterList=parameterList;
 	}
 }
