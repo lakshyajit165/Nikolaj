@@ -3,7 +3,9 @@ package com.helpdesk.ReportGeneration.Messaging;
 import com.helpdesk.ReportGeneration.Messaging.Entity.MessagingResponse;
 import com.helpdesk.ReportGeneration.Messaging.Entity.Task;
 import com.helpdesk.ReportGeneration.entity.Report;
+import com.helpdesk.ReportGeneration.model.User;
 import com.helpdesk.ReportGeneration.service.ReportInterface;
+import com.helpdesk.ReportGeneration.sockets.controller.SendMessages;
 import com.mongodb.util.JSONParseException;
 import org.springframework.amqp.AmqpRejectAndDontRequeueException;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -27,6 +29,9 @@ public class TicketListener {
 
     @Autowired
     Environment environment;
+
+    @Autowired
+    private SendMessages sendMessages;
 
     HashMap<String, Task> map = new HashMap<>();
 
@@ -209,6 +214,6 @@ public class TicketListener {
 
         System.out.println("what the map is showing  " + map.get(eventName));
         map.get(eventName).performSaveOperation();
-
+        sendMessages.sendResponse(new User(), "");
     }
 }
