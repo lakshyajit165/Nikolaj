@@ -11,7 +11,7 @@ public class Router {
         return "forward:command-registry-angular";
     }
 
-    @GetMapping("/csrservice")
+    @GetMapping("/")
     public String redirectToCsrUi(){
         return "forward:csr-angular";
     }

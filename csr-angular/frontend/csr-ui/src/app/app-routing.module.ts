@@ -14,11 +14,11 @@ const routes: Routes = [
   // {
   //    path: '', redirectTo: '/login', pathMatch: 'full'
   // },
+  // {
+  //   path: '', redirectTo: '/csrservice', pathMatch: 'full'
+  // },
   {
-    path: '', redirectTo: '/csrservice', pathMatch: 'full'
-  },
-  {
-    path: 'csrservice', component: LoginComponent, canActivate: [AuthGuard]
+    path: '', component: LoginComponent, canActivate: [AuthGuard]
   },
   {
     path: 'home', component: HomeComponent, children: [
