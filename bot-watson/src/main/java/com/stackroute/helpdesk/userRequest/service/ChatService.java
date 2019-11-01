@@ -112,6 +112,7 @@ public class    ChatService implements ChatServiceInterface {
             if(!(this.responseFromCommand.equals("")))
                 responseFromBot = this.responseFromCommand;
 
+            this.responseFromCommand="";    
             //System.out.println(response);
 //            Map<String, Object> map = new TreeMap<>();
 //            map.put("status", HttpStatus.OK);
