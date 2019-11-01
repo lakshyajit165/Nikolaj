@@ -204,7 +204,7 @@ public class ChatService implements ChatServiceInterface {
             }
             //creating suggestions
             else {
-                if ((Integer) suggestionsList.get(0).get("Confidence") > 90) {
+                if ((Long) suggestionsList.get(0).get("Confidence") > 90) {
                     //execute()
                 } else {
                     String suggestions = (String) suggestionsList.get(0).get("Command name");
