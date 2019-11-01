@@ -27,7 +27,7 @@
               errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
             }
 
-            this.router.navigate(['/reportservice/somethingwentwrong']);
+            this.router.navigate(['/somethingwentwrong']);
             //  window.alert(errorMessage);
             return throwError(errorMessage);
           })
