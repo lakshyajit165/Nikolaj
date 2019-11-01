@@ -226,8 +226,10 @@ public class    ChatService implements ChatServiceInterface {
                     System.out.println("suggestions variable "+suggestions);
                     String url = "https://nikolaj-dev.stackroute.io/commandregistry /api/v1/commandregistry/execute/"+suggestions;
                     RestTemplate restTemplate = new RestTemplate();
-                    HttpEntity<String> request = new HttpEntity<>("");
-                    ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity(url, request, LinkedHashMap.class);
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("csrUserId", "lk@gmail.com");
+                    HttpEntity<JSONObject> request = new HttpEntity<>(jsonObject);
+                    ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity(url, request , LinkedHashMap.class);
                     System.out.println("Map variable "+map);
                     List<String> listCommand = (List<String>) map.getBody().get("result");
                     System.out.println(" List command variable "+listCommand);
