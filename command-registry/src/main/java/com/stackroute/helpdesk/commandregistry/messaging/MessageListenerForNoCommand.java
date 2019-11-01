@@ -20,11 +20,10 @@ public class MessageListenerForNoCommand {
     private static final Logger log = LoggerFactory.getLogger(MessageListenerForNoCommand.class);
     @RabbitListener(queues = "${no-command-report-recieved.queue.name}")
     public void receiveMessageForNoCommandReport(MessagingResponse recievedObjectInJson) throws Exception {
-        System.out.println("event data = " + recievedObjectInJson.getEventData());
-        System.out.println("body = " + (LinkedHashMap)recievedObjectInJson.getEventData());
-//        System.out.println(recievedObjectInJson.getEventData());
-//        JSONObject jsonObject = (JSONObject)((LinkedHashMap)recievedObjectInJson.getEventData()).get("body");
-//        reportService.printJsonObject1(jsonObject);
+        recievedObjectInJson.getEventData();
+        JSONObject jsonObject = (JSONObject)((LinkedHashMap)recievedObjectInJson.getEventData()).get("body");
+        reportService.printJsonObject1(jsonObject);
+//        System.out.println();
         try {
             log.info("message added to the no command queue");
         } catch (HttpClientErrorException ex) {
@@ -32,6 +31,7 @@ public class MessageListenerForNoCommand {
                 log.info("Delay...");
             }
         } catch (Exception e) {
+            log.error("Internal server error occurred in API call. Bypassing message requeue {}", e);
             throw new AmqpRejectAndDontRequeueException(e);
         }
     }
