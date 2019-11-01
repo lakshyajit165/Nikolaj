@@ -37,7 +37,7 @@ public class Sender {
 	private static Authenticator authenticator;
 	private static Session session;
 
-	public String sendResponseViaEmail(String mailTo, String emailSubject, String emailBody, String filepath) throws Exception {
+	public String sendResponseViaEmail(String mailTo, String emailSubject, String emailBody, File filepath) throws Exception {
 		MimeMessage message = setBody(emailBody, emailSubject, mailTo, filepath);
 		try {
 			// Send message
@@ -52,7 +52,7 @@ public class Sender {
 		}
 	}
 
-	public MimeMessage setBody(String emailBody, String emailSubject, String mailTo, String filepath) throws Exception {
+	public MimeMessage setBody(String emailBody, String emailSubject, String mailTo, Object filepath) throws Exception {
 //      creating properties for the mail service
 		if (properties == null)
 			properties = setProperties();
@@ -76,7 +76,8 @@ public class Sender {
 		// Set Subject: header field
 		message.setSubject(emailSubject);
 
-		File responsePdf = new File(filepath);
+//		File responsePdf = new File(filepath);
+		File responsePdf = (File)filepath;
 //		File responsePdf = pdfConverter.convertToPdf(emailBody);
 		attachmentBodyPart.attachFile(responsePdf);
 //      attaching the pdf file created to the email to be sent

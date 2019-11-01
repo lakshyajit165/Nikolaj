@@ -6,6 +6,7 @@ import com.stackroute.helpdesk.commanddesignframework.pdfConverter.PdfConverter;
 import org.json.simple.JSONObject;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,10 @@ public class InvoiceService {
     private MessageSender messageSender;
     private File file;
 
+    @Value("${routing_key_for_mailing_commands}")
+    private String routingKey;
+    @Value("${exchange_for_mailing_commands}")
+    private String exchangeName;
 
     public InvoiceService(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
@@ -75,7 +80,7 @@ public class InvoiceService {
                 "\t</div>\n" +
                 "</body>\n" +
                 "</html>";
-        String filePath = convertToPdf(resultString);
+        File filePath = convertToPdf(resultString);
         sendToQueue(filePath);
 //     return "The ride was booked on "+(String)invoice.get("bookedAt") +
 //             " with a "+(String)((LinkedHashMap)invoice.get("vehicle")).get("name") +
@@ -88,14 +93,14 @@ public class InvoiceService {
      return "Your invoice has been sent in the email.";
     }
 
-    public String convertToPdf(String resultObject) throws Exception {
+    public File convertToPdf(String resultObject) throws Exception {
         file = pdfConverter.convertToPdf(resultObject);
-                return file.getAbsolutePath();
+                return file;
     }
-    public void sendToQueue(String filePath){
+    public void sendToQueue(File filePath){
         messageSender.sendMessage(rabbitTemplate,
-                "framework_exchange",
-                "notification.mail.sent",
+                exchangeName,
+                routingKey,
                 filePath);
     }
 }
