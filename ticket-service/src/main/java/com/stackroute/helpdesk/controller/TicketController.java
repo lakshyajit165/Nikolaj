@@ -226,8 +226,10 @@ public class TicketController implements Serializable {
                     "ticket_updated",
                     "ticket_exchange",
                     "notification.mail.sent",
-                    responseObject,
+                    newTicketStructure,
                     "notification-sent-queue-subscribe");
+
+
         }
 
         newTicketStructure.setResolvedBy(resolvedBy);
