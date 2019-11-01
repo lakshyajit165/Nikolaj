@@ -22,13 +22,14 @@ public class OfferController {
     public ResponseEntity<Object> getAllOffers(){
         ResponseEntity<Object> jsonObject = restTemplate.getForEntity("http://umove-dev.stackroute.io:8095/api/v1/campaigns", Object.class);
         System.out.println("get body = " + jsonObject.getBody());
-        System.out.println("get data = " + (((LinkedHashMap)jsonObject.getBody()).get("data")));
+        System.out.println("get class of data = " + (((LinkedHashMap)jsonObject.getBody()).get("data")).getClass());
         AtomicReference<List<Campaign>> campaignList = new AtomicReference<>();
-        ((LinkedHashMap) jsonObject.getBody()).forEach((object1,object2) -> {
-            System.out.println("object1 = " + object1);
-            System.out.println("object2 = " + (List<Campaign>)object2);
-            campaignList.set((List<Campaign>) object2);
-        });
+//        ((LinkedHashMap) jsonObject.getBody()).forEach((object1,object2) -> {
+//            System.out.println("object1 = " + object1);
+//            System.out.println("object2 = " + (List<Campaign>)object2);
+//            campaignList.set((List<Campaign>) object2);
+//        });
+        campaignList.set((List<Campaign>) (((LinkedHashMap)jsonObject.getBody()).get("data")));
         ArrayList<String> resultList = new ArrayList<>();
         campaignList.get().forEach(campaign -> {
             System.out.println("campaign = " + campaign);
