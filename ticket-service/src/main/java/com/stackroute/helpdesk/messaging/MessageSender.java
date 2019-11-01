@@ -29,6 +29,6 @@ public class MessageSender {
 
         rabbitTemplate.convertAndSend(exchange, routingKey, messageStructure );
 
-         System.out.println("The message has been sent to the queue.");
+         System.out.println("The message has been sent to the queue. in the queue = " + bindingQueue + " routing key = " + routingKey);
     }
 }

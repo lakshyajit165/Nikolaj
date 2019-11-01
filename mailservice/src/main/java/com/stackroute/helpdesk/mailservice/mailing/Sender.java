@@ -52,6 +52,45 @@ public class Sender {
 		}
 	}
 
+	public String sendResponseViaEmailWithoutAttachment(String mailTo, String emailSubject, String emailBody, File filepath, String attachment) throws Exception {
+//		MimeMessage message = setBody(emailBody, emailSubject, mailTo, new File(""), attachment);
+		if (properties == null)
+			properties = setProperties();
+//		creating authenticator for the mail service
+		if(authenticator == null)
+			authenticator = setAuthentication();
+//      creates a new session with an authenticator
+		if(session == null)
+			session = Session.getDefaultInstance(properties, authenticator);
+		Multipart multipart = new MimeMultipart();
+		MimeBodyPart messageBodyPart = new MimeBodyPart();
+		MimeBodyPart attachmentBodyPart = new MimeBodyPart();
+		messageBodyPart.setText(emailBody, "utf-8", "html");
+		multipart.addBodyPart(messageBodyPart);
+		// Create a default MimeMessage object.
+		MimeMessage message = new MimeMessage(session);
+		// Set From: header field of the header.
+		message.setFrom(new InternetAddress(fromEmailAddress));
+		// Set To: header field of the header.
+		message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailTo));
+		// Set Subject: header field
+		message.setSubject(emailSubject);
+		System.out.println("sending mail without attachment");
+//      Now set the actual message
+		message.setContent(multipart);
+		try {
+			// Send message
+			Transport.send(message);
+			return "send successfully!!";
+		} catch (MessagingException mex) {
+			mex.printStackTrace();
+			throw new MessagingException();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception();
+		}
+	}
+
 	public MimeMessage setBody(String emailBody, String emailSubject, String mailTo, File filepath, String attachment) throws Exception {
 //      creating properties for the mail service
 		if (properties == null)
@@ -82,7 +121,9 @@ public class Sender {
 			attachmentBodyPart.attachFile(responsePdf);
 //      attaching the pdf file created to the email to be sent
 			multipart.addBodyPart(attachmentBodyPart);
+			System.out.println("sending mail with attachment");
 		}
+		System.out.println("sending mail without attachment");
 //      Now set the actual message
 		message.setContent(multipart);
 //      returning the email body created
