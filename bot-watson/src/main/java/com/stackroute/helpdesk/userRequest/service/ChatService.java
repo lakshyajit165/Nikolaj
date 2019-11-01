@@ -136,7 +136,7 @@ public class ChatService implements ChatServiceInterface {
         List<String> intents = new LinkedList<>();
         for (int i = 0; i < responseIntents.size(); i++)
             intents.add(responseIntents.get(i).getIntent());
-        if ((responseIntents.size() != 0) && (!(responseIntents.get(0).getIntent().equals("Greetings")))) {
+        if (((responseIntents.size() != 0) && (!(responseIntents.get(0).getIntent().equals("Greetings")))) || (responseIntents.size()==0)) {
             System.out.println("Inside ticket creation in chat service");
             TicketModel ticketModel = new TicketModel();
             ticketModel.setRaisedBy(userRequest.getEmailId());
