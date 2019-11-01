@@ -52,7 +52,7 @@ public class InvoiceController {
         System.out.println("data = " + payment.getBody().get("data"));
         System.out.println("values = " + payment.getBody().values());
         System.out.println("dataclass = " + payment.getBody().get("data").getClass());
-        List<Payment> paymentList1 = mapper.convertValue(payment.getBody().get("data"), new TypeReference<List<Payment>>(){});
+        List<Payment> paymentList1 = mapper.convertValue(payment.getBody().values(), new TypeReference<List<Payment>>(){});
         return new ResponseEntity<>(invoiceService.getPreviousInvoices(paymentList1,10), HttpStatus.OK);
     }
 
