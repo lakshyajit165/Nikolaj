@@ -29,7 +29,7 @@ import java.util.*;
 public class ChatService implements ChatServiceInterface {
 
     private Assistant assistant;
-    private  String workSpaceId;
+    private String workSpaceId;
     private String mongoId;
     private String ticketId;
 
@@ -49,13 +49,13 @@ public class ChatService implements ChatServiceInterface {
                 .build();
         Assistant assistant = new Assistant("2019-09-23", iamoptions);
         assistant.setEndPoint("https://gateway-lon.watsonplatform.net/assistant/api");
-        this.assistant=assistant;
+        this.assistant = assistant;
 
         ListWorkspacesOptions options = new ListWorkspacesOptions.Builder().build();
 
         WorkspaceCollection workspaces = assistant.listWorkspaces(options).execute().getResult();
-        List<Workspace> workspaceList= workspaces.getWorkspaces();
-        this.workSpaceId= workspaceList.get(0).getWorkspaceId();
+        List<Workspace> workspaceList = workspaces.getWorkspaces();
+        this.workSpaceId = workspaceList.get(0).getWorkspaceId();
     }
 
     //FUNCTION TO HANDLE QUERIES
@@ -76,10 +76,10 @@ public class ChatService implements ChatServiceInterface {
             List<RuntimeIntent> responseIntents = response.getIntents();
             List<RuntimeEntity> responseEntities = response.getEntities();
 
-            for (int i=0;i<responseIntents.size();i++)
+            for (int i = 0; i < responseIntents.size(); i++)
                 intents.add(responseIntents.get(i).getIntent());
 
-            for (int i=0;i<responseEntities.size();i++)
+            for (int i = 0; i < responseEntities.size(); i++)
                 entities.add(responseEntities.get(i).getEntity());
 
             responseFromBot = response.getOutput().getGeneric().get(0).getText();
@@ -87,12 +87,12 @@ public class ChatService implements ChatServiceInterface {
 
             //calling generate ticket function(should be called only once and should not be greeting message")
             //if (!((responseIntents.size()!=0)&&(responseIntents.get(0).getIntent().equals("greetings")))){
-            if ((responseIntents.size()!=0)&&(!(responseIntents.get(0).getIntent().equals("Greetings")))) {
+            if ((responseIntents.size() != 0) && (!(responseIntents.get(0).getIntent().equals("Greetings")))) {
                 System.out.println("Inside ticket creation in chat service");
                 TicketModel ticketModel = new TicketModel();
                 ticketModel.setRaisedBy(userRequest.getEmailId());
                 ticketModel.setAssignedTo("bot");
-                if (responseEntities.size()!=0)
+                if (responseEntities.size() != 0)
                     ticketModel.setEntity(responseEntities.get(0).getEntity());
                 ticketModel.setQuery(userMessage);
                 ticketModel.setType(Type.query);
@@ -102,21 +102,21 @@ public class ChatService implements ChatServiceInterface {
                 //final String uri = "http://localhost:8765/ticket-service/api/v1/tickets";
                 RestTemplate restTemplate = new RestTemplate();
                 HttpEntity<TicketModel> request = new HttpEntity<>(ticketModel);
-                ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity( uri, request, LinkedHashMap.class);
+                ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity(uri, request, LinkedHashMap.class);
                 System.out.println(map);
                 System.out.println("database inserted");
                 ObjectMapper mapper = new ObjectMapper();
-                TicketModel ticket = mapper.convertValue(map.getBody().get("result"),TicketModel.class);
+                TicketModel ticket = mapper.convertValue(map.getBody().get("result"), TicketModel.class);
                 ticketId = ticket.getUuid().toString();
-                System.out.println("ticket id inside post query "+ticketId);
+                System.out.println("ticket id inside post query " + ticketId);
             }
 
             //Calling no intent function
-            if (responseIntents.size() == 0){
-                String entity= responseEntities.size()==0?"":responseEntities.get(0).getEntity();
-                noIntentFound(userMessage, entity);}
-            else {
-                String entity= responseEntities.size()==0?"":responseEntities.get(0).getEntity();
+            if (responseIntents.size() == 0) {
+                String entity = responseEntities.size() == 0 ? "" : responseEntities.get(0).getEntity();
+                noIntentFound(userMessage, entity);
+            } else {
+                String entity = responseEntities.size() == 0 ? "" : responseEntities.get(0).getEntity();
                 findCommands(userMessage, responseIntents.get(0), entity);
             }
 
@@ -128,8 +128,8 @@ public class ChatService implements ChatServiceInterface {
 
 
             //Calling agent escalation function
-    //            if (responseFromBot.equals("Sure connecting you to a customer representative"))
-    //                connectToCsr();
+            //            if (responseFromBot.equals("Sure connecting you to a customer representative"))
+            //                connectToCsr();
 
 
             //System.out.println(response);
@@ -139,7 +139,7 @@ public class ChatService implements ChatServiceInterface {
             map.put("message", (response == null) ? "No Response" : "Got Response");
 
         } catch (Exception e) {
-            System.out.println("Caught exception "+e);
+            System.out.println("Caught exception " + e);
         }
         return responseFromBot;
     }
@@ -147,8 +147,6 @@ public class ChatService implements ChatServiceInterface {
     //Function to update confidence
     public void updateConfidence() {
     }
-
-
 
 
     //Function to update ticket status once its resolved by bot
@@ -198,27 +196,28 @@ public class ChatService implements ChatServiceInterface {
         try {
             String intentName = intent.getIntent();
             System.out.println("In suggestions");
-            List<JSONObject> suggestionsList = neo4jService.getCommandByName(intentName,"");
+            List<JSONObject> suggestionsList = neo4jService.getCommandByName(intentName, "");
             //no command report
             System.out.println(suggestionsList);
-            if (suggestionsList == null){
+            if (suggestionsList == null) {
                 noCommandFound(userMessage, intentName, entity);
             }
             //creating suggestions
-            else{
-                if((Integer)suggestionsList.get(0).get("Confidence")>90){
+            else {
+                if ((Long) suggestionsList.get(0).get("Confidence") > 90) {
                     //execute()
+                } else {
+                    String suggestions = (String) suggestionsList.get(0).get("Command name");
+                    if (!suggestions.equals("")) {
+                        SuggestionsModel new_suggestion_model = new SuggestionsModel();
+                        new_suggestion_model.setId(ticketId);
+                        new_suggestion_model.setSuggestion(suggestions);
+                        suggestionsRepo.save(new_suggestion_model);
+                        System.out.println(suggestions);
+                        System.out.println(new_suggestion_model);
+                    }
                 }
-                else{
-                String suggestions = (String) suggestionsList.get(0).get("Command name");
-                if(!suggestions.equals("")){
-                SuggestionsModel new_suggestion_model = new SuggestionsModel();
-                new_suggestion_model.setId(ticketId);
-                new_suggestion_model.setSuggestion(suggestions);
-                suggestionsRepo.save(new_suggestion_model);
-                System.out.println(suggestions);
-                System.out.println(new_suggestion_model);}
-            }}
+            }
 
         } catch (Exception e) {
             System.out.println("caught " + e);
@@ -240,18 +239,17 @@ public class ChatService implements ChatServiceInterface {
     }
 
 
-
     @Override
     public SuggestionsModel getSuggestions(String id) {
-        SuggestionsModel newSuggestion=new SuggestionsModel();
-        try{
+        SuggestionsModel newSuggestion = new SuggestionsModel();
+        // try{
         Optional<SuggestionsModel> suggestions = suggestionsRepo.findById(id);
 
-            System.out.println(suggestions);
-             newSuggestion = suggestions.get();
+        System.out.println(suggestions);
+        newSuggestion = suggestions.get();
 
-        }
-        catch(Exception e){}
+        //}
+//        catch(Exception e){}
         return newSuggestion;
     }
 

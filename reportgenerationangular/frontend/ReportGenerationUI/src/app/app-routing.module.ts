@@ -12,7 +12,7 @@ const routes: Routes = [
   { path:  'reports', redirectTo: '/reports' , pathMatch: 'full'},
   { path:  'serviceoutlier', component:  EntityOutlierComponent},
   {path: 'somethingwentwrong' , component: SomethingWentWrongComponent},
- { path: 'reports',
+ { path: 'trackreports',
  loadChildren: () => import('./list/list.module').then(m => m.ListModule) },
   { path: 'botreport',
  loadChildren: () => import('./botreliability/botreliability.module').then(m => m.BotreliabilityModule) },
