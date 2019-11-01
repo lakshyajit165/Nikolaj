@@ -2,6 +2,7 @@ package com.stackroute.helpdesk.commanddesignframework.commands.invoice.service;
 
 import com.stackroute.helpdesk.commanddesignframework.commands.invoice.messaging.MessageSender;
 import com.stackroute.helpdesk.commanddesignframework.commands.invoice.model.Bookings;
+import com.stackroute.helpdesk.commanddesignframework.commands.invoice.model.Payment;
 import com.stackroute.helpdesk.commanddesignframework.pdfConverter.PdfConverter;
 import org.json.simple.JSONObject;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -40,15 +41,12 @@ public class InvoiceService {
     }
 
 
-    public List<String> getPreviousInvoices(JSONObject jsonObject, int numberOfInvoices){
-    List<Invoice> invoiceList = (List<Invoice>)jsonObject.get("data");
-     System.out.println(invoiceList);
-     List<Invoice> previousInvoices = new ArrayList<>();
-    previousInvoices = invoiceList.stream().limit(numberOfInvoices).collect(Collectors.toList());
+    public List<String> getPreviousInvoices(List<Payment> paymentList, int numberOfInvoices){
+    paymentList = paymentList.stream().limit(numberOfInvoices).collect(Collectors.toList());
     List<String> bookingsList = new ArrayList<>();
-    Arrays.stream(previousInvoices.toArray()).forEach((invoice) -> {
+    Arrays.stream(paymentList.toArray()).forEach((invoice) -> {
         try {
-            bookingsList.add((String)getResultData((LinkedHashMap) invoice));
+            bookingsList.add((String)getResultData((Payment) invoice));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,7 +54,7 @@ public class InvoiceService {
     return bookingsList;
  }
 
- public String getResultData(LinkedHashMap invoice) throws Exception {
+ public String getResultData(Payment invoice) throws Exception {
         String resultString = "<html>\n" +
                 "<head>\n" +
                 "\t<meta charset=\"utf-8\">\n" +
@@ -67,21 +65,18 @@ public class InvoiceService {
                 "</head>\n" +
                 "<body>\n" +
                 "\t<div class=\"jumbotron\">\n" +
-                "\t\t<h1>OrderId :</h1>\n" +
+                "\t\t<h1>OrderId :</h1>\n" + invoice.getPaymentId() +
                 "\t\t<div class=\"text-center  w-25\">\n" +
-                "\t\t\t<p>Vehicle Assigned: </p>\n" +
-                "\t\t\t<p>Distance: </p>\n" +
-                "\t\t\t<p>Total charge: </p>\n" +
-                "\t\t\t<p>Payment Mode: </p>\n" +
-                "\t\t\t<p>Booked at: </p>\n" +
-                "\t\t\t<p>Ride started at: </p>\n" +
-                "\t\t\t<p>Ride ended at: </p>\n" +
+                "\t\t\t<p>Ride Id: </p>\n" + invoice.getRideId() +
+                "\t\t\t<p>Distance: </p>\n" + invoice.getDistance() +
+                "\t\t\t<p>Total charge: </p>\n" + invoice.getAmountPaid() +
+                "\t\t\t<p>Payment Mode: </p>\n" + invoice.getPaymentMethodId() +
                 "\t\t</div>\n" +
                 "\t</div>\n" +
                 "</body>\n" +
                 "</html>";
-        File filePath = convertToPdf(resultString);
-        sendToQueue(filePath);
+//        File filePath = convertToPdf(resultString);
+        sendToQueue(resultString);
 //     return "The ride was booked on "+(String)invoice.get("bookedAt") +
 //             " with a "+(String)((LinkedHashMap)invoice.get("vehicle")).get("name") +
 //             " for "+(String)invoice.get("distance") +
@@ -97,10 +92,10 @@ public class InvoiceService {
         file = pdfConverter.convertToPdf(resultObject);
                 return file;
     }
-    public void sendToQueue(File filePath){
+    public void sendToQueue(String data){
         messageSender.sendMessage(rabbitTemplate,
                 exchangeName,
                 routingKey,
-                filePath);
+                data);
     }
 }

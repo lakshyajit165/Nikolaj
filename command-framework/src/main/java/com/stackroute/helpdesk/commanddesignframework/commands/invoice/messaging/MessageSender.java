@@ -27,14 +27,14 @@ public class MessageSender {
      * @param routingKey
      * @param data
      */
-    public void sendMessage(RabbitTemplate rabbitTemplate, String exchange, String routingKey, File data) {
+    public void sendMessage(RabbitTemplate rabbitTemplate, String exchange, String routingKey, String data) {
 
         MessagingResponse messagingResponse = new MessagingResponse(
                 "command_response_pdf",
                 new ResponseEntity<>(data, HttpStatus.OK),
                 exchange,
                 routingKey,
-                "app-1-queue"
+                "notification.mail.sent-queue-subscribe"
         );
 
         System.out.println("messaging response = " + messagingResponse);

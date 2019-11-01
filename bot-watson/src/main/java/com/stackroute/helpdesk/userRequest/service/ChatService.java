@@ -32,6 +32,9 @@ public class ChatService implements ChatServiceInterface {
     private String workSpaceId;
     private String mongoId;
     private String ticketId;
+    private MessageResponse response;
+    private ChatMessage userRequest;
+    private String responseFromCommand = "";
 
     @Autowired
     private SuggestionsRepo suggestionsRepo;
@@ -61,6 +64,7 @@ public class ChatService implements ChatServiceInterface {
     //FUNCTION TO HANDLE QUERIES
     @Override
     public String postQuery(ChatMessage userRequest) {
+        this.userRequest = userRequest;
         String responseFromBot = null;
         List<String> intents = new LinkedList<>();
         List<String> entities = new LinkedList<>();
@@ -72,7 +76,7 @@ public class ChatService implements ChatServiceInterface {
                     .input(input)
                     .build();
             MessageResponse response = assistant.message(options).execute().getResult();
-
+            this.response = response;
             List<RuntimeIntent> responseIntents = response.getIntents();
             List<RuntimeEntity> responseEntities = response.getEntities();
 
@@ -87,34 +91,12 @@ public class ChatService implements ChatServiceInterface {
 
             //calling generate ticket function(should be called only once and should not be greeting message")
             //if (!((responseIntents.size()!=0)&&(responseIntents.get(0).getIntent().equals("greetings")))){
-            if ((responseIntents.size() != 0) && (!(responseIntents.get(0).getIntent().equals("Greetings")))) {
-                System.out.println("Inside ticket creation in chat service");
-                TicketModel ticketModel = new TicketModel();
-                ticketModel.setRaisedBy(userRequest.getEmailId());
-                ticketModel.setAssignedTo("bot");
-                if (responseEntities.size() != 0)
-                    ticketModel.setEntity(responseEntities.get(0).getEntity());
-                ticketModel.setQuery(userMessage);
-                ticketModel.setType(Type.query);
-                ticketModel.setStatus(Status.open);
-                ticketModel.setIntent(intents);
-                final String uri = "http://15.206.36.205:8765/ticket-service/api/v1/tickets";
-                //final String uri = "http://localhost:8765/ticket-service/api/v1/tickets";
-                RestTemplate restTemplate = new RestTemplate();
-                HttpEntity<TicketModel> request = new HttpEntity<>(ticketModel);
-                ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity(uri, request, LinkedHashMap.class);
-                System.out.println(map);
-                System.out.println("database inserted");
-                ObjectMapper mapper = new ObjectMapper();
-                TicketModel ticket = mapper.convertValue(map.getBody().get("result"), TicketModel.class);
-                ticketId = ticket.getUuid().toString();
-                System.out.println("ticket id inside post query " + ticketId);
-            }
 
             //Calling no intent function
             if (responseIntents.size() == 0) {
                 String entity = responseEntities.size() == 0 ? "" : responseEntities.get(0).getEntity();
                 noIntentFound(userMessage, entity);
+                ticketGenerate("open");
             } else {
                 String entity = responseEntities.size() == 0 ? "" : responseEntities.get(0).getEntity();
                 findCommands(userMessage, responseIntents.get(0), entity);
@@ -126,17 +108,14 @@ public class ChatService implements ChatServiceInterface {
 //                //updateTicket();
 //            }
 
-
-            //Calling agent escalation function
-            //            if (responseFromBot.equals("Sure connecting you to a customer representative"))
-            //                connectToCsr();
-
+            if(this.responseFromCommand.equals(""))
+                responseFromBot = this.responseFromCommand;
 
             //System.out.println(response);
-            Map<String, Object> map = new TreeMap<>();
-            map.put("status", HttpStatus.OK);
-            map.put("data", response);
-            map.put("message", (response == null) ? "No Response" : "Got Response");
+//            Map<String, Object> map = new TreeMap<>();
+//            map.put("status", HttpStatus.OK);
+//            map.put("data", response);
+//            map.put("message", (response == null) ? "No Response" : "Got Response");
 
         } catch (Exception e) {
             System.out.println("Caught exception " + e);
@@ -148,6 +127,40 @@ public class ChatService implements ChatServiceInterface {
     public void updateConfidence() {
     }
 
+    public void ticketGenerate(String status){
+
+        List<RuntimeIntent> responseIntents = response.getIntents();
+        List<RuntimeEntity> responseEntities = response.getEntities();
+        String userMessage = userRequest.getContent();
+        List<String> intents = new LinkedList<>();
+        for (int i = 0; i < responseIntents.size(); i++)
+            intents.add(responseIntents.get(i).getIntent());
+        if ((responseIntents.size() != 0) && (!(responseIntents.get(0).getIntent().equals("Greetings")))) {
+            System.out.println("Inside ticket creation in chat service");
+            TicketModel ticketModel = new TicketModel();
+            ticketModel.setRaisedBy(userRequest.getEmailId());
+            ticketModel.setAssignedTo("bot");
+            if (responseEntities.size() != 0)
+                ticketModel.setEntity(responseEntities.get(0).getEntity());
+            ticketModel.setQuery(userMessage);
+            ticketModel.setType(Type.query);
+            ticketModel.setStatus(Status.valueOf(status));
+            ticketModel.setIntent(intents);
+            final String uri = "https://nikolaj-dev.stackroute.io/ticket-service/api/v1/tickets";
+            //final String uri = "http://15.206.36.205:8765/ticket-service/api/v1/tickets";
+            //final String uri = "http://localhost:8765/ticket-service/api/v1/tickets";
+            RestTemplate restTemplate = new RestTemplate();
+            HttpEntity<TicketModel> request = new HttpEntity<>(ticketModel);
+            ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity(uri, request, LinkedHashMap.class);
+            System.out.println(map);
+            System.out.println("database inserted");
+            ObjectMapper mapper = new ObjectMapper();
+            TicketModel ticket = mapper.convertValue(map.getBody().get("result"), TicketModel.class);
+            ticketId = ticket.getUuid().toString();
+            System.out.println("ticket id inside post query " + ticketId);
+        }
+
+    }
 
     //Function to update ticket status once its resolved by bot
 //    @Override
@@ -200,13 +213,25 @@ public class ChatService implements ChatServiceInterface {
             //no command report
             System.out.println(suggestionsList);
             if (suggestionsList == null) {
+                ticketGenerate("open");
                 noCommandFound(userMessage, intentName, entity);
             }
             //creating suggestions
             else {
                 if ((Long) suggestionsList.get(0).get("Confidence") > 90) {
+                    ticketGenerate("closed");
                     //execute()
+                    String suggestions = (String) suggestionsList.get(0).get("Command name");
+                    String url = "https://nikolaj-dev.stackroute.io/api/v1/commandregistry/execute/"+suggestions;
+                    RestTemplate restTemplate = new RestTemplate();
+                    HttpEntity<String> request = new HttpEntity<>("");
+                    ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity(url, request, LinkedHashMap.class);
+                    List<String> listCommand = (List<String>) map.getBody().get("result");
+
+                    for (String commandResponse : listCommand)
+                        this.responseFromCommand += commandResponse;
                 } else {
+                    ticketGenerate("open");
                     String suggestions = (String) suggestionsList.get(0).get("Command name");
                     if (!suggestions.equals("")) {
                         SuggestionsModel new_suggestion_model = new SuggestionsModel();
