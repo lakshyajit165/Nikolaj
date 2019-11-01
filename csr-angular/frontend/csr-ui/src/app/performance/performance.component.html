@@ -1,7 +1,7 @@
 <!-- <p>performance works!</p> -->
 <div class="performance">
     <h1 class="mat-h1">Performance Details</h1>
-      <div style="display: block">
+      <div style="display: block" *ngIf="barChartData">
         <canvas baseChart
           [datasets]="barChartData"
           [labels]="barChartLabels"
