@@ -71,7 +71,7 @@ export class PerformanceComponent implements OnInit {
   public getDetailsTaken(): void {
     this.performanceService.getDetailsTaken(this.csrmail).subscribe(res => {
       this.response1 = res;
-      this.responseTaken = this.response1[this.result][this.results];
+      this.responseTaken = this.response1[this.result];
       console.log(this.responseTaken);
 
       this.responseTaken.forEach(ele => {
@@ -85,7 +85,7 @@ export class PerformanceComponent implements OnInit {
       // });
       this.performanceService.getDetailsResolved(this.csrmail).subscribe(response => {
         this.response2 = response;
-        this.responseResolved = this.response2[this.result][this.results];
+        this.responseResolved = this.response2[this.result];
 
         this.responseResolved.forEach(ele => {
         this.queryResolvedCount.push(ele[this.total]);
