@@ -23,6 +23,7 @@ public class MessageListenerForNoIntent {
     private static final Logger log = LoggerFactory.getLogger(MessageListenerForNoCommand.class);
     @RabbitListener(queues = "${no-intent-report-recieved.queue.name}")
     public void receiveMessageForNoIntentReport(MessagingResponse recievedObjectInJson) throws Exception {
+        if(recievedObjectInJson.getEventData() == "")
         System.out.println("event data = " + recievedObjectInJson.getEventData());
         System.out.println("body = " + (LinkedHashMap)recievedObjectInJson.getEventData());
         if((String)(((LinkedHashMap) recievedObjectInJson.getEventData()).get("NoIntent")) == "Well done by developers.Currently all quries have commands"){

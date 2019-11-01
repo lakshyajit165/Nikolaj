@@ -13,11 +13,11 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Component("invoiceDetails")
-public class CommandDetails implements ICommandDetail {
-	private String name = "last invoice";
+public class CommandDetailsPreviousInvoice implements ICommandDetail {
+	private String name = "previous invoice";
 	private String description = "returns the invoice of the user";
 	private String[] tags = {"invoice", "billing", "payment"};
-	private String usage = "/lastinvoice userId";
+	private String usage = "/previousinvoice userId";
 	private String status = "published";
 	private List<Parameter> parameterList = new ArrayList<>();
 
