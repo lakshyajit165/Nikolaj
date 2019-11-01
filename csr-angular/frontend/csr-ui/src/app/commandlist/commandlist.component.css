@@ -8,3 +8,8 @@ app-my-command{
     padding: 20px 10px 20px 10px;
     text-align: center;
 }
+
+.spinner {
+    text-align: center;
+    padding-top: 50px;
+}
