@@ -9,14 +9,15 @@ function load(selected) {
         
         if (selected === 'NoCommand-0') {
               //  url = 'http://localhost:3002/data2';
-                url='http://15.206.36.205:8765/commandregistry/api/v1/commandregistry/reports/type?type=NoCommand';
-            
+               url='https://nikolaj-dev.stacroute.io/commandregistry/api/v1/commandregistry/reports/type?type=NoCommand';
+              // url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoCommand';
                 
         }
         else {
             // url = 'http://localhost:3001/data3';
-            url='http://15.206.36.205:8765/commandregistry/api/v1/commandregistry/reports/type?type=NoIntent';
-                // url='http://15.206.36.205:8765/commandregistry/api/v1/commandregistry/reports/type?type=NoIntent';
+            // url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoIntent';
+             url='https://nikolaj-dev.stacroute.io/commandregistry/api/v1/commandregistry/reports/type?type=NoIntent';
+                
         }
 
         let format = d3.format(",d");
@@ -43,7 +44,7 @@ function load(selected) {
         }
 
         d3.json(url).then(data => {
-               console.log( 'hii',data.result);
+               console.log(data.result);
                 let root = partition(data.result);
                 let color = d3.scaleOrdinal().range(d3.quantize(d3.interpolateRainbow, data.result.children.length + 1));
 

@@ -1,0 +1,37 @@
+<div class="wrapper">
+  <div class="description">
+    <h1 class="mat-display-3" style="font-family: 'Questrial', sans-serif;">Welcome to Nikolaj</h1>
+    <p class="mat-display-1 subheading"style="font-family: 'Questrial', sans-serif;" >An enterprise solution to handle customer support. We help elevate profits, and provide meaningful insights.</p>
+    <p class="mat-headline" style="font-family: 'Questrial', sans-serif;">With Nikolaj, you can... </p>
+    <p class="mat-subheading-2" style="font-family: 'Questrial', sans-serif;"><i class="fas fa-check-square"></i><strong>Streamline</strong> all your customer conversations</p>
+    <p class="mat-subheading-2" style="font-family: 'Questrial', sans-serif;"><i class="fas fa-check-square"></i><strong>Automate</strong> repititive work and save time</p>
+  </div>
+  <mat-card class="example-card">
+    <mat-card-header>
+    
+    </mat-card-header>
+    <mat-card-content>
+      <form class="example-form">
+        <i class="fas fa-unlock-alt fa-3x"></i>
+        <h1>Login</h1>
+        <p>Howdy! Login here  to get started.</p>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="name@example.com" type="email" [(ngModel)]="email" name="email" required>
+          <mat-error>Please fill in the email</mat-error>
+          
+        </mat-form-field>
+      
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput placeholder="Password" type="password" [(ngModel)]="password" name="password" required>
+          <mat-error>Please provide a password</mat-error>
+        </mat-form-field>
+        <div class="btn">
+          <button mat-raised-button  color="primary" (click)="login()">Submit</button>
+        </div>
+      </form>
+    </mat-card-content>
+   
+  </mat-card>
+</div>

@@ -1,0 +1,98 @@
+.wrapper{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
+  padding: 30px 20px 30px 20px;   
+  text-align: center;
+  height: 100%;
+  background-attachment: fixed;
+  background: url('../../assets/background1.jpg');
+}
+
+.fa-check-square {
+  color: #25C900;
+  margin-right: 6px;
+
+}
+.description {
+  text-align: right;
+  padding-top: 60px;
+  padding-left: 20px;
+
+  margin-top: 40px;
+}
+
+
+.subheading{
+  margin-bottom: 30px;
+}
+
+.example-form {
+ 
+  width: 100%;
+}
+
+.example-full-width {
+width: 80%;
+margin-left: auto;
+margin-right: auto;
+}
+
+mat-card {
+  margin-top: 80px;
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 450px;
+}
+mat-card-content {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+button {
+  width: 80%;
+  margin-left: auto;
+  margin-right:auto;
+}
+
+.btn{
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+  
+  .login-wrapper .example-form {
+    min-width: 100%;
+    max-width: 250px;
+    width: 100%;
+  }
+  
+  .login-wrapper .example-full-width,
+  .login-wrapper .btn-block {
+    width: 100%;
+  }
+  
+  .login-wrapper mat-card-header {
+    text-align: center;
+    width: 100%;
+    display: block;
+    font-weight: 700;
+  }
+  
+  .login-wrapper mat-card-header mat-card-title {
+    font-size: 30px;
+    margin: 0;
+  }
+  
+  .login-wrapper .mat-card {
+    padding: 40px 70px 50px;
+  }
+  
+  .login-wrapper .mat-stroked-button {
+    border: 1px solid currentColor;
+    line-height: 54px;
+    background: #FFF7FA;
+  }
