@@ -223,12 +223,14 @@ public class    ChatService implements ChatServiceInterface {
                     ticketGenerate("closed");
                     //execute()
                     String suggestions = (String) suggestionsList.get(0).get("Command name");
+                    System.out.println("suggestions variable "+suggestions);
                     String url = "https://nikolaj-dev.stackroute.io/commandregistry /api/v1/commandregistry/execute/"+suggestions;
                     RestTemplate restTemplate = new RestTemplate();
                     HttpEntity<String> request = new HttpEntity<>("");
                     ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity(url, request, LinkedHashMap.class);
+                    System.out.println("Map variable "+map);
                     List<String> listCommand = (List<String>) map.getBody().get("result");
-
+                    System.out.println(" List command variable "+listCommand);
                     for (String commandResponse : listCommand)
                         this.responseFromCommand += commandResponse;
                 } else {
