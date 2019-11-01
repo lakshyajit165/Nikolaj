@@ -55,7 +55,13 @@ public class MessageListener {
         else if (recievedObjectInString.getEventName().contentEquals("ticket_updated")) {
             System.out.println("ticket recieved");
             TicketStructure ticket = (TicketStructure) ((LinkedHashMap)recievedObjectInString.getEventData()).get("body");
-            sender.sendResponseViaEmail(ticket.getRaisedBy(), "Update on your issue!", "<html>\n" +
+            System.out.println("ticket raised by = " + ticket.getRaisedBy());
+            System.out.println("ticket query by = " + ticket.getQuery());
+            System.out.println("ticket Id by = " + ticket.getId());
+            System.out.println("ticket status by = " + ticket.getStatus());
+            System.out.println("ticket resolved by by = " + ticket.getResolvedBy());
+
+            sender.sendResponseViaEmailWithoutAttachment(ticket.getRaisedBy(), "Update on your issue!", "<html>\n" +
                     "<body>\n" +
                     "<h1>Dear Customer </h1>" +
                     "<p> Your ticket with id " + ticket.getId() + "has been resolved!</p>" +
