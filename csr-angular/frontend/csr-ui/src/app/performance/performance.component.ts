@@ -26,6 +26,7 @@ export class PerformanceComponent implements OnInit {
   queryResolvedCount: object[] = [];
   dates: string[] = [];
   csrmail: string;
+  loaded = false;
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -108,6 +109,8 @@ export class PerformanceComponent implements OnInit {
         ];
 
         this.barChartLabels = this.dates;
+
+        this.loaded = true;
 
         // this.responseResolved.forEach(ele => {
         // this.queryResolvedCount.push(ele[this.total]);
