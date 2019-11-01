@@ -1,5 +1,6 @@
 package com.stackroute.helpdesk.commanddesignframework.commands.invoice.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.helpdesk.commanddesignframework.commands.invoice.model.Payment;
 import com.stackroute.helpdesk.commanddesignframework.commands.invoice.service.InvoiceService;
@@ -48,7 +49,10 @@ public class InvoiceController {
         HttpEntity<List<Payment>> request = new HttpEntity<>(paymentList);
         ResponseEntity<LinkedHashMap> payment = restTemplate.getForEntity("http://umove-dev.stackroute.io:8094/api/v1/rides/payments/" + userId, LinkedHashMap.class);
         ObjectMapper mapper = new ObjectMapper();
-        List<Payment> paymentList1 = mapper.convertValue(payment.getBody().get("data"), List.class);
+        System.out.println("data = " + payment.getBody().get("data"));
+        System.out.println("values = " + payment.getBody().values());
+        System.out.println("dataclass = " + payment.getBody().get("data").getClass());
+        List<Payment> paymentList1 = mapper.convertValue(payment.getBody().values(), new TypeReference<List<Payment>>(){});
         return new ResponseEntity<>(invoiceService.getPreviousInvoices(paymentList1,10), HttpStatus.OK);
     }
 
