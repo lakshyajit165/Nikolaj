@@ -58,10 +58,12 @@ public class TicketService implements TicketInterface {
         Map<String,Integer> queryTaken=new HashMap();
         Integer count;
         List<TicketStructure> trial1= ticketRepository.findByAssignedTo(csrMail);
+        System.out.println("------------" + trial1);
         for (TicketStructure ticket: trial1){
             String[] format;
            // format = ticket.getassignedTime().toString().split(" ");
             format = ticket.getAssignedTime().toString().split(" ");
+            System.out.println("++++++++++++"+ticket.getAssignedTime());
             String date=format[2].concat(format[1].concat(format[5]));
             if(unique.contains(date)){
                 count=queryTaken.get(date);

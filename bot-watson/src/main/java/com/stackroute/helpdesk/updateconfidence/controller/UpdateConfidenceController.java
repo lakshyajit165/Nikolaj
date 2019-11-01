@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
 @RequestMapping("/optimus/api/v1")
 public class UpdateConfidenceController {
 

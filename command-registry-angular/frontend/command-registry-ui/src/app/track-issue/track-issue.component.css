@@ -10,10 +10,7 @@
   align-content: center;
 }
 
-::ng-deep .partitionSVG
-{
-font: 30px;
-} 
+
 /* .querydiv
 {
 align: right;
@@ -37,7 +34,6 @@ font-size: 50px;
   
 }  */
   
-#partitionSVG
-{
-  font-size: 50px;
+#partitionSVG {
+  font-size: 15px !important;
 }

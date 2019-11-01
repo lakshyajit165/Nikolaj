@@ -47,22 +47,27 @@ ngOnInit() {
 public changeIconThumbUp(newIcon: string ) {
   this.thumbUp = newIcon ;
   this.thumbDown = '';
+  console.log(this.intents[0]);
+  console.log( this.suggestedCommand.suggestion);
   this.suggestion.feedback(this.intents[0], this.suggestedCommand.suggestion, 5)
     .subscribe(data => {
     this.feedback = data;
-   //  console.log(this.feedback);
+    console.log(this.feedback);
   });
 }
 public changeIconThumbDown(newIcon: string) {
 this.thumbUp = '' ;
 this.thumbDown = newIcon;
+console.log(this.intents[0]);
+console.log( this.suggestedCommand.suggestion);
 this.suggestion.feedback(this.intents[0], this.suggestedCommand.suggestion, 0)
   .subscribe(data => {
   this.feedback = data;
- //  console.log(this.feedback);
+  console.log(this.feedback);
 });
 }
 public onSubmit(updatedReportDetails){
+  this.intents = ['defined'];
 updatedReportDetails.id=this.ticketId;
 this.suggestion.nointent(updatedReportDetails)
 .subscribe(data =>{
