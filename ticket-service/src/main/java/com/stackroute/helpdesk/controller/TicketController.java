@@ -217,6 +217,15 @@ public class TicketController implements Serializable {
             System.out.println("inside resolved by null");
             // set updatedOn when csr assigns himself
             newTicketStructure.setUpdatedOn(new Date());
+
+            // send message from ticket exchange to notification
+
+            message.sendMessage(rabbitTemplate,
+                    "ticket_updated",
+                    "ticket_exchange",
+                    "notification.mail.sent",
+                    responseObject,
+                    "notification-sent-queue-subscribe");
         }
 
         newTicketStructure.setResolvedBy(resolvedBy);
@@ -254,14 +263,7 @@ public class TicketController implements Serializable {
 
 //        System.out.println("message sent outside");
 
-//      // send message from ticket exchange to notification
-
-         message.sendMessage(rabbitTemplate,
-                "ticket_updated",
-                "ticket_exchange",
-                "notification.mail.sent",
-                responseObject,
-                "notification-sent-queue-subscribe");
+//
 
 //        System.out.println("message sent outside");
 
