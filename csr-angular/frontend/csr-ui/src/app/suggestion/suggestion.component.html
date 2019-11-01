@@ -18,6 +18,7 @@
    </mat-icon>
  </div>
 </div>
+
 <div *ngIf="intents==undefined">
   <h3 class="mat-subheading-1">This query has no intent. Feel free to suggest the following details.</h3>
    <form [formGroup]="reportForm" (ngSubmit)="onSubmit(reportForm.value)" class="details">

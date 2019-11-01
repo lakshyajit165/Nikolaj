@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @RestController
@@ -21,15 +22,14 @@ public class OfferController {
     @GetMapping("/alloffers")
     public ResponseEntity<Object> getAllOffers(){
         ResponseEntity<Object> jsonObject = restTemplate.getForEntity("http://umove-dev.stackroute.io:8095/api/v1/campaigns", Object.class);
-        List<Campaign> campaignList = new ArrayList<>();
-        campaignList = (List<Campaign>) jsonObject.getBody();
         System.out.println(jsonObject.getBody());
+        List<Campaign> campaignList = (List<Campaign>) (((LinkedHashMap)jsonObject.getBody()).get("data"));
         ArrayList<String> resultList = new ArrayList<>();
-        campaignList.forEach(campaign -> {
+        ((List<Campaign>) jsonObject.getBody()).forEach(campaign -> {
             String result = "Get " + campaign.getDiscountPercent() + "% on " + campaign.getName() +
                     " from " + campaign.getStartDate() + " to " + campaign.getEndDate();
             resultList.add(result);
-        });
+    });
         return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
 }
