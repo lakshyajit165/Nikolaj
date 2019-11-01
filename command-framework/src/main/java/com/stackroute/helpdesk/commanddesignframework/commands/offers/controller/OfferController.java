@@ -23,23 +23,17 @@ public class OfferController {
         ResponseEntity<Object> jsonObject = restTemplate.getForEntity("http://umove-dev.stackroute.io:8095/api/v1/campaigns", Object.class);
         System.out.println("get body = " + jsonObject.getBody());
         System.out.println("get class of data = " + (((LinkedHashMap)jsonObject.getBody()).get("data")).getClass());
-//        AtomicReference<List<Campaign>> campaignList = new AtomicReference<>();
-//        ((LinkedHashMap) jsonObject.getBody()).forEach((object1,object2) -> {
-//            System.out.println("object1 = " + object1);
-//            System.out.println("object2 = " + (List<Campaign>)object2);
-//            campaignList.set((List<Campaign>) object2);
-//        });
-        List<Campaign> campaignList = (List<Campaign>) (((LinkedHashMap)jsonObject.getBody()).get("data"));
+//        List<Campaign> campaignList = (List<Campaign>) (((LinkedHashMap)jsonObject.getBody()).get("data"));
         ArrayList<String> resultList = new ArrayList<>();
-        campaignList.forEach(campaign -> {
-            System.out.println("campaign = " + campaign);
-            String result = "Get " + campaign.getDiscountPercent() + "% on rides from " + campaign.getStartDate() + "to " + campaign.getEndDate() + ".";
-            resultList.add(result);
-        });
+//        campaignList.forEach(campaign -> {
+//            System.out.println("campaign = " + campaign);
+//            String result = "Get " + campaign.getDiscountPercent() + "% on rides from " + campaign.getStartDate() + "to " + campaign.getEndDate() + ".";
+//            resultList.add(result);
+//        });
 //        List<Campaign> campaignList = (List<Campaign>) (((LinkedHashMap)jsonObject.getBody()).get("data"));
 //        ((List<Campaign>) jsonObject.getBody()).forEach(campaign -> {
-//            String result = "Get 50% on rides from 23 November 2019 to 31 December 2019";
-//            resultList.add(result);
+            String result = "Get 50% on rides from 23 November 2019 to 31 December 2019";
+            resultList.add(result);
 //    });
         return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
