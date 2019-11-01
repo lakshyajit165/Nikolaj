@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReportService } from '../services/report.service';
 import { IReport } from '../interfaces/IReport';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
 import {Message} from '../interfaces/Messageinterface';
 import { SocketStorage } from '../interfaces/Socketstorageinterface';
 import * as Stomp from 'stompjs';
