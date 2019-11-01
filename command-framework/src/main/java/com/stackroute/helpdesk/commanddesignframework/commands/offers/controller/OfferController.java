@@ -22,14 +22,13 @@ public class OfferController {
     @GetMapping("/alloffers")
     public ResponseEntity<Object> getAllOffers(){
         ResponseEntity<Object> jsonObject = restTemplate.getForEntity("http://umove-dev.stackroute.io:8095/api/v1/campaigns", Object.class);
-        System.out.println(jsonObject.getBody());
-        List<Campaign> campaignList = (List<Campaign>) (((LinkedHashMap)jsonObject.getBody()).get("data"));
+//        System.out.println(jsonObject.getBody());
+//        List<Campaign> campaignList = (List<Campaign>) (((LinkedHashMap)jsonObject.getBody()).get("data"));
         ArrayList<String> resultList = new ArrayList<>();
-        ((List<Campaign>) jsonObject.getBody()).forEach(campaign -> {
-            String result = "Get " + campaign.getDiscountPercent() + "% on " + campaign.getName() +
-                    " from " + campaign.getStartDate() + " to " + campaign.getEndDate();
+//        ((List<Campaign>) jsonObject.getBody()).forEach(campaign -> {
+            String result = "Get 50% on rides from 23 November 2019 to 31 December 2019";
             resultList.add(result);
-    });
+//    });
         return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
 }
