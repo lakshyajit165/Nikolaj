@@ -77,6 +77,9 @@ export class PerformanceComponent implements OnInit {
       this.dates = Object.keys(this.responseTaken);
       this.queryTakenCount = Object.values(this.responseTaken);
 
+      console.log(this.dates);
+      console.log(this.queryTakenCount);
+
       // this.responseTaken.forEach(ele => {
       //   // console.log('element is ', element);
       //   this.dates.push(moment(ele[this.timestamp]).format('DD-MM-YYYY'));
@@ -93,6 +96,8 @@ export class PerformanceComponent implements OnInit {
         this.responseResolved = this.response2[this.result];
 
         this.queryResolvedCount = Object.values(this.responseResolved);
+
+        console.log(this.queryResolvedCount);
 
         // this.responseResolved.forEach(ele => {
         // this.queryResolvedCount.push(ele[this.total]);
