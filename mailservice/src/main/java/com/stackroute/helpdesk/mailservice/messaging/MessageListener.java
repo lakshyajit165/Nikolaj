@@ -53,8 +53,8 @@ public class MessageListener {
             }
         }
         else if (recievedObjectInString.getEventName().contentEquals("ticket_updated")) {
-            System.out.println("ticket recieved");
-            TicketStructure ticket = (TicketStructure) ((LinkedHashMap)recievedObjectInString.getEventData()).get("body");
+            System.out.println("ticket recieved = " + recievedObjectInString.getEventData());
+            TicketStructure ticket = (TicketStructure) recievedObjectInString.getEventData();
             System.out.println("ticket raised by = " + ticket.getRaisedBy());
             System.out.println("ticket query by = " + ticket.getQuery());
             System.out.println("ticket Id by = " + ticket.getId());

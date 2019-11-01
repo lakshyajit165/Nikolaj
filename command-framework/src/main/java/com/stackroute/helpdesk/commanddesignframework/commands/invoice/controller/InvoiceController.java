@@ -28,6 +28,10 @@ public class InvoiceController {
     public ResponseEntity<Object> getLastInvoice(@RequestParam("param0") String userId){
         ResponseEntity payment = restTemplate.getForEntity("http://umove-dev.stackroute.io:8094/api/v1/rides/payments/" + userId, Object.class);
         List<Payment> paymentList = new ArrayList<>();
+        Payment payment1 = new Payment();
+        payment1.setAmountPaid(100D);
+        payment1.setRideId("alwdaw2333jaj");
+        paymentList.add(payment1);
         return new ResponseEntity<>(invoiceService.getPreviousInvoices(paymentList,1), HttpStatus.OK);
     }
 
