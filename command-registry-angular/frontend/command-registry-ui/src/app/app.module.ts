@@ -21,6 +21,17 @@ import { CommandService } from './services/command.service';
 import { TrackIssueComponent } from './track-issue/track-issue.component';
 import { CommandModule } from 'my-command-library';
 import * as d3 from 'd3';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth.guard';
+import { DevService } from './auth/dev.service';
+import { DevResolver } from './auth/dev.resolver';
+import { environment } from 'src/environments/environment';
+import { CookieService } from 'ngx-cookie-service';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +43,10 @@ import * as d3 from 'd3';
     IntentFilterPipe,
     CommandFilterPipe,
     PagenotfoundComponent,
-    CommandDetailsDialogComponent
+    CommandDetailsDialogComponent,
+    LoginComponent,
+    HomeComponent
+
   ],
   entryComponents: [CommandDetailsDialogComponent],
   imports: [
@@ -47,9 +61,15 @@ import * as d3 from 'd3';
     ReactiveFormsModule,
     MaterialModule,
      CommandModule,
-     MatProgressBarModule
+     MatProgressBarModule,
+     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFireModule,
+    AngularFirestoreModule
   ],
-  providers: [CommandService, TrackIssueService],
-  bootstrap: [AppComponent]
+  providers: [CommandService, TrackIssueService,
+    CookieService, AuthGuard, AuthService,
+    DevService, DevResolver],
+bootstrap: [AppComponent]
 })
 export class AppModule { }

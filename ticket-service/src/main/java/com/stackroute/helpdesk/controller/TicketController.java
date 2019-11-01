@@ -188,6 +188,8 @@ public class TicketController implements Serializable {
     ){
 
 
+        TicketStructure newTicketStructure = ticketInterface.getTicketById(id);
+
         responseObject = new HashMap<>();
 
         System.out.println("this is Object*******"  + ticketStructure);
@@ -198,44 +200,54 @@ public class TicketController implements Serializable {
         if(responseType != null) {
             System.out.println("inside resolved by not equals null");
             // set updatedOn time when ticket is resolved
-            ticketStructure.setUpdatedOn(new Date());
+            newTicketStructure.setAssignedTo(resolvedBy);
+            newTicketStructure.setUpdatedOn(new Date());
             message.sendMessage(rabbitTemplate,
                     "ticket_closed",
                     "ticket_exchange",
                     "socketserver.ticket.closed",
-                    ticketStructure.getRaisedBy(),
+                    newTicketStructure.getRaisedBy(),
                     "socketserver-closed-queue-subscribe");
 
         }else{
 
             // update assignedTime
-            ticketStructure.setAssignedTime(new Date());
+            newTicketStructure.setAssignedTime(new Date());
 
             System.out.println("inside resolved by null");
             // set updatedOn when csr assigns himself
-            ticketStructure.setUpdatedOn(new Date());
+            newTicketStructure.setUpdatedOn(new Date());
+
+            // send message from ticket exchange to notification
+
+            message.sendMessage(rabbitTemplate,
+                    "ticket_updated",
+                    "ticket_exchange",
+                    "notification.mail.sent",
+                    responseObject,
+                    "notification-sent-queue-subscribe");
         }
 
-        ticketStructure.setResolvedBy(resolvedBy);
+        newTicketStructure.setResolvedBy(resolvedBy);
 
 
 
         System.out.println(status);
         if(status != null )
-            ticketStructure.setStatus(Status.values()[status]);
+            newTicketStructure.setStatus(Status.values()[status]);
 
 
         if(responseType != null)
-            ticketStructure.setResponseType(ResponseType.values()[responseType]);
+            newTicketStructure.setResponseType(ResponseType.values()[responseType]);
 
 
 
         // save to database
-        ticketInterface.saveTicket(ticketStructure);
+        ticketInterface.saveTicket(newTicketStructure);
 
        // System.out.println(assignedTo);
-        System.out.println("this is new updated code+++++++"+ ticketStructure);
-        responseObject.put(RESULT, ticketStructure);
+        System.out.println("this is new updated code+++++++"+ newTicketStructure);
+        responseObject.put(RESULT, newTicketStructure);
         responseObject.put(ERRORS, false);
         responseObject.put(MESSAGE, "Ticket with id: "+ id + " updated!");
 
@@ -251,14 +263,7 @@ public class TicketController implements Serializable {
 
 //        System.out.println("message sent outside");
 
-//      // send message from ticket exchange to notification
-
-         message.sendMessage(rabbitTemplate,
-                "ticket_updated",
-                "ticket_exchange",
-                "notification.mail.sent",
-                responseObject,
-                "notification-sent-queue-subscribe");
+//
 
 //        System.out.println("message sent outside");
 
