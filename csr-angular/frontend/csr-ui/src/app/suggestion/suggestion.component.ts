@@ -4,12 +4,17 @@ import { CommaExpr } from '@angular/compiler';
 import { Suggestion } from '../model/suggestion';
 import { FormBuilder } from '@angular/forms';
 import { NoIntent } from '../model/nointent';
+import { Feedback } from '../model/feedback';
 @Component({
 selector: 'app-suggestion',
 templateUrl: './suggestion.component.html',
 styleUrls: ['./suggestion.component.css']
 })
 export class SuggestionComponent implements OnInit {
+
+  feedBack: Feedback;
+
+
 
 constructor(private suggestion: SuggestionService, private form:FormBuilder) { }
  @Input() ticketId: string;
@@ -49,7 +54,10 @@ public changeIconThumbUp(newIcon: string ) {
   this.thumbDown = '';
   console.log(this.intents[0]);
   console.log( this.suggestedCommand.suggestion);
-  this.suggestion.feedback(this.intents[0], this.suggestedCommand.suggestion, 5)
+  this.feedBack.intentName = this.intents[0];
+  this.feedBack.commandName = this.suggestedCommand.suggestion;
+  this.feedBack.rating = 5;
+  this.suggestion.feedback(this.feedBack)
     .subscribe(data => {
     this.feedback = data;
     console.log(this.feedback);
@@ -60,7 +68,10 @@ this.thumbUp = '' ;
 this.thumbDown = newIcon;
 console.log(this.intents[0]);
 console.log( this.suggestedCommand.suggestion);
-this.suggestion.feedback(this.intents[0], this.suggestedCommand.suggestion, 0)
+this.feedBack.intentName = this.intents[0];
+this.feedBack.commandName = this.suggestedCommand.suggestion;
+this.feedBack.rating = 0;
+this.suggestion.feedback(this.feedBack)
   .subscribe(data => {
   this.feedback = data;
   console.log(this.feedback);
