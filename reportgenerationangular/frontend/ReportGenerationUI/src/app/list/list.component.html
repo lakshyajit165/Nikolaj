@@ -6,8 +6,8 @@
         </div>
         <div child="child">
         </div>
-        <div child="child">
-        </div>
+        <!-- <div child="child">
+        </div> -->
         <div class="child">
             <mat-form-field>
                 <mat-select class="selection" [(ngModel)]="defaultValue" matNativeControl placeholder="Filter by Status" (selectionChange)="selectionChange($event.value)">
@@ -19,9 +19,9 @@
         </div>
     </div>
     <div fxLayout class="infinityscroll" infiniteScroll [scrollWindow]="false" [fromRoot]="true" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="150" [fromRoot]="true" (scrolled)="onScroll()">
-        <div *ngIf="emptyData" class="emptyData">
+        <!-- <div *ngIf="emptyData" class="emptyData">
             <p class="emptyDataInfo">Currently there are no tickets!</p>
-        </div>
+        </div> -->
         <div *ngFor="let report of reports" class="expansion">
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -34,13 +34,13 @@
                 </mat-expansion-panel-header>
                 <!-- here the main data is coming -->
                 <mat-chip-list *ngFor="let intent of report.intent" class="item">
-                    <mat-chip>{{ intent }}</mat-chip>
+                    <mat-chip class="font">{{ intent }}</mat-chip>
                 </mat-chip-list>
                 <div class="dateCheck">
-                    <div class="date1">
+                    <div class="date1" class="font">
                         <p title="created On" class="date"> {{ report.createdOn | date }}
                     </div>
-                    <div class="date1">
+                    <div class="date1" class="font">
                         <div *ngIf="report.ticketStatus==='closed'; else elseBlock">
                             <div class="date">
                                 <p title="Closed On"> {{ report.updatedOn | date }}
@@ -52,10 +52,12 @@
                         </ng-template>
                     </div>
                 </div>
-                <p class="raisedby" title="Raised By">
-                    {{report.raisedBy}}
-                </p>
-                <div>
+                <div class="font">
+                    <p class="raisedby" title="Raised By">
+                        {{report.raisedBy}}
+                    </p>
+                </div>
+                <div class="font">
                     <div *ngIf="report.assignedTo==='bot'; else elseBlock1">
                         <div>
                             <p title="Solved By">System</p>

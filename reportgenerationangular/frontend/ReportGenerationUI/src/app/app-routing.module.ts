@@ -9,7 +9,7 @@ import { SomethingWentWrongComponent } from './something-went-wrong/something-we
 // import { ListComponent } from './list/list.component';
 
 const routes: Routes = [
-  { path:  'report-angular', redirectTo: '/reports' , pathMatch: 'full'},
+  { path:  'reports', redirectTo: '/reports' , pathMatch: 'full'},
   { path:  'serviceoutlier', component:  EntityOutlierComponent},
   {path: 'somethingwentwrong' , component: SomethingWentWrongComponent},
  { path: 'reports',
@@ -23,7 +23,7 @@ const routes: Routes = [
   },
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

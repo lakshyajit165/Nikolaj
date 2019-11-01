@@ -31,7 +31,7 @@ export class ListComponent implements OnInit {
 
   pagination: boolean;
 
-  emptyData : boolean ;
+  // emptyData : boolean ;
 
   constructor(public reportService: ReportService) { }
 
@@ -52,11 +52,12 @@ export class ListComponent implements OnInit {
   getAllReports(value: string) {
 
     this.reportService.getReportsByStatus(value, this.page, this.limit).subscribe(data => {
-      this.emptyData = false;
-      if(data.result.length === 0)
-      {
-        this.emptyData = true;
-      }
+      // this.emptyData = false;
+      // if(data.result.length === 0)
+      // {
+      //   this.emptyData = true;
+      //   console.log("inside if");
+      // }
       if (this.count < 5) {
         this.scrollStatus = false;
       }

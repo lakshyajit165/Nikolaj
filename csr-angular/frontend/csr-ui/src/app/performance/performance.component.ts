@@ -22,8 +22,8 @@ export class PerformanceComponent implements OnInit {
   response2: object;
   responseTaken: object[];
   responseResolved: object[];
-  queryTakenCount: number[] = [];
-  queryResolvedCount: number[] = [];
+  queryTakenCount: object[] = [];
+  queryResolvedCount: object[] = [];
   dates: string[] = [];
   csrmail: string;
 
@@ -43,7 +43,7 @@ export class PerformanceComponent implements OnInit {
   };
 
   public barChartLabels: Label[];
-  public barChartType: ChartType;
+  public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [pluginDataLabels];
   public barChartData: ChartDataSets[];
@@ -53,12 +53,15 @@ export class PerformanceComponent implements OnInit {
     private performanceService: PerformanceService,
     private cookie: CookieService
   ) {
-    this.barChartLabels = this.dates;
-    this.barChartType = 'bar';
-    this.barChartData = [
-        {data: this.queryTakenCount , label: 'Queries Taken'},
-        {data : this.queryResolvedCount, label : 'Queries Resolved'}
-      ];
+    console.log(this.dates);
+    console.log(this.queryResolvedCount);
+    console.log(this.queryTakenCount);
+    // this.barChartLabels = this.dates;
+    // this.barChartType = 'bar';
+    // this.barChartData = [
+    //     {data: this.queryTakenCount , label: 'Queries Taken'},
+    //     {data : this.queryResolvedCount, label : 'Queries Resolved'}
+    //   ];
   }
 
   ngOnInit() {
@@ -74,11 +77,19 @@ export class PerformanceComponent implements OnInit {
       this.responseTaken = this.response1[this.result];
       console.log(this.responseTaken);
 
-      this.responseTaken.forEach(ele => {
-        // console.log('element is ', element);
-        this.dates.push(moment(ele[this.timestamp]).format('DD-MM-YYYY'));
-        this.queryTakenCount.push(ele[this.total]);
-      });
+      this.dates = Object.keys(this.responseTaken);
+      this.queryTakenCount = Object.values(this.responseTaken);
+
+      console.log(this.dates);
+      console.log(this.queryTakenCount);
+
+      // this.responseTaken.forEach(ele => {
+      //   // console.log('element is ', element);
+      //   this.dates.push(moment(ele[this.timestamp]).format('DD-MM-YYYY'));
+      //   this.queryTakenCount.push(ele[this.total]);
+      // });
+
+
       // this.responseResolved = this.responseTaken.map(ele => {
       //   this.dates.push(moment(ele[this.timestamp]).format('DD-MM-YYYY'));
       //   return ele[this.total];
@@ -87,8 +98,19 @@ export class PerformanceComponent implements OnInit {
         this.response2 = response;
         this.responseResolved = this.response2[this.result];
 
-        this.responseResolved.forEach(ele => {
-        this.queryResolvedCount.push(ele[this.total]);
+        this.queryResolvedCount = Object.values(this.responseResolved);
+
+        console.log(this.queryResolvedCount);
+
+        this.barChartData = [
+          {data: this.queryTakenCount , label: 'Queries Taken'},
+          {data : this.queryResolvedCount, label : 'Queries Resolved'}
+        ];
+
+        this.barChartLabels = this.dates;
+
+        // this.responseResolved.forEach(ele => {
+        // this.queryResolvedCount.push(ele[this.total]);
       });
 
         // this.queryResolvedCount = this.responseResolved.map(ele => {
@@ -100,7 +122,7 @@ export class PerformanceComponent implements OnInit {
 
       // console.log(this.dates);
       // console.log(this.queryTakenCount);
-    });
+
   }
 
 
