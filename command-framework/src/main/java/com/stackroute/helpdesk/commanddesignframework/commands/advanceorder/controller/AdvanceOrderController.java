@@ -23,7 +23,7 @@ public class AdvanceOrderController {
     @GetMapping("/advanceorder")
     public ResponseEntity<Object> advanceOrder() throws Exception {
         //JSONObject jsonObject = restTemplate.getForObject("http://localhost:3000/result", JSONObject.class);
-        String returnString = "For advance order follow this path on our website: /ordefood/advanceorder";
+        String returnString = "For advance order follow this path on our website: /orderfood/advanceorder";
 
 
 

@@ -242,9 +242,4 @@ resetValues() {
 
         this.dataSource = this.trialData;
        }
-
-       getRecord(Name) {
-         console.log(Name);
-       }
-
 }

@@ -21,6 +21,7 @@ export class ChatComponent implements OnInit {
   private serverUrl = environment.url + 'socket';
   private uuId: string;
   isLoaded: boolean = false;
+  loaded: boolean = false;
   isCustomSocketOpened = false;
   private stompClient;
   private ticket: Ticket;
@@ -90,6 +91,10 @@ export class ChatComponent implements OnInit {
       console.log('uuid = ' + this.uuId);
       this.stompClient.subscribe("/socket-publisher/"+ this.uuId, (message) => {
         this.handleResult(message);
+
+        // connected to user
+        this.loaded = true;
+
         console.log('connected');
       });
       this.sendMessageWhenEstablished();

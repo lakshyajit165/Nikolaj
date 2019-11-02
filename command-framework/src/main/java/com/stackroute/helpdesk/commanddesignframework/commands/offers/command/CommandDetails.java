@@ -18,7 +18,7 @@ public class CommandDetails implements ICommandDetail {
 	private String description = "returns the list of all offers available to the user";
 	private String[] tags = {"offers", "coupons"};
 	private String usage = "/offers";
-	private String status = "published";
+	private String status = "active";
 	private List<Parameter> parameterList = new ArrayList<>();
 
 	public void declareParameters(){

@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   commandUrl: '/command-registry-angular/assets/data/commands.json',
   trackIssueUrl: '/command-registry-angular/assets/data/report.json',
-  intentCommandMappingUrl: 'http://localhost:8082/api/v1/commandregistry/commands',
+  intentCommandMappingUrl: 'http://nikolaj-dev.stackroute.io/botwatson/optimus/api/v1/intentName/command',
   firebase: {
     apiKey: 'AIzaSyDlV1Bi0vaUKMq-G5vUPHw1wwrGuw5kE9s',
     authDomain: 'command-registry-angular.firebaseapp.com',

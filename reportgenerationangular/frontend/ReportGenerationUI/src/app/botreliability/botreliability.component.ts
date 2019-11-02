@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReportService } from '../services/report.service';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { Label } from 'ng2-charts';
+import { Label,Color } from 'ng2-charts';
 import { MatDatepickerInputEvent } from '@angular/material';
 import { FormBuilder } from '@angular/forms';
 @Component({
@@ -21,6 +21,12 @@ export class BotRealiabilityComponent implements OnInit {
 
     ];
     this.barChartLabels = this.serviceName;
+
+    this.barChartColors = [
+      { backgroundColor: '#d1f4a7' },
+      { backgroundColor: '#ccd7f6' },
+      { backgroundColor: '#f9ce80' }
+    ];
   }
   response1: object;
   result = 'result';
@@ -36,9 +42,10 @@ export class BotRealiabilityComponent implements OnInit {
   reopen: number[] = [];
   avgRating: number[] = [];
   totalQuery: number[] = [];
+  minDate = new Date(2000, 0, 1);
   maxDate = new Date();
-  fromDate: Date;
-  toDate: Date;
+  public barChartColors: Color[];
+
   public barChartOptions: ChartOptions = {
     responsive: true,
     scales: {

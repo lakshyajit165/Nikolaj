@@ -28,7 +28,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 @Service
-public class    ChatService implements ChatServiceInterface {
+public class ChatService implements ChatServiceInterface {
 
     private Assistant assistant;
     private String workSpaceId;
@@ -37,6 +37,7 @@ public class    ChatService implements ChatServiceInterface {
     private MessageResponse response;
     private ChatMessage userRequest;
     private String responseFromCommand = "";
+    private List<String> commandParameter;
 
     @Autowired
     private SuggestionsRepo suggestionsRepo;
@@ -103,7 +104,14 @@ public class    ChatService implements ChatServiceInterface {
                 String entity = responseEntities.size() == 0 ? "" : responseEntities.get(0).getEntity();
                 noIntentFound(userMessage, entity);
                 ticketGenerate("open");
-            } else {
+            }
+            else if (intents.get(0).equals("positive")){
+                responseFromBot = "Sure, how can I help you";
+            }
+            else if(intents.get(0).equals("negative")){
+                responseFromBot = "How much would you like to rate us";
+            }
+            else {
                 String entity = responseEntities.size() == 0 ? "" : responseEntities.get(0).getEntity();
                 findCommands(userMessage, responseIntents.get(0), entity);
             }
@@ -246,10 +254,13 @@ public class    ChatService implements ChatServiceInterface {
                 } else {
                     ticketGenerate("open");
                     String suggestions = (String) suggestionsList.get(0).get("Command name");
+                    commandParameter=new ArrayList<String>();
+                    commandParameter = (List<String>) suggestionsList.get(0).get("Command paramater");
                     if (!suggestions.equals("")) {
                         SuggestionsModel new_suggestion_model = new SuggestionsModel();
                         new_suggestion_model.setId(ticketId);
                         new_suggestion_model.setSuggestion(suggestions);
+                        new_suggestion_model.setCommandParameter(commandParameter);
                         suggestionsRepo.save(new_suggestion_model);
                         System.out.println(suggestions);
                         System.out.println(new_suggestion_model);
