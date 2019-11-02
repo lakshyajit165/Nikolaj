@@ -34,8 +34,8 @@ public class SendMessages {
 //		Map<String, String> responseToSend = messageFormatter();
 		ObjectMapper objectMapper = new ObjectMapper();
 		Map<String, String> responseToSend = objectMapper.convertValue(messageConverted, Map.class);
-		this.simpMessagingTemplate.convertAndSend("/socket-publisher", responseToSend);
 		System.out.println("sending message back to user");
+		this.simpMessagingTemplate.convertAndSend("/socket-publisher", responseToSend);
 	}
 
 	public Map<String, String> messageFormatter() throws JSONException {

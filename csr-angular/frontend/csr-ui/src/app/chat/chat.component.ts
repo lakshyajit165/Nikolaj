@@ -82,6 +82,8 @@ export class ChatComponent implements OnInit {
       // console.log('socket id = ' + ws.sessionId);
     // this.openGlobalSocket();
     this.openSocket();
+     // connected to user
+     this.loaded = true;
     });
   }
 
@@ -92,8 +94,7 @@ export class ChatComponent implements OnInit {
       this.stompClient.subscribe("/socket-publisher/"+ this.uuId, (message) => {
         this.handleResult(message);
 
-        // connected to user
-        this.loaded = true;
+       
 
         console.log('connected');
       });

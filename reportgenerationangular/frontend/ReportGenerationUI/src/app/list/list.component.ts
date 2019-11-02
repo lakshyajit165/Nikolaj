@@ -8,12 +8,32 @@ import { SocketStorage } from '../interfaces/Socketstorageinterface';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { Router } from '@angular/router';
+import { HostBinding } from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  // ...
+} from '@angular/animations';
 
 @Component({
   selector: 'app-list',
+  animations: [
+    trigger('flyInOut', [
+      state('in', style({ backgroundColor: 'none' })),
+      transition(':enter', [
+        style({ backgroundColor: 'blue' }),
+        animate(1000)
+      ]),
+    ])
+  ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
+
+
 export class ListComponent implements OnInit {
 
   reports: IReport[] = [];
@@ -174,7 +194,7 @@ sendMessageWhenEstablished() {
 
 handleResult(message) {
   if (message.body) {
-    console.log("handling the result");
+
     // this.selectionChange(this.status);
     if (this.status === 'all') {
       this.status = '';
@@ -191,6 +211,7 @@ handleResult(message) {
     const reportData: IReport = JSON.parse(message.body);
     console.log("data result = " + reportData);
     this.reports.unshift(reportData);
+    console.log("yahana aaarha h kya..........")
     // const messageResult: Message = JSON.parse(message.body);
     // this.messages.push(messageResult);
   }
@@ -199,4 +220,6 @@ handleResult(message) {
 
 
 }
+
+
 }
