@@ -28,7 +28,7 @@ public class SendMessages {
 	@Autowired
 	private ChatStoreService chatStoreService;
 
-	public void sendResponse(User messageConverted, String socketId) throws JSONException {
+	public void 	sendResponse(User messageConverted, String socketId) throws JSONException {
 		Map<String, String> responseToSend = messageFormatter(messageConverted);
 		System.out.println("sending message back to user");
 		this.simpMessagingTemplate.convertAndSend("/socket-publisher/"+socketId, responseToSend);
