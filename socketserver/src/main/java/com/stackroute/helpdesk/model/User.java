@@ -11,26 +11,24 @@ public class User implements Serializable {
     private String type;
     private String content;
     private String sender;
-    private int hours;
+    private String hours;
+    private String minutes;
 
-    public int getHours() {
+    public String getHours() {
         return hours;
     }
 
-    public void setHours(int hours) {
+    public void setHours(String hours) {
         this.hours = hours;
     }
 
-    public int getMinutes() {
+    public String getMinutes() {
         return minutes;
     }
 
-    public void setMinutes(int minutes) {
+    public void setMinutes(String minutes) {
         this.minutes = minutes;
     }
-
-    private int minutes;
-
 
     public User() {
     }
