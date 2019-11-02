@@ -107,9 +107,15 @@ export class TicketdetailcardComponent implements OnInit {
     }
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-
+      // console.log('The dialog was closed');
+      //console.log(result);
+      if(result !== undefined){
+        this.ticketService.updateAndCloseTicket(this.ticket, 2, this.csrMail, 3).subscribe(res => {
+          this.updateCsrWhenTicketResolved();
+          this.snackbar.open("User Reported!", 'Dismiss', { duration: 4000 });
+          this.router.navigate(['/home/openticket']);
+        })
+      }  
     });
   }
 
@@ -117,9 +123,12 @@ export class TicketdetailcardComponent implements OnInit {
  
   resolveTicket(status: number, responseType: number, message: string) {
     this.ticketService.updateAndCloseTicket(this.ticket, status, this.csrMail, responseType).subscribe(res => {
+      
       this.snackbar.open(message, 'Dismiss', { duration: 4000 });
-      console.log(res);
+      // console.log(res);
+
       this.updateCsrWhenTicketResolved();
+      
       this.router.navigate(['/home/openticket']);
     });
   }
@@ -127,8 +136,8 @@ export class TicketdetailcardComponent implements OnInit {
   // updateCSRdatabase when he resolves a ticket
   updateCsrWhenTicketResolved() {
     this.ticketService.updateCsrWhenTicketResolved(this.csr, this.csrId, this.ticketId).subscribe(res => {
-      console.log('csr updated');
-      console.log(res);
+      // console.log('csr updated');
+      // console.log(res);
     });
   }
   
@@ -136,7 +145,7 @@ export class TicketdetailcardComponent implements OnInit {
 
     this.http.post(`${this.apiGateWay}commandregistry/api/v1/commandregistry/execute/${command}`,
     {csrUserId: 'adawd'}).subscribe(res => {
-      console.log(res);
+      // console.log(res);
       if (res[this.err] === 'true') {
         this.openDialog('execute', res[this.result][this.msg]);
       } else {

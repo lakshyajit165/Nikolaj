@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  getReportUrl: 'http://15.206.36.205:8765/reportservice/api/v1/'
-
+  url: 'https://nikolaj-dev.stackroute.io/socketserver/',
+  apigateway: 'https://nikolaj-dev.stackroute.io/'
 };
 
 /*

@@ -28,13 +28,13 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.doLogin(this.email, this.password)
     .then(res => {
-      console.log(res.user.email);
+      // console.log(res.user.email);
        // pass the csr mail on succesful login here and create a cookie
       this.cookie.set('csrmail', res.user.email);
       this.router.navigate(['/home/openticket'], { state: { csrmail: res.user.email }});
 
     }, err => {
-      console.log(err);
+      // console.log(err);
       this.errorMessage = err.message;
     });
   }

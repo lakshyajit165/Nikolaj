@@ -1,6 +1,5 @@
 
 
-
 let dataToSend;
 function load(selected) {
         let matrix
@@ -53,7 +52,7 @@ function load(selected) {
                 let svg = d3.select('#partitionSVG')
                         .style("width", "100%")
                         .style("height", "auto")
-                        .style("font", "10px sans-serif");
+                        .style("font", "25px sans-serif");
                 let g = svg.append("g")
                         .attr("transform", `translate(${width / 2},${width / 2})`);
 

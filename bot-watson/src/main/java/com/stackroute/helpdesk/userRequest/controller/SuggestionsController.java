@@ -3,6 +3,7 @@ package com.stackroute.helpdesk.userRequest.controller;
 import com.stackroute.helpdesk.userRequest.model.ChatMessage;
 import com.stackroute.helpdesk.userRequest.model.SuggestionsModel;
 import com.stackroute.helpdesk.userRequest.service.ChatServiceInterface;
+import com.stackroute.helpdesk.userRequest.service.SimulationServiceInterface;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,9 @@ public class SuggestionsController {
     @Autowired
     private ChatServiceInterface chatServiceInterface;
 
+    @Autowired
+    private SimulationServiceInterface simulationServiceInterface;
+
     @GetMapping("/suggestions")
     public ResponseEntity<HashMap<String,?>> getSuggestions(@RequestParam String id){
 //        SuggestionsModel suggestionsModel=new SuggestionsModel("1","abc");
@@ -32,12 +36,23 @@ public class SuggestionsController {
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
 
+    @GetMapping("/rating")
+    public ResponseEntity<HashMap<String,?>> getRating(@RequestParam Integer rating){
+//        SuggestionsModel suggestionsModel=new SuggestionsModel("1","abc");
+        responseObject = new HashMap<>();
+//        responseObject.put("result", suggestionsModel);
+        responseObject.put("result", chatServiceInterface.updateConfidence(rating));
+        responseObject.put("message", "Successfully given suggestions");
+        responseObject.put("error", "No error");
+        return new ResponseEntity<>(responseObject, HttpStatus.OK);
+    }
+
     @GetMapping("/simulation")
     public ResponseEntity<HashMap<String,?>> getSimulationResponse(@RequestParam String query){
         responseObject = new HashMap<>();
         ChatMessage simulationMessage = new ChatMessage();
         simulationMessage.setContent(query);
-        responseObject.put("result", chatServiceInterface.postQuery(simulationMessage));
+        responseObject.put("result", simulationServiceInterface.postQuery(simulationMessage));
         responseObject.put("message", "Successfully given suggestions");
         responseObject.put("error", "No error");
         return new ResponseEntity<>(responseObject, HttpStatus.OK);

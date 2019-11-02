@@ -12,8 +12,6 @@ import com.stackroute.helpdesk.nointentnocommand.service.ReportServiceRepo;
 import com.stackroute.helpdesk.ticketservice.model.Status;
 import com.stackroute.helpdesk.ticketservice.model.TicketModel;
 import com.stackroute.helpdesk.ticketservice.model.Type;
-import com.stackroute.helpdesk.updateconfidence.model.Feedback;
-import com.stackroute.helpdesk.updateconfidence.updateconfidenceservice.UpdateConfidenceService;
 import com.stackroute.helpdesk.userRequest.model.ChatMessage;
 import com.stackroute.helpdesk.userRequest.model.SuggestionsModel;
 import com.stackroute.helpdesk.userRequest.repo.SuggestionsRepo;
@@ -28,7 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 @Service
-public class    ChatService implements ChatServiceInterface {
+public class  SimulationService implements SimulationServiceInterface {
 
     private Assistant assistant;
     private String workSpaceId;
@@ -42,8 +40,6 @@ public class    ChatService implements ChatServiceInterface {
     private SuggestionsRepo suggestionsRepo;
     @Autowired
     private Neo4jServiceRepo neo4jService;
-    @Autowired
-    private UpdateConfidenceService updateConfidenceService;
     @Autowired
     private ReportServiceRepo reportService;
 
@@ -69,7 +65,6 @@ public class    ChatService implements ChatServiceInterface {
     @Override
     public String postQuery(ChatMessage userRequest) {
         this.userRequest = userRequest;
-        this.responseFromCommand="";    
         String responseFromBot = null;
         List<String> intents = new LinkedList<>();
         List<String> entities = new LinkedList<>();
@@ -131,9 +126,7 @@ public class    ChatService implements ChatServiceInterface {
     }
 
     //Function to update confidence
-    public String updateConfidence(Integer rating) {
-        Feedback feedback=new Feedback("suggestion","suggested",rating);
-        return updateConfidenceService.updateConfidence(feedback);
+    public void updateConfidence() {
     }
 
     public void ticketGenerate(String status){
@@ -213,6 +206,11 @@ public class    ChatService implements ChatServiceInterface {
         System.out.println("Connecting to csr......");
     }
 
+    
+    public String updateConfidence(Integer rating) {
+        return null;
+    }
+
     //Function to suggest actions to csr through redis database
     public void findCommands(String userMessage, RuntimeIntent intent, String entity) {
         try {
@@ -230,19 +228,19 @@ public class    ChatService implements ChatServiceInterface {
                 if ((Long) suggestionsList.get(0).get("Confidence") > 90) {
                     ticketGenerate("closed");
                     //execute()
-                    String suggestions = (String) suggestionsList.get(0).get("Command name");
-                    System.out.println("suggestions variable "+suggestions);
-                    String url = "https://nikolaj-dev.stackroute.io/commandregistry /api/v1/commandregistry/execute/"+suggestions;
-                    RestTemplate restTemplate = new RestTemplate();
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("csrUserId", "lk@gmail.com");
-                    HttpEntity<JSONObject> request = new HttpEntity<>(jsonObject);
-                    ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity(url, request , LinkedHashMap.class);
-                    System.out.println("Map variable "+map);
-                    List<String> listCommand = (List<String>) map.getBody().get("result");
-                    System.out.println(" List command variable "+listCommand);
-                    for (String commandResponse : listCommand)
-                        this.responseFromCommand += commandResponse;
+//                    String suggestions = (String) suggestionsList.get(0).get("Command name");
+//                    System.out.println("suggestions variable "+suggestions);
+//                    String url = "https://nikolaj-dev.stackroute.io/commandregistry /api/v1/commandregistry/execute/"+suggestions;
+//                    RestTemplate restTemplate = new RestTemplate();
+//                    JSONObject jsonObject = new JSONObject();
+//                    jsonObject.put("csrUserId", "lk@gmail.com");
+//                    HttpEntity<JSONObject> request = new HttpEntity<>(jsonObject);
+//                    ResponseEntity<LinkedHashMap> map = restTemplate.postForEntity(url, request , LinkedHashMap.class);
+//                    System.out.println("Map variable "+map);
+//                    List<String> listCommand = (List<String>) map.getBody().get("result");
+//                    System.out.println(" List command variable "+listCommand);
+//                    for (String commandResponse : listCommand)
+//                        this.responseFromCommand += commandResponse;
                 } else {
                     ticketGenerate("open");
                     String suggestions = (String) suggestionsList.get(0).get("Command name");
