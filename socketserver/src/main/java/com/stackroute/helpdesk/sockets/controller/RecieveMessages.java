@@ -17,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
@@ -62,6 +64,10 @@ public class RecieveMessages {
             user.setEmailId(messageConverted.get("emailId"));
             user.setContent(messageConverted.get("content"));
             user.setType(messageConverted.get("type"));
+            Date date = new Date();
+            Calendar calendar = Calendar.getInstance();
+            user.setHours(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)));
+            user.setMinutes(String.valueOf(calendar.get(Calendar.MINUTE)));
             System.out.println("storing chat as type = " + user.getType());
             chatStoreService.updateChatHistory(messageConverted.get("content"), "user", "user", messageConverted.get("emailId"));
             Optional<SocketStore> socketStore = iSocketIdRepo.findById(messageConverted.get("emailId"));

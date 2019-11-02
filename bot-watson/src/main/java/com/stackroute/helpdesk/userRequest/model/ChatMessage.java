@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,5 +17,6 @@ public class ChatMessage {
     private String content;
     private String sender;
     private String emailId;
-
+    private String hours;
+    private String minutes;
 }
