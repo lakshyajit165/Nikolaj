@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { retry, catchError } from 'rxjs/operators';
 import { Report } from '../track-issue/track-issue.component';
@@ -41,7 +41,7 @@ private  intentCommandMappingUrl = environment.intentCommandMappingUrl;
       this.intentCommand.commandParameter;
       this.intentCommand.relationshipName = '';
       console.log('object sending in the api call = ' + this.intentCommand.commandName);
-      this.httpClient.post(this.apiGatewayUrl + this.intentCommandMappingUrl, this.intentCommand).subscribe(res => {
+      this.httpClient.post( this.intentCommandMappingUrl, this.intentCommand).subscribe(res => {
         return res;
       });
     }
