@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url: 'https://nikolaj-dev.stackroute.io/socketserver/',
+  url: 'https://nikolaj-dev.stackroute.io/reportservice/',
   apigateway: 'https://nikolaj-dev.stackroute.io/'
 };
 
