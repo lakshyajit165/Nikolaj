@@ -91,7 +91,7 @@ export class TrackIssueComponent implements OnInit {
   this.getDataCommand = sendDataCommand();
   console.log('data intent', this.getDataCommand.name);
   this.trackIssueService.mapIntentCommand(this.getDataCommand.name, this.command);
-  console.log("intent command mapping done");
+  console.log('intent command mapping done');
   }
 
 }
