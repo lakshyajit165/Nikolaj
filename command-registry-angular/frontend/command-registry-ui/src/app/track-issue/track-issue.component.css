@@ -9,7 +9,9 @@
   flex-direction: row;
   align-content: center;
 }
-
+mat-form-field {
+  margin-right: 12px;
+}
 
 /* .querydiv
 {
@@ -34,6 +36,3 @@ font-size: 50px;
   
 }  */
   
-/*#partitionSVG {*/
-/*  font-size: 15px !important;*/
-/*}*/
