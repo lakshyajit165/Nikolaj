@@ -54,7 +54,7 @@ export class TicketdetailcardComponent implements OnInit {
   private command: string;
   private err = 'error';
   private msg = 'message';
-  
+
   private apiGateWay = environment.apigateway;
 
   constructor(
@@ -108,27 +108,27 @@ export class TicketdetailcardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       // console.log('The dialog was closed');
-      //console.log(result);
-      if(result !== undefined){
+      // console.log(result);
+      if (result !== undefined) {
         this.ticketService.updateAndCloseTicket(this.ticket, 2, this.csrMail, 3).subscribe(res => {
           this.updateCsrWhenTicketResolved();
-          this.snackbar.open("User Reported!", 'Dismiss', { duration: 4000 });
+          this.snackbar.open('User Reported!', 'Dismiss', { duration: 4000 });
           this.router.navigate(['/home/openticket']);
-        })
-      }  
+        });
+      }
     });
   }
 
 
- 
+
   resolveTicket(status: number, responseType: number, message: string) {
     this.ticketService.updateAndCloseTicket(this.ticket, status, this.csrMail, responseType).subscribe(res => {
-      
+
       this.snackbar.open(message, 'Dismiss', { duration: 4000 });
       // console.log(res);
 
       this.updateCsrWhenTicketResolved();
-      
+
       this.router.navigate(['/home/openticket']);
     });
   }
@@ -140,7 +140,7 @@ export class TicketdetailcardComponent implements OnInit {
       // console.log(res);
     });
   }
-  
+
   executeCommand(command: string) {
 
     this.http.post(`${this.apiGateWay}commandregistry/api/v1/commandregistry/execute/${command}`,
