@@ -8,14 +8,14 @@ function load(selected) {
         
         if (selected === 'NoCommand-0') {
               //  url = 'http://localhost:3002/data2';
-            //   url='https://nikolaj-dev.stackroute.io/commandregistry/api/v1/commandregistry/reports/type?type=NoCommand';
-              url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoCommand';
+              url='https://nikolaj-dev.stackroute.io/commandregistry/api/v1/commandregistry/reports/type?type=NoCommand';
+            //  url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoCommand';
                 
         }
         else {
             // url = 'http://localhost:3001/data3';
-             url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoIntent';
-            // url='https://nikolaj-dev.stackroute.io/commandregistry/api/v1/commandregistry/reports/type?type=NoIntent';
+             // url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoIntent';
+             url='https://nikolaj-dev.stackroute.io/commandregistry/api/v1/commandregistry/reports/type?type=NoIntent';
                 
         }
 
