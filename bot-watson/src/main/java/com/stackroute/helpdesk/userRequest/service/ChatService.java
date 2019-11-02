@@ -103,7 +103,14 @@ public class    ChatService implements ChatServiceInterface {
                 String entity = responseEntities.size() == 0 ? "" : responseEntities.get(0).getEntity();
                 noIntentFound(userMessage, entity);
                 ticketGenerate("open");
-            } else {
+            }
+            else if (intents.get(0).equals("positive")){
+                responseFromBot = "Sure, how can I help you";
+            }
+            else if(intents.get(0).equals("negative")){
+                responseFromBot = "How much would you like to rate us";
+            }
+            else {
                 String entity = responseEntities.size() == 0 ? "" : responseEntities.get(0).getEntity();
                 findCommands(userMessage, responseIntents.get(0), entity);
             }
