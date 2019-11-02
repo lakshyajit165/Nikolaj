@@ -42,6 +42,8 @@ public class SendMessages {
 		resposeToSend.put("type", message.getType());
 		System.out.println("sender = " + message.getSender());
 		resposeToSend.put("sender", message.getSender());
+		resposeToSend.put("hours", String.valueOf(message.getHours()));
+		resposeToSend.put("minutes", String.valueOf(message.getMinutes()));
 		return resposeToSend;
 	}
 
