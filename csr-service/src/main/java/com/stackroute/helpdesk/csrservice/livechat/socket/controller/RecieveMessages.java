@@ -15,6 +15,8 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
@@ -58,8 +60,10 @@ public class RecieveMessages {
             chatMessage.setContent(messageConverted.get("content"));
             chatMessage.setSender(messageConverted.get("sender"));
             chatMessage.setType(messageConverted.get("type"));
-            chatMessage.setHours(messageConverted.get("hours"));
-            chatMessage.setMinutes(messageConverted.get("minutes"));
+            Date date = new Date();
+            Calendar calendar = Calendar.getInstance();
+            chatMessage.setHours(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)));
+            chatMessage.setMinutes(String.valueOf(calendar.get(Calendar.MINUTE)));
             redisMessagePublisher.publish(chatMessage);
         } catch (IOException e) {
             messageConverted = null;
