@@ -206,6 +206,11 @@ public class  SimulationService implements ChatServiceInterface {
         System.out.println("Connecting to csr......");
     }
 
+    
+    public String updateConfidence(Integer rating) {
+        return null;
+    }
+
     //Function to suggest actions to csr through redis database
     public void findCommands(String userMessage, RuntimeIntent intent, String entity) {
         try {
