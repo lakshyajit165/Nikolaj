@@ -26,6 +26,7 @@ export class PerformanceComponent implements OnInit {
   queryResolvedCount: object[] = [];
   dates: string[] = [];
   csrmail: string;
+  loaded = false;
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -53,9 +54,9 @@ export class PerformanceComponent implements OnInit {
     private performanceService: PerformanceService,
     private cookie: CookieService
   ) {
-    console.log(this.dates);
-    console.log(this.queryResolvedCount);
-    console.log(this.queryTakenCount);
+    // console.log(this.dates);
+    // console.log(this.queryResolvedCount);
+    // console.log(this.queryTakenCount);
     // this.barChartLabels = this.dates;
     // this.barChartType = 'bar';
     // this.barChartData = [
@@ -75,13 +76,13 @@ export class PerformanceComponent implements OnInit {
     this.performanceService.getDetailsTaken(this.csrmail).subscribe(res => {
       this.response1 = res;
       this.responseTaken = this.response1[this.result];
-      console.log(this.responseTaken);
+      // console.log(this.responseTaken);
 
       this.dates = Object.keys(this.responseTaken);
       this.queryTakenCount = Object.values(this.responseTaken);
 
-      console.log(this.dates);
-      console.log(this.queryTakenCount);
+      // console.log(this.dates);
+      // console.log(this.queryTakenCount);
 
       // this.responseTaken.forEach(ele => {
       //   // console.log('element is ', element);
@@ -100,7 +101,7 @@ export class PerformanceComponent implements OnInit {
 
         this.queryResolvedCount = Object.values(this.responseResolved);
 
-        console.log(this.queryResolvedCount);
+        // console.log(this.queryResolvedCount);
 
         this.barChartData = [
           {data: this.queryTakenCount , label: 'Queries Taken'},
@@ -108,6 +109,8 @@ export class PerformanceComponent implements OnInit {
         ];
 
         this.barChartLabels = this.dates;
+
+        this.loaded = true;
 
         // this.responseResolved.forEach(ele => {
         // this.queryResolvedCount.push(ele[this.total]);

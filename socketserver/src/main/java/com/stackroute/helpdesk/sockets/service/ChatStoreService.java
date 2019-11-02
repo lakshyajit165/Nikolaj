@@ -30,12 +30,12 @@ public class ChatStoreService {
 		}
 		else {
 			ChatMessage chatMessage = new ChatMessage();
-			chatMessage.setMessage("Hi I am optimus, how may I help you ?");
+			chatMessage.setMessage("Hi I am Optimus, how may I help you ");
 			chatMessage.setUser("bot");
 			chatMessage.setDate(new Date());
 			List<ChatMessage> chatsList = new ArrayList<>();
 			chatsList.add(chatMessage);
-			updateChatHistory("Hi I am optimus, how may I help you ?", "bot", "", emailId);
+			updateChatHistory("Hi I am Optimus, how may I help you ", "bot", "", emailId);
 			return new Chats(emailId, chatsList);
 		}
 	}

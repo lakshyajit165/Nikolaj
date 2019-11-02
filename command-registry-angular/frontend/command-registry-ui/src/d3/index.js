@@ -8,14 +8,14 @@ function load(selected) {
         
         if (selected === 'NoCommand-0') {
               //  url = 'http://localhost:3002/data2';
-              // url='https://nikolaj-dev.stackroute.io/commandregistry/api/v1/commandregistry/reports/type?type=NoCommand';
-              url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoCommand';
+               url='https://nikolaj-dev.stackroute.io/commandregistry/api/v1/commandregistry/reports/type?type=NoCommand';
+            //  url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoCommand';
                 
         }
         else {
             // url = 'http://localhost:3001/data3';
-             url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoIntent';
-            // url='https://nikolaj-dev.stackroute.io/commandregistry/api/v1/commandregistry/reports/type?type=NoIntent';
+            // url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoIntent';
+             url='https://nikolaj-dev.stackroute.io/commandregistry/api/v1/commandregistry/reports/type?type=NoIntent';
                 
         }
 
@@ -50,7 +50,7 @@ function load(selected) {
                 let svg = d3.select('#partitionSVG')
                         .style("width", "100%")
                         .style("height", "auto")
-                        .style("font", "20px sans-serif");
+                        .style("font", "25px sans-serif");
                        // .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")" + "rotate(" + getAngle(d) + ")"; });
                 let g = svg.append("g")
                        .attr("transform", `translate(${width / 2},${width / 2})`);

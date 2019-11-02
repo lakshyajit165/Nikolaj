@@ -14,7 +14,7 @@ export class ChatsService {
   }
 
   getChats(emailId: string) {
-    console.log(this.chaturl + emailId);
+    // console.log(this.chaturl + emailId);
     return this.httpClient.get<Chats[]>(this.chaturl + emailId);
   }
   

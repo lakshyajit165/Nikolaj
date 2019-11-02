@@ -2,7 +2,7 @@
 <div class="error-msg" *ngIf="error">
     <p>{{ error }}</p>
 </div>
-<div class="spinner" *ngIf="!commands; else elseBlock">
+<div class="spinner" *ngIf="!commands && !error; else elseBlock" fxLayout="row" fxLayoutAlign="space-around center" style="height:100%">
     <mat-spinner></mat-spinner>
 </div>
 <ng-template #elseBlock>

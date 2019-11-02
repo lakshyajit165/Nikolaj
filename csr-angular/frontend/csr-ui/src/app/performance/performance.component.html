@@ -1,14 +1,19 @@
-<!-- <p>performance works!</p> -->
-<div class="performance">
-    <h1 class="mat-h1">Performance Details</h1>
-      <div style="display: block" *ngIf="barChartData">
-        <canvas baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [plugins]="barChartPlugins"
-          [legend]="barChartLegend"
-          [chartType]="barChartType">
-        </canvas>
-      </div>
+
+<div class="spinner" *ngIf="!loaded; else elseBlock" fxLayout="row" fxLayoutAlign="space-around center" style="height:100%">
+  <mat-spinner></mat-spinner>
 </div>
+<ng-template #elseBlock>
+  <div class="performance">
+      <h1 class="mat-h1">Performance Details</h1>
+        <div style="display: block" *ngIf="barChartData">
+          <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+          </canvas>
+        </div>
+  </div>
+</ng-template>

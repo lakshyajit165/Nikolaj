@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apigateway: 'https://nikolaj-dev-stackroute.io/'
+  url: 'https://nikolaj-dev.stackroute.io/socketserver/',
+  apigateway: 'https://nikolaj-dev.stackroute.io/'
 };

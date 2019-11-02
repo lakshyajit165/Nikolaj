@@ -22,19 +22,11 @@ public class RefundController {
     private RefundService refundService;
 
     @GetMapping("/refund")
-    public ResponseEntity<Object> initiateRefund(@RequestParam("param0") String sendToEmail ,@RequestParam("param1") int ticketId,
-                                       @RequestParam("param2") int userId) throws Exception {
-        String returnString = "your refund is inititated for userId= "+ticketId+"for userId2= "+userId;
-        refundService.getInvoice();
-        if(sendToEmail.equalsIgnoreCase("true")) {
-            List<String> responseList = new ArrayList<>();
-            String response = "<html><body><p>"+returnString+"</p></body></html>";
-            return new ResponseEntity<>(responseList, HttpStatus.OK);
-        }
-        else{
-            List<String> responseList = new ArrayList<>();
-            responseList.add(returnString);
-            return new ResponseEntity<>(responseList, HttpStatus.OK);
-        }
+    public ResponseEntity<Object> initiateRefund(@RequestParam("param0") String userId,
+                                       @RequestParam("param1") String ticketId) throws Exception {
+        String returnString = "your refund is inititated for user id = "+userId+"for userId2 = " + ticketId;
+        List<String> responseList = new ArrayList<>();
+        responseList.add(returnString);
+        return new ResponseEntity<>(responseList, HttpStatus.OK);
     }
 }

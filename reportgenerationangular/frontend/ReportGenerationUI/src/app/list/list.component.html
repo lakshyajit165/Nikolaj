@@ -19,9 +19,9 @@
         </div>
     </div>
     <div fxLayout class="infinityscroll" infiniteScroll [scrollWindow]="false" [fromRoot]="true" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="150" [fromRoot]="true" (scrolled)="onScroll()">
-        <!-- <div *ngIf="emptyData" class="emptyData">
+        <div *ngIf="emptyData" class="emptyData">
             <p class="emptyDataInfo">Currently there are no tickets!</p>
-        </div> -->
+        </div>
         <div *ngFor="let report of reports" class="expansion">
             <mat-expansion-panel>
                 <mat-expansion-panel-header>

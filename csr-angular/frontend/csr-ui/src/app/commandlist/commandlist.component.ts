@@ -31,7 +31,7 @@ export class CommandlistComponent implements OnInit {
       // console.log(this.commands);
     }, err => {
       this.error = 'Sorry! An error occured..';
-      console.log(err);
+      // console.log(err);
     }
     );
   }
