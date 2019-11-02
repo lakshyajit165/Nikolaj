@@ -16,7 +16,6 @@ private  intentCommandMappingUrl = environment.intentCommandMappingUrl;
 
   intentCommand: IIntentCommand;
 
-  private apiGatewayUrl = environment.apiGatewayUrl;
      constructor(private httpClient: HttpClient) {
        this.intentCommand = new IIntentCommand();
       }
