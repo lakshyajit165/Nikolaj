@@ -43,7 +43,7 @@ public class ChatController implements MessageListener {
 
                 System.out.println("publishing back from botwatson in channel = " + chatMessage.getEmailId() + "_chat_messages");
             }
-            
+
         }catch (IOException ioException) {
             ioException.printStackTrace();
         }
