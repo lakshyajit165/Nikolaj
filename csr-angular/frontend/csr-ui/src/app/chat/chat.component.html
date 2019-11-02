@@ -7,30 +7,35 @@
       </mat-card-header>
         <hr>
         <mat-card-content>
-            <div class="chat-window"
-                 #scrollMe
-                 [scrollTop]="scrollMe.scrollHeight">
-    
-                
-                <div 
-                      *ngFor="let msg of messages">
-                      <div *ngIf="msg.type === 'user'" class="align-right message" >{{msg.content}}</div>
-                      <div *ngIf="msg.type === 'csr'"  class ="align-left message" >{{msg.content}}</div> 
-                      <div *ngIf="msg.type === 'bot'"  class ="align-left message" >{{msg.content}}</div>
-                </div>
+            <div class="spinner" *ngIf="!loaded; else elseBlock" fxLayout="row" fxLayoutAlign="space-around center" style="height:100%">
+                <mat-spinner></mat-spinner>
+            </div>
+            <ng-template #elseBlock>
+                <div class="chat-window"
+                    #scrollMe
+                    [scrollTop]="scrollMe.scrollHeight">
+        
                     
-            </div>
-    
-            <div class="chat-form">
-                <form>
-                    <mat-form-field class="chat-full-width" appearance="outline">
-                        <input matInput  #message id="chatmessage">
-                    </mat-form-field>
-                    <button mat-fab color="primary"
-                    (click)="sendMessage(message.value)"> <mat-icon>send</mat-icon>
-                    </button>
-                </form>
-            </div>
+                    <div 
+                        *ngFor="let msg of messages">
+                        <div *ngIf="msg.type === 'user'" class="align-right message" >{{msg.content}}</div>
+                        <div *ngIf="msg.type === 'csr'"  class ="align-left message" >{{msg.content}}</div> 
+                        <div *ngIf="msg.type === 'bot'"  class ="align-left message" >{{msg.content}}</div>
+                    </div>
+                        
+                </div>
+        
+                <div class="chat-form">
+                    <form>
+                        <mat-form-field class="chat-full-width" appearance="outline">
+                            <input matInput  #message id="chatmessage">
+                        </mat-form-field>
+                        <button mat-fab color="primary"
+                        (click)="sendMessage(message.value)"> <mat-icon>send</mat-icon>
+                        </button>
+                    </form>
+                </div>
+            </ng-template>
     
         </mat-card-content>
     </mat-card>
