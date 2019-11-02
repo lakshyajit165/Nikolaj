@@ -11,6 +11,25 @@ public class User implements Serializable {
     private String type;
     private String content;
     private String sender;
+    private int hours;
+
+    public int getHours() {
+        return hours;
+    }
+
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
+    private int minutes;
 
 
     public User() {

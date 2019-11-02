@@ -14,5 +14,5 @@ import java.util.List;
 public class SuggestionsModel {
     private String id;
     private String suggestion;
-    private List<String> commandParameter;
+//    private List<String> commandParameter;
 }

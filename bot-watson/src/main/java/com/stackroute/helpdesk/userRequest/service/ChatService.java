@@ -37,7 +37,7 @@ public class ChatService implements ChatServiceInterface {
     private MessageResponse response;
     private ChatMessage userRequest;
     private String responseFromCommand = "";
-    private List<String> commandParameter;
+//    private List<String> commandParameter;
 
     @Autowired
     private SuggestionsRepo suggestionsRepo;
@@ -254,13 +254,13 @@ public class ChatService implements ChatServiceInterface {
                 } else {
                     ticketGenerate("open");
                     String suggestions = (String) suggestionsList.get(0).get("Command name");
-                    commandParameter=new ArrayList<String>();
-                    commandParameter = (List<String>) suggestionsList.get(0).get("Command paramater");
+//                    commandParameter=new ArrayList<String>();
+//                    commandParameter = (List<String>) suggestionsList.get(0).get("Command paramater");
                     if (!suggestions.equals("")) {
                         SuggestionsModel new_suggestion_model = new SuggestionsModel();
                         new_suggestion_model.setId(ticketId);
                         new_suggestion_model.setSuggestion(suggestions);
-                        new_suggestion_model.setCommandParameter(commandParameter);
+//                        new_suggestion_model.setCommandParameter(commandParameter);
                         suggestionsRepo.save(new_suggestion_model);
                         System.out.println(suggestions);
                         System.out.println(new_suggestion_model);

@@ -62,6 +62,8 @@ public class RecieveMessages {
             user.setEmailId(messageConverted.get("emailId"));
             user.setContent(messageConverted.get("content"));
             user.setType(messageConverted.get("type"));
+            user.setHours(Integer.parseInt(messageConverted.get("hours")));
+            user.setMinutes(Integer.parseInt(messageConverted.get("minutes")));
             System.out.println("storing chat as type = " + user.getType());
             chatStoreService.updateChatHistory(messageConverted.get("content"), "user", "user", messageConverted.get("emailId"));
             Optional<SocketStore> socketStore = iSocketIdRepo.findById(messageConverted.get("emailId"));
