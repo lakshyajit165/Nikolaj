@@ -1,5 +1,7 @@
 package com.helpdesk.ReportGeneration.sockets.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.helpdesk.ReportGeneration.entity.Report;
 import com.helpdesk.ReportGeneration.model.User;
 import com.helpdesk.ReportGeneration.sockets.service.ChatStoreService;
 import org.json.JSONException;
@@ -28,8 +30,10 @@ public class SendMessages {
 	@Autowired
 	private ChatStoreService chatStoreService;
 
-	public void sendResponse(User messageConverted, String socketId) throws JSONException {
-		Map<String, String> responseToSend = messageFormatter();
+	public void sendResponse(Report messageConverted, String socketId) throws JSONException {
+//		Map<String, String> responseToSend = messageFormatter();
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, String> responseToSend = objectMapper.convertValue(messageConverted, Map.class);
 		System.out.println("sending message back to user");
 		this.simpMessagingTemplate.convertAndSend("/socket-publisher", responseToSend);
 	}

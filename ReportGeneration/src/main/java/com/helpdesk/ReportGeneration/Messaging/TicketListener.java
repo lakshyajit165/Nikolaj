@@ -34,6 +34,8 @@ public class TicketListener {
     private SendMessages sendMessages;
 
     HashMap<String, Task> map = new HashMap<>();
+    Report reportToSend = new Report();
+
 
     @RabbitListener(queues = "${ticket-details.queue.name}")
     public void receiveMessage(final MessagingResponse messagingResponse) throws Exception {
@@ -98,6 +100,9 @@ public class TicketListener {
                     report.setReopenDate(null);
                     System.out.println("report is here " + report);
                     reportInterface.saveReport(report);
+                    reportToSend = report;
+                    sendMessages.sendResponse(reportToSend, "");
+                    System.out.println("report to send kya aaarha h " + reportToSend);
 
 
                 } catch (JSONParseException e) {
@@ -132,6 +137,9 @@ public class TicketListener {
 
                     System.out.println("report is here " + report);
                     reportInterface.saveReport(report);
+                    reportToSend = report;
+                    sendMessages.sendResponse(reportToSend, "");
+                    System.out.println("report to send kya aaarha h " + reportToSend);
 
                 } catch (HttpClientErrorException ex) {
                     if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
@@ -214,6 +222,6 @@ public class TicketListener {
 
         System.out.println("what the map is showing  " + map.get(eventName));
         map.get(eventName).performSaveOperation();
-        sendMessages.sendResponse(new User(), "");
+//        sendMessages.sendResponse(new User(), "");
     }
 }

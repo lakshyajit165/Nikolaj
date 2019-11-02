@@ -40,8 +40,8 @@ public class RedisMessageSubscriber implements MessageListener {
 				socketStore.setCsrEmailId(user.getSender());
 				iSocketIdRepo.save(socketStore);
 			}
-			sendMessages.sendResponse(user, socketId);
-		} catch (IOException | JSONException ioException) {
+//			sendMessages.sendResponse(user, socketId);
+		} catch (IOException ioException) {
 			ioException.printStackTrace();
 		}
 		System.out.println("message.getbody = " + message.getBody());

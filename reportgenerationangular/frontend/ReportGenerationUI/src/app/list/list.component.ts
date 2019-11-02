@@ -86,13 +86,13 @@ export class ListComponent implements OnInit {
       this.count = this.count - this.limit;
       this.totalNoOfDocuments = this.totalNoOfDocuments + data.result.length;
       this.reports.push(...data.result);
-      this.reverseReports = [];
-      console.log("reverse reports = " + this.reverseReports);
-      this.reports.forEach(report => {
-        console.log("report = " + report.ticketName);
-        this.reverseReports.push(report);
-        this.reverseReports.sort((a, b) => new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime());
-      });
+      console.log("size of reports got = " + this.reports.length);
+      // this.reverseReports = [];
+      // this.reports.forEach(report => {
+      //   this.reverseReports.unshift(report);
+      //   // this.reverseReports.push(reeportsport);
+      //   // this.reverseReports.sort((a, b) => new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime());
+      // });
       console.log(this.reports);
     });
 
@@ -151,10 +151,8 @@ initializeWebSocketConnection() {
 
 openSocket() {
     this.isCustomSocketOpened = true;
-    console.log('uuid = ' + this.uuId);
     this.stompClient.subscribe('/socket-publisher', (message) => {
       this.handleResult(message);
-      console.log('connected');
     });
     // this.sendMessageWhenEstablished();
     // }
@@ -169,22 +167,36 @@ sendMessage(message: string) {
 
 
 sendMessageWhenEstablished() {
-  console.log('when estd');
   const socketStorage: SocketStorage = { emailId: this.csrmail, socketId: this.uuId };
   // let message: Message = { content: this.uuId, emailId: 'this.userForm.value.fromId', type: this.userForm.value.toId, sender:'CHAT' };
   this.stompClient.send('/socket-subscriber/send/socketid', {}, JSON.stringify(socketStorage));
-  console.log('when estd sent the socket message as = ' + socketStorage);
 }
 
 handleResult(message) {
   if (message.body) {
-    this.selectionChange(this.status);
-    const messageResult: Message = JSON.parse(message.body);
-    console.log('result = ' + messageResult);
-    this.messages.push(messageResult);
+
+    // this.selectionChange(this.status);
+    if (this.status === 'all') {
+      this.status = '';
+      this.totalNoOfDocuments = this.totalNoOfDocuments + 1;
+      this.count = this.count + 1;
+      this.noOfDocuments = this.noOfDocuments + 1;
+    } else {
+      this.reportService.getSize(this.status).subscribe(data => {
+        this.totalNoOfDocuments = this.totalNoOfDocuments + 1;
+        this.count = this.count + 1;
+        this.noOfDocuments = this.noOfDocuments + 1;
+      });
+    }
+    const reportData: IReport = JSON.parse(message.body);
+    console.log("data result = " + reportData);
+    this.reports.unshift(reportData);
+    // const messageResult: Message = JSON.parse(message.body);
+    // this.messages.push(messageResult);
   }
+
+
+
+
 }
-
-
-
 }
