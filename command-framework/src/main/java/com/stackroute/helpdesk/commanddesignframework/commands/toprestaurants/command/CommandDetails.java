@@ -17,12 +17,12 @@ public class CommandDetails implements ICommandDetail {
     private String name = "toprestaurants";
     private String description = "returns the top restaurant in a city";
     private String[] tags = {"restaurant"};
-    private String usage;
-    private String status;
+    private String usage = "/toprestaurants city";
+    private String status="inactive";
     private List<Parameter> parameterList = new ArrayList<>();
 
     public void declareParameters(){
-        Parameter parameter1 = new Parameter("city", "defines the city in which top restaurants required", "true");
+        Parameter parameter1 = new Parameter("city", "defines the city in which top restaurants needed", "Required");
         List<Parameter> parameterList = new ArrayList<>();
         parameterList.add(parameter1);
         this.parameterList=parameterList;

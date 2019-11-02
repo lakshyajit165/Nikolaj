@@ -18,11 +18,11 @@ public class CommandDetails implements ICommandDetail {
 	private String description = "returns the invoice of the user";
 	private String[] tags = {"invoice", "billing", "payment"};
 	private String usage = "/lastinvoice userId";
-	private String status = "published";
+	private String status = "active";
 	private List<Parameter> parameterList = new ArrayList<>();
 
 	public void declareParameters(){
-		Parameter parameter1 = new Parameter("userId", "This takes the user unique id", "true");
+		Parameter parameter1 = new Parameter("userId", "This takes the user unique id", "Required");
 		List<Parameter> parameterList = new ArrayList<>();
 		parameterList.add(parameter1);
 		this.parameterList=parameterList;

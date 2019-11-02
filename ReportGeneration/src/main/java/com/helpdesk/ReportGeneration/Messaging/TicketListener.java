@@ -98,11 +98,11 @@ public class TicketListener {
                     report.setRating(0);
                     report.setResolvedBy(null);
                     report.setReopenDate(null);
-                    System.out.println("report is here " + report);
+//                    System.out.println("report is here " + report);
                     reportInterface.saveReport(report);
                     reportToSend = report;
                     sendMessages.sendResponse(reportToSend, "");
-                    System.out.println("report to send kya aaarha h " + reportToSend);
+//                    System.out.println("report to send kya aaarha h " + reportToSend);
 
 
                 } catch (JSONParseException e) {

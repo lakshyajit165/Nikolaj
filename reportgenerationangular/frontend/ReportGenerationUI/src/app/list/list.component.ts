@@ -174,7 +174,7 @@ sendMessageWhenEstablished() {
 
 handleResult(message) {
   if (message.body) {
-
+    console.log("handling the result");
     // this.selectionChange(this.status);
     if (this.status === 'all') {
       this.status = '';
