@@ -54,7 +54,7 @@ export class ChatComponent implements OnInit {
       
       data.map(chatMessage => {
         // console.log(chatMessage);
-        let previousMessage: Message = { content: chatMessage.message, emailId: '', type: chatMessage.user, sender:'' };
+        let previousMessage: Message = { content: chatMessage.message, emailId: '', type: chatMessage.user, sender:'', hours: 0, minutes:0 };
         this.messages.push(previousMessage);
         // console.log(previousMessage);
         });
@@ -112,7 +112,7 @@ export class ChatComponent implements OnInit {
 
   sendMessage(message: string) {
     
-    let chatmessage: Message = { content: message, emailId: this.usermail, type: 'csr', sender:this.csrmail };
+    let chatmessage: Message = { content: message, emailId: this.usermail, type: 'csr', sender:this.csrmail , hours: 0, minutes:0};
     this.stompClient.send("/socket-subscriber/send/message", {}, JSON.stringify(chatmessage));
     this.messages.push(chatmessage);
     //this.handleResult(chatmessage);
