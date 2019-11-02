@@ -1,5 +1,5 @@
 <!-- <p>performance works!</p> -->
-<div class="spinner" *ngIf="!loaded; else elseBlock">
+<div class="spinner" *ngIf="!loaded; else elseBlock" fxLayout="row" fxLayoutAlign="space-around center" style="height:100%">
   <mat-spinner></mat-spinner>
 </div>
 <ng-template #elseBlock>
