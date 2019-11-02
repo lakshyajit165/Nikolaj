@@ -95,7 +95,6 @@ resetValues() {
   this.csrMail.length = 0;
   this.rank.length = 0;
   this.ans.length = 0;
-  console.log('csrmail ki length ki value' + this.csrMail.length);
 }
 
   calculate() {

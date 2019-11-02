@@ -92,16 +92,13 @@ export class BotRealiabilityComponent implements OnInit {
     this.reportService.getBotReliability(this.event1, this.event2).subscribe(
       res => {
         this.response1 = res;
-        // console.log(res);
         this.responseQuery = this.response1[this.result];
         this.responseQuery.forEach((data) => {
           data[this.results].forEach((element) => {
-            // console.log(element);
             if (this.map.has(element.service)) {
               const arr = this.map.get(element.service);
               arr.push(element.total);
               this.map.set(element.service, arr);
-              // console.log(this.map.set(element.service, element.total));
             } else {
               const key = element.service;
               const value = [];
@@ -110,10 +107,8 @@ export class BotRealiabilityComponent implements OnInit {
             }
           });
         });
-        console.log(this.map);
         for (const key of this.map.keys()) {
           this.serviceName.push(key);
-          console.log(this.serviceName);
         }
         this.barChartLabels = this.serviceName;
         for (const value of this.map.values()) {
@@ -121,9 +116,6 @@ export class BotRealiabilityComponent implements OnInit {
           this.avgRating.push(value[1]);
           this.reopen.push(value[2]);
         }
-        console.log(this.avgRating);
-        console.log(this.totalQuery);
-        console.log(this.reopen);
       }
     );
     this.map.clear();

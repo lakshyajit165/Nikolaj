@@ -23,7 +23,7 @@
             <p class="emptyDataInfo">Currently there are no tickets!</p>
         </div>
         <div *ngFor="let report of reports" class="expansion">
-            <mat-expansion-panel>
+            <mat-expansion-panel [@flyInOut]>
                 <mat-expansion-panel-header>
                     <mat-panel-title class="title">
                         {{ report.ticketName }}
