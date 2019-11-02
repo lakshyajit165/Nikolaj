@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BotRealiabilityComponent } from '../botreliability/botreliability.component';
 import { BotReliabilityRoutingModule } from './botreliability-routing.module';
@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule
-  ]
+  ],
+  schemas:[ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class BotreliabilityModule { }
