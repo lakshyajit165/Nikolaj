@@ -36,7 +36,7 @@ public class  SimulationService implements SimulationServiceInterface {
     private ChatMessage userRequest;
     private String responseFromCommand = "";
 
-    @Autowired  
+    @Autowired
     private SuggestionsRepo suggestionsRepo;
     @Autowired
     private Neo4jServiceRepo neo4jService;
