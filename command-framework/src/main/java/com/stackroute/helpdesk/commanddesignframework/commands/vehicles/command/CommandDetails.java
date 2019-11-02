@@ -18,7 +18,7 @@ public class CommandDetails implements ICommandDetail {
 	private String description = "returns the rent for vehicles of the umove";
 	private String[] tags = {"vehicles", "rent"};
 	private String usage = "/vehiclerent";
-	private String status = "published";
+	private String status = "active";
 	private List<Parameter> parameterList = new ArrayList<>();
 
 	public void declareParameters(){

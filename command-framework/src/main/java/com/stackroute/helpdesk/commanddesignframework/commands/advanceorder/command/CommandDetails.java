@@ -18,14 +18,14 @@ public class CommandDetails implements ICommandDetail {
 	private String name = "advanceorder";
 	private String description = "gives website path for ordering in advance";
 	private String[] tags = {"confirmation of order"};
-	private String usage;
-	private String status;
+	private String usage = "/advanceorder";
+	private String status="active";
 	private List<Parameter> parameterList = new ArrayList<>();
 
 	public void declareParameters(){
-		Parameter parameter1 = new Parameter("userId", "unique userid of the user", "true");
+		//Parameter parameter1 = new Parameter("userId", "unique userid of the user", "true");
 		List<Parameter> parameterList = new ArrayList<>();
-		parameterList.add(parameter1);
+		//parameterList.add(parameter1);
 		this.parameterList=parameterList;
 	}
 }

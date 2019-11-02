@@ -16,13 +16,13 @@ import java.util.List;
 public class CommandDetails implements ICommandDetail {
 	private String name = "bestdish";
 	private String description = "returns the best dish in a restaurant";
-	private String[] tags = {"best dish", "rating",};
-	private String usage;
-	private String status;
+	private String[] tags = {"best dish", "rating"};
+	private String usage = "/bestdish restaurantId";
+	private String status="active";
 	private List<Parameter> parameterList = new ArrayList<>();
 
 	public void declareParameters(){
-		Parameter parameter1 = new Parameter("paramName", "paramDesc", "true");
+		Parameter parameter1 = new Parameter("restaurantId", "Id for a particular restaurant", "Required");
 		List<Parameter> parameterList = new ArrayList<>();
 		parameterList.add(parameter1);
 		this.parameterList=parameterList;
