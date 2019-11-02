@@ -6,15 +6,20 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { retry, catchError } from 'rxjs/operators';
 import { Report } from '../track-issue/track-issue.component';
 import { IReportResponse } from '../model/IReportResponse';
+import { IIntentCommand } from '../model/IntentCommand';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TrackIssueService {
+private  intentCommandMappingUrl = environment.intentCommandMappingUrl;
+
+  intentCommand: IIntentCommand;
 
   private apiGatewayUrl = environment.apiGatewayUrl;
-  private intentCommandMappingUrl = environment.intentCommandMappingUrl;
-     constructor(private httpClient: HttpClient) { }
+     constructor(private httpClient: HttpClient) {
+       this.intentCommand = new IIntentCommand();
+      }
 
     private errorHandler(errorResponse: HttpErrorResponse) {
       if (errorResponse.error instanceof ErrorEvent) {
@@ -27,17 +32,18 @@ export class TrackIssueService {
     }
 
     mapIntentCommand(intentName: string, commandName: string) {
-      return this.httpClient.post(this.apiGatewayUrl + this.intentCommandMappingUrl, intentName);
+      console.log('command name = ' + commandName);
+      console.log('intent name = ' + intentName);
+      console.log('intentCommand=', this.intentCommand);
+      this.intentCommand.commandName = commandName;
+      this.intentCommand.intentName.push(intentName);
+      // tslint:disable-next-line:no-unused-expression
+      this.intentCommand.commandParameter;
+      this.intentCommand.relationshipName = '';
+      console.log('object sending in the api call = ' + this.intentCommand.commandName);
+      this.httpClient.post(this.apiGatewayUrl + this.intentCommandMappingUrl, this.intentCommand).subscribe(res => {
+        return res;
+      });
     }
-    // getReportsByType(type: string , page: number): Observable<IReportResponse> {
-    //   this.url = `http://localhost:9003/api/v1/commandregistry/reports/type?reports=${type}&page=${page}`;
-    //   console.log('url' + this.url);
-    //   return this.httpClient.get<IReportResponse>(`http://localhost:9003/reports/type?type=${type}&page=${page}`);
-    // }
-    // getReportsByType(type: string): Observable<IReportResponse> {
-    //   // url = `http://localhost:9003/api/v1/commandregistry/reports/type?type=${type}`;
-    //   this.url = `http://15.206.36.205:8765/api/v1/commandregistry/reports/type?type=${type}`;
-    //   return this.httpClient.get<IReportResponse>(this.url);
-   // }
 
 }
