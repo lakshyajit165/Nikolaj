@@ -218,8 +218,7 @@ public class ReportService implements ReportInterface {
     public JSONObject getTicketsReopen(Date startdate, Date endDate) {
         MatchOperation matchOperation = match(Criteria.where("ticketStatus").in("reopen").exists(true)
                 .andOperator(Criteria.where("createdOn").gte(startdate).lt(endDate)));
-        MatchOperation matchOperation1 = match(Criteria.where("reopenDate").ne(null).exists(true)
-                .andOperator(Criteria.where("resolvedBy").in("bot").exists(true)));
+        MatchOperation matchOperation1 = match(Criteria.where("resolvedBy").in("bot").exists(true));
         GroupOperation groupOperation = group("entity").count().as("total");
         Aggregation aggregation = newAggregation(matchOperation, matchOperation1, groupOperation, project("total").and("_id").as("service").andExclude("_id"));
         AggregationResults<Report> result = mongoTemplate.aggregate(aggregation, "reports", Report.class);
