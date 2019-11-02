@@ -123,9 +123,12 @@ export class TicketdetailcardComponent implements OnInit {
  
   resolveTicket(status: number, responseType: number, message: string) {
     this.ticketService.updateAndCloseTicket(this.ticket, status, this.csrMail, responseType).subscribe(res => {
+      
       this.snackbar.open(message, 'Dismiss', { duration: 4000 });
       // console.log(res);
+
       this.updateCsrWhenTicketResolved();
+      
       this.router.navigate(['/home/openticket']);
     });
   }
