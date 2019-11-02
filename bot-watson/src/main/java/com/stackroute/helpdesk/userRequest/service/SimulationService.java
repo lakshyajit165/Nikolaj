@@ -26,7 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 @Service
-public class  SimulationService implements ChatServiceInterface {
+public class  SimulationService implements SimulationServiceInterface {
 
     private Assistant assistant;
     private String workSpaceId;
@@ -36,7 +36,7 @@ public class  SimulationService implements ChatServiceInterface {
     private ChatMessage userRequest;
     private String responseFromCommand = "";
 
-    @Autowired
+    @Autowired  
     private SuggestionsRepo suggestionsRepo;
     @Autowired
     private Neo4jServiceRepo neo4jService;
