@@ -36,7 +36,7 @@ public class SendMessages {
 
 	public Map<String, String> messageFormatter(User message) throws JSONException {
 		Map<String, String> resposeToSend = new HashMap<>();
-		chatStoreService.updateChatHistory(message.getContent(), message.getSender(), message.getType(), message.getEmailId());
+		chatStoreService.updateChatHistory(message.getContent(), message.getSender(), message.getType(), message.getEmailId(), message.getHours(), message.getMinutes());
 		resposeToSend.put("emailId", message.getEmailId());
 		resposeToSend.put("content", message.getContent());
 		resposeToSend.put("type", message.getType());
