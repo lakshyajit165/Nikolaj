@@ -41,9 +41,9 @@ export class SuggestionService {
     // for the error handling
   private handleError(errorResponse: HttpErrorResponse) {
     if (errorResponse.error instanceof ErrorEvent) {
-      console.error('client side error', errorResponse.error.message);
+      // console.error('client side error', errorResponse.error.message);
     } else {
-      console.error('server side error', errorResponse);
+      // console.error('server side error', errorResponse);
     }
     return throwError('some problem is occured here.............');
   }

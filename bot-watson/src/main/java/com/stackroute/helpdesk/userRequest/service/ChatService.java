@@ -69,6 +69,7 @@ public class    ChatService implements ChatServiceInterface {
     @Override
     public String postQuery(ChatMessage userRequest) {
         this.userRequest = userRequest;
+        this.responseFromCommand="";    
         String responseFromBot = null;
         List<String> intents = new LinkedList<>();
         List<String> entities = new LinkedList<>();

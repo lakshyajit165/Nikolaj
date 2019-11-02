@@ -43,7 +43,7 @@ export class OpenticketComponent implements OnInit {
 
   ngOnInit() {
     this.csrMail = this.cookie.get('csrmail');
-    console.log(this.csrMail);
+    // console.log(this.csrMail);
   }
 
  // pass the currently logged in csr mail into this funciton after authentication is implemented
@@ -51,12 +51,12 @@ export class OpenticketComponent implements OnInit {
     // this.updateTicketWhenCsrAssigned(this.ticket);
     // this.createCsrWhenAssigned(csrmail, this.ticket.query);
     this.ticketService.assignTicket().subscribe(res => {
-      console.log(res);
-      console.log(res[this.result][this.result]);
+      // console.log(res);
+      // console.log(res[this.result][this.result]);
 
       this.ticket = res[this.result][this.result];
       this.ticket.assignedTo = this.csrMail; // assign csrmail here
-      console.log(this.ticket);
+      // console.log(this.ticket);
       this.updateTicketWhenCsrAssigned(this.ticket);
 
       // change first param to csr mail after authentication
@@ -71,7 +71,7 @@ export class OpenticketComponent implements OnInit {
 
   updateTicketWhenCsrAssigned(ticket: Ticket) {
     this.ticketService.updateTicketWhenCsrAssigned(ticket, 1).subscribe(res => {
-      console.log(res[this.result]);
+      // console.log(res[this.result]);
       this.ticketId = res[this.result][this.uuid];
     });
   }
@@ -82,7 +82,7 @@ export class OpenticketComponent implements OnInit {
     this.csr.csrmail = csrmail;
     this.csr.ticketId = ticketId;
     this.ticketService.createCsrWhenAssigned(this.csr, ticketName).subscribe(res => {
-      console.log(res);
+      // console.log(res);
       this.csr.uuid = res[this.result][this.uuid];
       // con
       // this.csrId = res[this.result][this.uuid];
