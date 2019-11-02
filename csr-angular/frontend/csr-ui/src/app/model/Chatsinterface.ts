@@ -3,6 +3,6 @@ export class Chats{
     date: string;
     message: string;
     user: string;
-    hours: number;
-    minutes: number;
+    hours: string;
+    minutes: string;
  }

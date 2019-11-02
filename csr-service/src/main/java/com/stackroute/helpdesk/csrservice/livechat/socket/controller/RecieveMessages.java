@@ -58,6 +58,8 @@ public class RecieveMessages {
             chatMessage.setContent(messageConverted.get("content"));
             chatMessage.setSender(messageConverted.get("sender"));
             chatMessage.setType(messageConverted.get("type"));
+            chatMessage.setHours(messageConverted.get("hours"));
+            chatMessage.setMinutes(messageConverted.get("minutes"));
             redisMessagePublisher.publish(chatMessage);
         } catch (IOException e) {
             messageConverted = null;

@@ -3,6 +3,6 @@ export class Message{
     content: string;
     type: string;
     emailId: string;
-    hours: number;
-    minutes: number;
+    hours: string;
+    minutes: string;
  }
