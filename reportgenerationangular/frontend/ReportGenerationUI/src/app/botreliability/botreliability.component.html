@@ -2,32 +2,35 @@
     <p>{{ error }}</p>
 </div>
 
-<div>
-    <mat-form-field class="example">
-        <input matInput [matDatepicker]="picker" placeholder="select the start date" (dateInput)="getStartDate('input', $event)">
+<div class="example">
+<mat-grid-list cols="2" rowHeight="2:1" rowHeight="100px">
+    <mat-grid-tile>
+    <mat-form-field>
+        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="select the start date" (dateInput)="getStartDate('input', $event)">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-
-
-    <mat-form-field class="example">
-        <input matInput [matDatepicker]="pickerTo" placeholder="select the end date" (dateInput)="getEndDate('input', $event)">
+    </mat-grid-tile>
+    <mat-grid-tile>
+    <mat-form-field>
+        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerTo" placeholder="select the end date" (dateInput)="getEndDate('input', $event)">
         <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
         <mat-datepicker #pickerTo></mat-datepicker>
     </mat-form-field>
+</mat-grid-tile>
+</mat-grid-list>
 </div>
-
 
 <div class="performance" *ngIf="!error">
     <h1 class="mat-h1">Bot Performance Details</h1>
     <div style="display: block">
-        <canvas baseChart
-         [datasets]="barChartData" 
-         [labels]="barChartLabels" 
-         [options]="barChartOptions" 
-         [plugins]="barChartPlugins" 
-         [legend]="barChartLegend" 
-         [chartType]="barChartType">
+        <canvas baseChart height="100%" 
+        [datasets]="barChartData" 
+        [labels]="barChartLabels" 
+        [options]="barChartOptions" 
+        [plugins]="barChartPlugins" 
+        [colors]="barChartColors"
+        [legend]="barChartLegend" 
+        [chartType]="barChartType">
         </canvas>
     </div>
-</div>
