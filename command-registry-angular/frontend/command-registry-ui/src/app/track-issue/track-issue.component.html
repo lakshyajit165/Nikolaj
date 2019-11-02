@@ -1,12 +1,26 @@
-<mat-form-field class="report">
-  <mat-label>Report Type</mat-label>
-  <mat-select [(value)]="selected" (selectionChange)="anotherMethod($event.value)">
+<div>
+<form> 
+  <mat-form-field class="report">
+    <mat-label>Report Type</mat-label>
+    <mat-select [(value)]="selected" (selectionChange)="anotherMethod($event.value)">
 
-    <mat-option *ngFor="let report of reports" [value]="report.value">
-      {{report.viewValue}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+      <mat-option *ngFor="let report of reports" [value]="report.value">
+        {{report.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field >
+    <mat-label>Command</mat-label>
+    <input matInput #first [(ngModel)]="command" name="command">
+    <mat-hint *ngIf="firstNameAutofilled">Autofilled!</mat-hint>
+  </mat-form-field >
+  <button mat-raised-button  color="primary" (click)="getIntent()">Submit</button>
+</form>
+
+</div>
+
+
 
 <div >
   <div style="height: 750px;">

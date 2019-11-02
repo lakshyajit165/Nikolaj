@@ -24,7 +24,7 @@ public class MessageListenerForNoIntent {
     @RabbitListener(queues = "${no-intent-report-recieved.queue.name}")
     public void receiveMessageForNoIntentReport(MessagingResponse recievedObjectInJson) throws Exception {
         recievedObjectInJson.getEventData();
-        JSONObject jsonObject = (JSONObject)((LinkedHashMap)recievedObjectInJson.getEventData()).get("body");
+        JSONObject jsonObject = (JSONObject)((LinkedHashMap)recievedObjectInJson.getEventData()).get("result");
         reportService.printJsonObject1(jsonObject);
         try {
             log.info("message added to the no intent queue");

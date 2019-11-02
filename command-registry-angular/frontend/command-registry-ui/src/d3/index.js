@@ -1,30 +1,27 @@
-
-
-
 let dataToSend;
+let dataToSend2;
 function load(selected) {
         let matrix
+        let matrix2
         let url;
         console.log(selected);
         
         if (selected === 'NoCommand-0') {
               //  url = 'http://localhost:3002/data2';
-               url='https://nikolaj-dev.stackroute.io/commandregistry/api/v1/commandregistry/reports/type?type=NoCommand';
-              // url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoCommand';
+              // url='https://nikolaj-dev.stackroute.io/commandregistry/api/v1/commandregistry/reports/type?type=NoCommand';
+              url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoCommand';
                 
         }
         else {
             // url = 'http://localhost:3001/data3';
-            // url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoIntent';
-             url='https://nikolaj-dev.stackroute.io/commandregistry/api/v1/commandregistry/reports/type?type=NoIntent';
+             url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoIntent';
+            // url='https://nikolaj-dev.stackroute.io/commandregistry/api/v1/commandregistry/reports/type?type=NoIntent';
                 
         }
 
         let format = d3.format(",d");
         let width = 932;
         let radius = width / 6;
-
-        console.log("after api call url = " + url);
 
         let arc = d3.arc()
                 .startAngle(d => d.x0)
@@ -53,9 +50,11 @@ function load(selected) {
                 let svg = d3.select('#partitionSVG')
                         .style("width", "100%")
                         .style("height", "auto")
-                        .style("font", "10px sans-serif");
+                        .style("font", "20px sans-serif");
+                       // .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")" + "rotate(" + getAngle(d) + ")"; });
                 let g = svg.append("g")
-                        .attr("transform", `translate(${width / 2},${width / 2})`);
+                       .attr("transform", `translate(${width / 2},${width / 2})`);
+                     // .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")" + "rotate(" + getAngle(d) + ")"; });
 
                 let path = g.append("g")
                         .selectAll("path")
@@ -101,9 +100,12 @@ function load(selected) {
                         if(p.depth==3){
                                 
                         dataToSend=p.data.children;
+                        dataToSend2=p.data;
                         // sendData();
                         // console.log('data to send',dataToSend);
                          matrix = p.data.children;
+                         matrix2=p.data;
+                         console.log('hello intent',p.data);
                         //  dataToSend = matrix;  
                                let tr = d3.select(".querylist tbody")
                                 .selectAll("tr")
@@ -116,7 +118,7 @@ function load(selected) {
                                   .text(function(d) { return d; });
                                   
 
-                        console.log('hello',p.data);
+                        
                         // dataToSend=p.data.children;
                         //  sendData(p.data.children);
                         //   console.log('data to send',dataToSend);
@@ -195,4 +197,10 @@ function sendData(){
         // console.log(data);
         // console.log(dataToSend)
         return dataToSend;
+}
+
+function sendDataCommand()
+{
+        console.log("data intent = " + dataToSend2);
+        return dataToSend2;
 }
