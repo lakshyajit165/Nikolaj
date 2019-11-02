@@ -8,6 +8,8 @@ import { MatFormFieldModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material';
 import { MaterialModule } from '../material/material.module';
+import { MatGridListModule } from '@angular/material/grid-list';
+
 
 @NgModule({
   declarations: [BotRealiabilityComponent],
@@ -21,7 +23,8 @@ import { MaterialModule } from '../material/material.module';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    MaterialModule
+    MaterialModule,
+    MatGridListModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
