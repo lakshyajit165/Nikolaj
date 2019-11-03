@@ -20,8 +20,8 @@ export class ChatComponent implements OnInit {
 
   private serverUrl = environment.url + 'socket';
   private uuId: string;
-  isLoaded: boolean = false;
-  loaded: boolean = false;
+  isLoaded = false;
+  loaded = false;
   isCustomSocketOpened = false;
   private stompClient;
   private ticket: Ticket;
@@ -41,19 +41,19 @@ export class ChatComponent implements OnInit {
     private cookie: CookieService,
     private router: Router
   ) {
-    
-    if(this.router.getCurrentNavigation().extras.state !== undefined) {
+
+    if (this.router.getCurrentNavigation().extras.state !== undefined) {
       this.ticket = this.router.getCurrentNavigation().extras.state.ticket;
       this.usermail = this.ticket.raisedBy;
-    }  
+    }
 
-    
-    
+
+
     this.chatservice.getChats(this.usermail).subscribe(data => {
-      
+
       data.map(chatMessage => {
-        let previousMessage: Message = { content: chatMessage.message, 
-          emailId: '', type: chatMessage.user, sender:'', hours: '', minutes: '' };
+        const previousMessage: Message = { content: chatMessage.message,
+          emailId: '', type: chatMessage.user, sender: '', hours: '', minutes: '' };
         this.messages.push(previousMessage);
         });
 
@@ -62,30 +62,30 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
 
-    this.csrmail = this.cookie.get("csrmail");
-    //this.csrmail = "csr@gmail.com";
+    this.csrmail = this.cookie.get('csrmail');
+    // this.csrmail = "csr@gmail.com";
     this.uuId = this.uuid();
     this.initializeWebSocketConnection();
-    
+
   }
 
   initializeWebSocketConnection() {
-    let ws = new SockJS(this.serverUrl, '_reserved' , 10);
+    const ws = new SockJS(this.serverUrl, '_reserved' , 10);
     this.stompClient = Stomp.over(ws);
-    let that = this;
+    const that = this;
     this.stompClient.connect({}, (res) => {
     that.isLoaded = true;
     // this.openGlobalSocket();
     this.openSocket();
      // connected to user
-     this.loaded = true;
+    this.loaded = true;
     });
   }
 
   openSocket() {
     // if (this.isLoaded) {
       this.isCustomSocketOpened = true;
-      this.stompClient.subscribe("/socket-publisher/"+ this.uuId, (message) => {
+      this.stompClient.subscribe('/socket-publisher/' + this.uuId, (message) => {
         this.handleResult(message);
 
              });
@@ -94,36 +94,37 @@ export class ChatComponent implements OnInit {
   }
 
   public uuid(): string {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (char) => {
-      let random = Math.random() * 16 | 0; // Nachkommastellen abschneiden
-      let value = char === "x" ? random : (random % 4 + 8); // Bei x Random 0-15 (0-F), bei y Random 0-3 + 8 = 8-11 (8-b) gemäss RFC 4122
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (char) => {
+      // tslint:disable-next-line: no-bitwise
+      const random = Math.random() * 16 | 0; // Nachkommastellen abschneiden
+      const value = char === 'x' ? random : (random % 4 + 8); // Bei x Random 0-15 (0-F), bei y Random 0-3 + 8 = 8-11 (8-b) gemäss RFC 4122
       return value.toString(16); // Hexadezimales Zeichen zurückgeben
     });
   }
 
   sendMessage(message: string) {
-    
-    let chatmessage: Message = { content: message, emailId: this.usermail, type: 'csr', sender:this.csrmail , hours: '', minutes: '' };
-    this.stompClient.send("/socket-subscriber/send/message", {}, JSON.stringify(chatmessage));
+
+    const chatmessage: Message = { content: message, emailId: this.usermail, type: 'csr', sender: this.csrmail , hours: '', minutes: '' };
+    this.stompClient.send('/socket-subscriber/send/message', {}, JSON.stringify(chatmessage));
     this.messages.push(chatmessage);
-    //this.handleResult(chatmessage);
-    (<HTMLInputElement>document.getElementById('chatmessage')).value='';
-  
+    // this.handleResult(chatmessage);
+    ( document.getElementById('chatmessage') as HTMLInputElement).value = '';
+
 }
 
 sendMessageWhenEstablished() {
-  let socketStorage: SocketStorage = { emailId: this.csrmail, socketId: this.uuId };
-  //let message: Message = { content: this.uuId, emailId: 'this.userForm.value.fromId', type: this.userForm.value.toId, sender:'CHAT' };
-  this.stompClient.send("/socket-subscriber/send/socketid", {}, JSON.stringify(socketStorage));
+  const socketStorage: SocketStorage = { emailId: this.csrmail, socketId: this.uuId };
+  // let message: Message = { content: this.uuId, emailId: 'this.userForm.value.fromId', type: this.userForm.value.toId, sender:'CHAT' };
+  this.stompClient.send('/socket-subscriber/send/socketid', {}, JSON.stringify(socketStorage));
 }
 
 
 handleResult(message) {
 if (message.body) {
-  let messageResult: Message = JSON.parse(message.body);
+  const messageResult: Message = JSON.parse(message.body);
   this.messages.push(messageResult);
-  this.toastr.success("new message recieved", null, {
-    'timeOut': 3000
+  this.toastr.success('new message recieved', null, {
+    timeOut: 3000
   });
 }
 }

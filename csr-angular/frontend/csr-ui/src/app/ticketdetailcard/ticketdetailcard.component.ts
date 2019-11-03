@@ -75,7 +75,7 @@ export class TicketdetailcardComponent implements OnInit {
       this.intent = this.ticket.intent;
       this.status = 'Engaged';
 
-      
+
     }
 
   }
@@ -108,7 +108,7 @@ export class TicketdetailcardComponent implements OnInit {
       // console.log('The dialog was closed');
       // console.log(result);
       if (result !== undefined) {
-        this.ticketService.updateAndCloseTicket(this.ticket, 2, this.csrMail, 3).subscribe(res => {
+        this.ticketService.updateAndCloseTicket(this.ticket, 2, this.csrMail, 3).subscribe(() => {
           this.updateCsrWhenTicketResolved();
           this.snackbar.open('User Reported!', 'Dismiss', { duration: 4000 });
           this.router.navigate(['/home/openticket']);

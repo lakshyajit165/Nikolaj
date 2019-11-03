@@ -44,7 +44,7 @@ export class PerformanceComponent implements OnInit {
         align: 'end',
       }
     },
-   
+
   };
 
   public barChartLabels: Label[];
