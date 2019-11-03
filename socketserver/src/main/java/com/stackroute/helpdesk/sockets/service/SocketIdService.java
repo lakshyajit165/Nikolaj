@@ -21,6 +21,7 @@ public class SocketIdService implements ISocketIdService{
 
 	public void saveSocket(SocketStore socketStore){
 		iSocketIdRepo.save(socketStore);
+		System.out.println("socket saved = " + socketStore);
 		List<SocketStore> socketStore1 = (List<SocketStore>) iSocketIdRepo.findAll();
 	}
 
@@ -39,11 +40,6 @@ public class SocketIdService implements ISocketIdService{
 
 	public void removeSocket(String emailId){
 		System.out.println("emailId = " + emailId);
-		List<SocketStore> socketStore1 = (List<SocketStore>) iSocketIdRepo.findAll();
-		socketStore1.forEach(socketStore -> {
-			System.out.println("email id in socket store = " + socketStore.getEmailId());
-			System.out.println("socket object stored = " + socketStore);
-		});
 		Optional<SocketStore> optionalSocketStore = iSocketIdRepo.findById(emailId);
 		SocketStore socketStore = null;
 		if(optionalSocketStore.isPresent()) {
