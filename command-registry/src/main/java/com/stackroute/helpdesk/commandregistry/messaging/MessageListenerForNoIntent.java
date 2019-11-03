@@ -26,6 +26,7 @@ public class MessageListenerForNoIntent {
     @RabbitListener(queues = "${no-intent-report-recieved.queue.name}")
     public void receiveMessageForNoIntentReport(MessagingResponse recievedObjectInJson) throws Exception {
         Gson gson = new Gson();
+        System.out.println("no intent"+recievedObjectInJson.getEventData());
         JSONObject jsonObject = gson.fromJson(recievedObjectInJson.getEventData(), JSONObject.class);
         if(!((String)jsonObject.get("NoIntent")).contains("Well"))
         reportService.printJsonObject1(jsonObject);
