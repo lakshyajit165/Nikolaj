@@ -39,10 +39,11 @@ public class ReportService implements ReportInterface {
 //            JSONObject jsonObject= (JSONObject) jsonObj.get(keyStr);
             if(!(jsonObj.get(report)=="Well done by developers.Currently all quries have commands") || !(jsonObj.get(report)=="Well done by developers.Currently all quries have Intents")){
 //                printJsonObject2((JSONObject) jsonObj.get(report));
-                System.out.println("report if condition");
+                System.out.println("inside if for printJsonObject2 function");
+                printJsonObject2(jsonObject);
             }
             else{
-                printJsonObject2(jsonObject);
+                System.out.println("report if condition");
             }
         }
     }
