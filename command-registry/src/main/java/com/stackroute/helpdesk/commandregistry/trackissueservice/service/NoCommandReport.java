@@ -58,26 +58,27 @@ public class NoCommandReport {
                             System.out.println("current intent = " + intent.getIntent() + " but unique intent = " + uniqueIntent);
                             if (uniqueIntent == intent.getIntent()) {
                                 HashMap<String, Object> queries = new HashMap<>();
-//                                if(intent.getCommandName().isEmpty()) {
+                                System.out.println("command name = " + intent.getCommandName());
+                                if(intent.getCommandName().isEmpty()) {
                                     queries.put("name", intent.getTicketName());
                                     queries.put("size", 300);
                                     queriesList.add(queries);
                                 System.out.println("queries = "+ queries.get("name"));
-//                                }
-//                                else {
-//                                    queries.put("name", intent.getTicketName());
-//                                    queries.put("size", 300);
-//                                    mappedIntentQueriesList.add(queries);
-//                                }
+                                }
+                                else {
+                                    queries.put("name", intent.getTicketName());
+                                    queries.put("size", 300);
+                                    mappedIntentQueriesList.add(queries);
+                                }
                             }
                             System.out.println("queries list = " + queriesList);
                         });
                         intents.put("children", queriesList);
                         intents.put("name", uniqueIntent);
-//                        mappedIntents.put("children", mappedIntentQueriesList);
-//                        mappedIntents.put("name", uniqueIntent);
+                        mappedIntents.put("children", mappedIntentQueriesList);
+                        mappedIntents.put("name", uniqueIntent);
                         intentsList.add(intents);
-//                        mappedIntentsList.add(mappedIntents);
+                        mappedIntentsList.add(mappedIntents);
                     });
                 }
             });
@@ -85,9 +86,9 @@ public class NoCommandReport {
             entity.put("name", uniqueEntity);
             entitiesList.add(entity);
 
-//            mappedEntity.put("children", mappedIntentsList);
-//            mappedEntity.put("name", uniqueEntity);
-//            mappedEntitiesList.add(mappedEntity);
+            mappedEntity.put("children", mappedIntentsList);
+            mappedEntity.put("name", uniqueEntity);
+            mappedEntitiesList.add(mappedEntity);
         });
         noCommand.put("children", entitiesList);
         noCommand.put("name", "noCommand");
@@ -99,8 +100,8 @@ public class NoCommandReport {
         data3.put("children", reportList);
         data3.put("name","commandReport");
 //        commandList.add(data3);
-//        data4.put("name","commandReport");
-//        data4.put("children",commandList);
+//        data3.put("name","commandReport");
+//        data3.put("children",commandList);
         return new JSONObject(data3);
     }
 }
