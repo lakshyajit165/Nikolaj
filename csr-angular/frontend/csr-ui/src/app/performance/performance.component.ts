@@ -30,17 +30,18 @@ export class PerformanceComponent implements OnInit {
 
   public barChartOptions: ChartOptions = {
     responsive: true,
-    scales: { xAxes: [{}], yAxes: [{
+    scales: { xAxes: [{  barThickness: 6, }], yAxes: [{
      ticks: {
        beginAtZero: true
-   }
+      }
     }] },
     plugins: {
       datalabels: {
         anchor: 'end',
         align: 'end',
       }
-    }
+    },
+   
   };
 
   public barChartLabels: Label[];
@@ -104,7 +105,7 @@ export class PerformanceComponent implements OnInit {
         // console.log(this.queryResolvedCount);
 
         this.barChartData = [
-          {data: this.queryTakenCount , label: 'Queries Taken'},
+          {data: this.queryTakenCount , label: 'Queries Taken' },
           {data : this.queryResolvedCount, label : 'Queries Resolved'}
         ];
 
