@@ -20,4 +20,5 @@ public interface Neo4jServiceRepo {
     public List getCommandByName(String intentName, String relationshipName);
     List getAll();
     List getConfidence(String intentName, String commandName);
+    List addIntentAndCommandForSimulation(Map map);
 }
