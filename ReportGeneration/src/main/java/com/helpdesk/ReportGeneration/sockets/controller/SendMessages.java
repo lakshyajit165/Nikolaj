@@ -31,7 +31,6 @@ public class SendMessages {
 	private ChatStoreService chatStoreService;
 
 	public void sendResponse(Report messageConverted, String socketId) throws JSONException {
-//		Map<String, String> responseToSend = messageFormatter();
 		ObjectMapper objectMapper = new ObjectMapper();
 		Map<String, String> responseToSend = objectMapper.convertValue(messageConverted, Map.class);
 		System.out.println("sending message back to user");

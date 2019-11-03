@@ -1,44 +1,45 @@
-<div class="hideScroll">
-<form> 
-  <mat-form-field class="report">
-    <mat-label>Report Type</mat-label>
-    <mat-select [(value)]="selected" (selectionChange)="anotherMethod($event.value)">
 
-      <mat-option *ngFor="let report of reports" [value]="report.value">
-        {{report.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+<div class="scroll">
+    <form>
+        <mat-form-field class="report">
+            <mat-label>Report Type</mat-label>
+            <mat-select [(value)]="selected" (selectionChange)="anotherMethod($event.value)">
 
-  <mat-form-field >
-    <mat-label>Command</mat-label>
-    <input matInput #first [(ngModel)]="command" name="command">
-    <mat-hint *ngIf="firstNameAutofilled">Autofilled!</mat-hint>
-  </mat-form-field >
-  <button mat-raised-button  color="primary" (click)="getIntent()">Submit</button>
-</form>
+                <mat-option *ngFor="let report of reports" [value]="report.value">
+                    {{report.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Command</mat-label>
+            <input matInput #first [(ngModel)]="command" name="command">
+            <mat-hint *ngIf="firstNameAutofilled">Autofilled!</mat-hint>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="getIntent()">Submit</button>
+    </form>
 
 </div>
 
 
 
-<div >
-  <div style="height: 750px;">
-    <svg id="partitionSVG"  style="margin-left:150px  ;height:100%; width:100%" viewBox="0 0 1650 1650">
+<div>
+    <div style="height: 750px;">
+        <svg id="partitionSVG" style="margin-left:150px  ;height:100%; width:100%" viewBox="0 0 1650 1650">
     </svg>
-  </div>
-  <div  *ngIf="dataSource!=null" style="margin: 20px;">
-    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      <!-- Position Column -->
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>   Queries </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-      </ng-container>
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-  </div>
-</div>  
+    </div>
+    <div *ngIf="dataSource!=null" style="margin: 20px;">
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Position Column -->
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> Queries </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </div>
+</div>
 
 
 <!-- <div>

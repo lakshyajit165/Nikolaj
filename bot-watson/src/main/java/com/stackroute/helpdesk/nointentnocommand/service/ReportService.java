@@ -118,12 +118,10 @@ public class ReportService implements ReportServiceRepo {
         HashSet<String> uniqueIntents=new HashSet<String>();
         for(Report report:reports) {
             if (report.getIntent() == null) {
-                System.out.println("null intent");
                 List<String> words = new ArrayList<>();
                 words = findingIntents(report.getTicketName());
                 System.out.println("words"+words);
                 if (words == null) {
-                    System.out.println("clustering null");
                     List<Report> reportList = new ArrayList<>();
                     reportList.add(report);
                     finalIntent.put("Unknown_Intent", reportList);
@@ -131,7 +129,6 @@ public class ReportService implements ReportServiceRepo {
                 } else {
                     System.out.println("words not null");
                     for (String word : words) {
-                        System.out.println("words not null if");
                         if (uniqueIntents.contains(word)) {
                             List<Report> listReports = finalIntent.get(word)    ;
                             finalIntent.put(word, listReports);

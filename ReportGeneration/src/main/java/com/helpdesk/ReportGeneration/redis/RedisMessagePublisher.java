@@ -17,9 +17,6 @@ public class RedisMessagePublisher implements MessagePublisher {
 	@Qualifier("userBean")
 	private RedisTemplate redisTemplate;
 
-//	public RedisMessagePublisher (RedisTemplate redisTemplate){
-//		this.redisTemplate = redisTemplate;
-//	}
 
 	public void publish(User user, String channelName) throws JsonProcessingException, JSONException {
 		ObjectMapper objectMapper = new ObjectMapper();

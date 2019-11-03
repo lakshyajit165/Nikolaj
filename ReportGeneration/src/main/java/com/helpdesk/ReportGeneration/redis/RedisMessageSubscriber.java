@@ -48,12 +48,5 @@ public class RedisMessageSubscriber implements MessageListener {
 		System.out.println("Message received: " + new String(message.getBody()));
 	}
 
-//	@Override
-//	public void onMessage(String channel, String message) {
-//		System.out.println("  <<< SUBSCRIBE< Channel:" + channel + " >Message received:" + message );
-//		//When a quit message is received, the subscription is canceled (passively)
-//		if(message.equalsIgnoreCase("quit")){
-////			this.unsubscribe(channel);
-//		}
-//	}
+
 }

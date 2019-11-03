@@ -25,9 +25,6 @@ public class JedisPubSubConfiguration {
 		public void onPSubscribe(String pattern, int subscribedChannels) {
 			psubscribe(pattern);
 			ChannelHandler channelHandler = new ChannelHandler();
-//			channelHandler.addMessageListener();
-//			onMe
-//			System.out.println(subscribedChannels);
 		}
 
 		@Override

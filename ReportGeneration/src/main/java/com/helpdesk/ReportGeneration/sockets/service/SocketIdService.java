@@ -13,11 +13,7 @@ public class SocketIdService implements ISocketIdService{
 
 	@Autowired
 	private ISocketIdRepo iSocketIdRepo;
-//
-//	@Autowired
-//	SocketIdService(ISocketIdRepo iSocketIdRepo){
-//		this.iSocketIdRepo = iSocketIdRepo;
-//	}
+
 
 	public void saveSocket(SocketStore socketStore){
 		iSocketIdRepo.save(socketStore);

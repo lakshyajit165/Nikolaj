@@ -29,7 +29,6 @@ export class TicketService {
   // update ticket db whenever a csr assigns himself
 
   updateTicketWhenCsrAssigned(ticket: Ticket, status: number): Observable<object> {
-    console.log(ticket);
    // console.log(`http://localhost:8765/ticket-service/api/v1/tickets/${ticket.id}?status=${status}`);
     return this.http.patch<object>(this.apiGateWay + `ticket-service/api/v1/`
     + `tickets/${ticket.uuid}?status=${status}`, ticket)

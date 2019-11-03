@@ -45,7 +45,6 @@ ngOnInit() {
       this.response = data;
       this.suggestedCommand = this.response[this.result];
       this.suggestions = this.suggestedCommand.suggestion;
-      console.log(this.suggestedCommand);
       if (!(this.suggestedCommand == null)) {
         this.status = true;
       } else {
@@ -59,16 +58,12 @@ ngOnInit() {
 public changeIconThumbUp(newIcon: string ) {
   this.thumbUp = newIcon ;
   this.thumbDown = '';
-  console.log('inside thnumbs up');
-  console.log(this.intents[0]);
-  console.log( this.suggestedCommand.suggestion);
   this.feedBack.intentName = this.intents[0];
   this.feedBack.commandName = this.suggestedCommand.suggestion;
   this.feedBack.rating = 5;
   this.suggestion.feedback(this.feedBack)
     .subscribe(data => {
     this.feedback = data;
-    console.log(this.feedback);
   });
 }
 
@@ -76,16 +71,12 @@ public changeIconThumbUp(newIcon: string ) {
 public changeIconThumbDown(newIcon: string) {
 this.thumbUp = '' ;
 this.thumbDown = newIcon;
-console.log('inside thnumbs down');
-console.log(this.intents[0]);
-console.log( this.suggestedCommand.suggestion);
 this.feedBack.intentName = this.intents[0];
 this.feedBack.commandName = this.suggestedCommand.suggestion;
 this.feedBack.rating = 0;
 this.suggestion.feedback(this.feedBack)
   .subscribe(data => {
   this.feedback = data;
-  console.log(this.feedback);
 });
 }
 

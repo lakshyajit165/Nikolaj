@@ -60,7 +60,6 @@ export class ServiceOutlierComponent implements OnInit {
 
   }
 
-
   // to empty the array of service report
   resetGraph() {
     this.entity.length = 0;
@@ -84,7 +83,6 @@ export class ServiceOutlierComponent implements OnInit {
       });
   }
 
-  // tslint:disable-next-line: use-lifecycle-interface
   ngOnChanges() {
    this.resetGraph();
    this.sendDates();

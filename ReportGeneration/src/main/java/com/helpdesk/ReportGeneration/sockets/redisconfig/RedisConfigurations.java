@@ -25,8 +25,6 @@ import java.util.List;
 @EnableRedisRepositories("com.stackroute.helpdesk.sockets.redisrepo")
 public class RedisConfigurations {
 
-//	@Autowired
-//	private JedisConfig jedisConfig;
 
 	@Autowired
 	@Lazy
