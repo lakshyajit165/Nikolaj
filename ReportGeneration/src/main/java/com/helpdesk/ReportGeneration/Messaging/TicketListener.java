@@ -78,7 +78,8 @@ public class TicketListener {
                     com.helpdesk.ReportGeneration.entity.ticketStatus ticketStatus1 = com.helpdesk.ReportGeneration.entity.ticketStatus.valueOf(ticketStatus);
                     report.setTicketStatus(ticketStatus1);
 
-                    report.setAssignedTime(null);
+                    Long assignedTime = (Long) ((LinkedHashMap) (jsonObject1)).get("assignedTime");
+                    report.setAssignedTime(new Date(assignedTime));
                     report.setCsrId(null);
                     report.setAssignedTo((String) ((LinkedHashMap) (jsonObject1)).get("assignedTo"));
 
@@ -87,7 +88,9 @@ public class TicketListener {
                     report.setUpdatedOn(new Date(updatedOn));
 
                     report.setEntity((String) ((LinkedHashMap) (jsonObject1)).get("entity"));
-                    report.setResponseTime(null);
+
+                    Long responseTime = (Long) ((LinkedHashMap) (jsonObject1)).get("updatedOn");
+                    report.setResponseTime(new Date(responseTime));
 
                     String intents = (String) ((LinkedHashMap) (jsonObject1)).get("intent").toString();
                     String intent = intents.substring(1, intents.length() - 1);
@@ -96,8 +99,10 @@ public class TicketListener {
                     report.setIntent(intentArray);
 
                     report.setRating(0);
-                    report.setResolvedBy(null);
-                    report.setReopenDate(null);
+                    report.setResolvedBy((String) ((LinkedHashMap) (jsonObject1)).get("resolvedBy"));
+
+                    Long reopenDate = (Long) ((LinkedHashMap) (jsonObject1)).get("reopenTime");
+                    report.setReopenDate(new Date(reopenDate));
 //                    System.out.println("report is here " + report);
                     reportInterface.saveReport(report);
                     reportToSend = report;
