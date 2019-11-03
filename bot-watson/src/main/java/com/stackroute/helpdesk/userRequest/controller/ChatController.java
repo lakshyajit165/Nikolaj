@@ -12,9 +12,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 @Controller
 @CrossOrigin
@@ -64,12 +66,14 @@ public class ChatController implements MessageListener {
         else
             chatMessage.setType("bot");
         Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Kolkata"));
         System.out.println("calender hour of day = " + Calendar.HOUR_OF_DAY);
-        System.out.println("date = " + date.getHours());
-        System.out.println("minute = " + date.getMinutes());
-        chatMessage.setHours(String.valueOf(date.getHours()));
-        chatMessage.setMinutes(String.valueOf(date.getMinutes()));
+        System.out.println("calender minute  = " + calendar.MINUTE);
+        chatMessage.setHours(String.valueOf(Calendar.HOUR_OF_DAY));
+        chatMessage.setMinutes(String.valueOf(Calendar.MINUTE));
         ObjectMapper objectMapper = new ObjectMapper();
         redisTemplate.convertAndSend(channelName, objectMapper.writeValueAsString(chatMessage));
         System.out.println("FROM BOT - published back to the socket server " + channelName);

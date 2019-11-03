@@ -4,6 +4,8 @@ package com.stackroute.helpdesk.nointentnocommand.messaging;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import org.json.JSONString;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Message sender to send message to queue using exchange.
@@ -28,7 +31,8 @@ public class MessageSender {
      */
     public void sendMessage(RabbitTemplate rabbitTemplate, String exchange, String routingKey, JSONObject data) throws JsonProcessingException {
         ObjectMapper objectMapper=new ObjectMapper();
-        String result=objectMapper.writeValueAsString(data);
+        Gson gson = new Gson();
+        String result = gson.toJson(data);
         MessagingResponse messagingResponse = new MessagingResponse(
                 "optimus",
                 result,

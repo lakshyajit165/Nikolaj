@@ -1,6 +1,8 @@
 package com.stackroute.helpdesk.commandregistry.messaging;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.stackroute.helpdesk.commandregistry.trackissueservice.service.ReportService;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
+
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 /**
  * Message Listener for RabbitMQ
@@ -21,8 +25,9 @@ public class MessageListenerForNoCommand {
     private static final Logger log = LoggerFactory.getLogger(MessageListenerForNoCommand.class);
     @RabbitListener(queues = "${no-command-report-recieved.queue.name}")
     public void receiveMessageForNoCommandReport(MessagingResponse recievedObjectInJson) throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject jsonObject = objectMapper.convertValue(recievedObjectInJson.getEventData(), JSONObject.class);
+//        ObjectMapper objectMapper = new ObjectMapper();
+        Gson gson = new Gson();
+        JSONObject jsonObject = gson.fromJson(recievedObjectInJson.getEventData(), JSONObject.class);
         reportService.printJsonObject1(jsonObject);
 //        System.out.println();
         try {
