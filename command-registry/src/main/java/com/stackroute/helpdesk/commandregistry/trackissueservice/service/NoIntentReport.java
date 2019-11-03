@@ -28,10 +28,7 @@ public class NoIntentReport {
 
 
         reportDetails.stream().forEach(entities -> {
-            if(isNullOrEmpty(entities.getEntity()))
-                setOfEntities.add("null");
-            else
-                setOfEntities.add(entities.getEntity());
+            setOfEntities.add(entities.getEntity());
         });
 
         System.out.println("entities list = " + setOfEntities);
