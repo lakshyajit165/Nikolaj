@@ -29,17 +29,20 @@ public class ReportService implements ReportInterface {
     String entity;
     String intent;
     public void printJsonObject1(JSONObject jsonObj) {
-        System.out.println("report service");
-//        for (Object key : jsonObj.keySet()) {
-//            report = (String)key;
-////            String keyvalue = (String) jsonObj.get(report);
-////            JSONObject jsonObject= (JSONObject) jsonObj.get(keyStr);
-//            if(!(jsonObj.get(report)=="Well done by developers.Currently all quries have commands") || !(jsonObj.get(report)=="Well done by developers.Currently all quries have Intents")){
+        System.out.println("report outside condition");
+        for (Object key : jsonObj.keySet()) {
+            report = (String)key;
+            printJsonObject2((JSONObject) jsonObj.get(report));
+//            String keyvalue = (String) jsonObj.get(report);
+//            JSONObject jsonObject= (JSONObject) jsonObj.get(keyStr);
+            if(!(jsonObj.get(report)=="Well done by developers.Currently all quries have commands") || !(jsonObj.get(report)=="Well done by developers.Currently all quries have Intents")){
 //                printJsonObject2((JSONObject) jsonObj.get(report));
-//            }
-//        }
+                System.out.println("report if condition");
+            }
+        }
     }
     public void printJsonObject2(JSONObject jsonObj) {
+        System.out.println("report outside condition2");
         for (Object key : jsonObj.keySet()) {
             //based on you key types
             entity = (String)key;
@@ -49,6 +52,7 @@ public class ReportService implements ReportInterface {
         }
     }
     public void printJsonObject3(JSONObject jsonObj) {
+        System.out.println("report outside condition3");
         for (Object key : jsonObj.keySet()) {
             //based on you key types
             intent = (String)key;
