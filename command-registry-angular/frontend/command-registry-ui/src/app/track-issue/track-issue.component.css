@@ -1,38 +1,37 @@
-.report
-{
+.report {
     padding: 50px;
 }
 
 .flex-container {
-  
-  display: flex;
-  flex-direction: row;
-  align-content: center;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
 }
+
 mat-form-field {
-  margin-right: 12px;
+    margin-right: 12px;
 }
+
 
 /* .querydiv
 {
 align: right;
 } */
+
+
 /* #partitionSVG
 {
 font-size: 50px;
 } */
 
-
-  .item1 {
+.item1 {
     grid-column-start: 1;
     grid-column-end: 5;
     grid-row-start: 1;
     grid-row-end: 3;
-   /* font: 30px; */
-  }
- /* #partitionSVG
-{
-  font: 30px sans-serif;
-  
-}  */
-  
+    /* font: 30px; */
+}
+
+.scroll {
+    overflow-y: hidden;
+}

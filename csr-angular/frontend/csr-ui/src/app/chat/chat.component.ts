@@ -45,7 +45,6 @@ export class ChatComponent implements OnInit {
     if(this.router.getCurrentNavigation().extras.state !== undefined) {
       this.ticket = this.router.getCurrentNavigation().extras.state.ticket;
       this.usermail = this.ticket.raisedBy;
-      // console.log("this is user email in constructor " + this.usermail);
     }  
 
     
@@ -53,11 +52,9 @@ export class ChatComponent implements OnInit {
     this.chatservice.getChats(this.usermail).subscribe(data => {
       
       data.map(chatMessage => {
-        // console.log(chatMessage);
         let previousMessage: Message = { content: chatMessage.message, 
           emailId: '', type: chatMessage.user, sender:'', hours: '', minutes: '' };
         this.messages.push(previousMessage);
-        // console.log(previousMessage);
         });
 
     });
@@ -66,7 +63,6 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
 
     this.csrmail = this.cookie.get("csrmail");
-    console.log("csr mail ngonit "+ this.csrmail);
     //this.csrmail = "csr@gmail.com";
     this.uuId = this.uuid();
     this.initializeWebSocketConnection();
@@ -79,8 +75,6 @@ export class ChatComponent implements OnInit {
     let that = this;
     this.stompClient.connect({}, (res) => {
     that.isLoaded = true;
-      // console.log(res.command);
-      // console.log('socket id = ' + ws.sessionId);
     // this.openGlobalSocket();
     this.openSocket();
      // connected to user
@@ -91,14 +85,10 @@ export class ChatComponent implements OnInit {
   openSocket() {
     // if (this.isLoaded) {
       this.isCustomSocketOpened = true;
-      console.log('uuid = ' + this.uuId);
       this.stompClient.subscribe("/socket-publisher/"+ this.uuId, (message) => {
         this.handleResult(message);
 
-       
-
-        console.log('connected');
-      });
+             });
       this.sendMessageWhenEstablished();
       // }
   }
@@ -122,18 +112,15 @@ export class ChatComponent implements OnInit {
 }
 
 sendMessageWhenEstablished() {
-  console.log("when estd");
   let socketStorage: SocketStorage = { emailId: this.csrmail, socketId: this.uuId };
   //let message: Message = { content: this.uuId, emailId: 'this.userForm.value.fromId', type: this.userForm.value.toId, sender:'CHAT' };
   this.stompClient.send("/socket-subscriber/send/socketid", {}, JSON.stringify(socketStorage));
-  console.log("when estd sent the socket message as = "+socketStorage);
 }
 
 
 handleResult(message) {
 if (message.body) {
   let messageResult: Message = JSON.parse(message.body);
-  console.log('result = ' + messageResult);
   this.messages.push(messageResult);
   this.toastr.success("new message recieved", null, {
     'timeOut': 3000
