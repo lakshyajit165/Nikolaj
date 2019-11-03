@@ -45,10 +45,11 @@ public class ChatController implements MessageListener {
                     !(botResult.contentEquals("How much would you like to rate us"))
             ) {
                 Thread.sleep(1000);
-                    publishReply(chatMessage.getEmailId(), chatMessage.getEmailId() + "_chat_messages", "star");
+                    publishReply(chatMessage.getEmailId(), chatMessage.getEmailId() + "_chat_messages", "Do you have any more queries");
 
                 System.out.println("publishing back from botwatson in channel = " + chatMessage.getEmailId() + "_chat_messages");
             }
+
 
         }catch (IOException | InterruptedException ioException) {
             ioException.printStackTrace();
@@ -60,7 +61,7 @@ public class ChatController implements MessageListener {
         chatMessage.setContent(messageToSend);
         chatMessage.setEmailId(emailId);
         chatMessage.setSender("bot");
-        if (messageToSend.equals("star"))
+        if (messageToSend.equals("How much would you like to rate us"))
             chatMessage.setType("star");
         else
             chatMessage.setType("bot");
