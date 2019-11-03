@@ -75,9 +75,7 @@ export class TicketdetailcardComponent implements OnInit {
       this.intent = this.ticket.intent;
       this.status = 'Engaged';
 
-      console.log(this.csr);
-      console.log(this.ticket);
-      console.log(this.csrMail);
+      
     }
 
   }
