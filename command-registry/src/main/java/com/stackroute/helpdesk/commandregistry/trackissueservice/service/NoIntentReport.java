@@ -42,7 +42,7 @@ public class NoIntentReport {
             List<HashMap<String, Object>> mappedIntentsList = new ArrayList<>();
             HashSet<String> setOfIntents = new HashSet();
             reportDetails.stream().forEach(entities -> {
-                if(uniqueEntity == entities.getEntity()) {
+                if(uniqueEntity == entities.getEntity() || (uniqueEntity == "null")) {
 
                     entities.getIntentList().stream().forEach(intent -> {
                         setOfIntents.add(intent.getIntent());
@@ -59,7 +59,7 @@ public class NoIntentReport {
                             if (uniqueIntent == intent.getIntent()) {
                                 HashMap<String, Object> queries = new HashMap<>();
                                 System.out.println("intent name = " + intent.getIntent());
-                                if(intent.getIntent().trim().equalsIgnoreCase("")||(intent.getIntent().trim().equalsIgnoreCase("nointent"))||(isNullOrEmpty(intent.getIntent().trim()))) {
+                                if((intent.getIntent() == null)||(intent.getIntent().equalsIgnoreCase(""))||(intent.getIntent().equalsIgnoreCase("nointent"))) {
                                     queries.put("name", intent.getTicketName());
                                     queries.put("size", 300);
                                     queriesList.add(queries);

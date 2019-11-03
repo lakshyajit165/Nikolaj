@@ -110,4 +110,7 @@ public class Neo4jService implements Neo4jServiceRepo {
         }
        return list;
     }
+    public List addIntentAndCommandForSimulation(Map map) {
+            return neo4jRepo.addIntentAndCommand((String) map.get("commandName"),(List) map.get("commandParameter"),(String) (map.get("intentName")), IntentStatus.valueOf((String) (map.get("intentStatus"))),(Integer) (map.get("confidence")),(String) (map.get("relationshipName")));
+    }
 }

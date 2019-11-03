@@ -143,7 +143,14 @@ public class Neo4jController {
         responseObject.put("error", "No error");
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
+    @PostMapping("/simulation/intent/command")
+    public ResponseEntity<HashMap<String,?>> addIntentAndCommandForSimulation(@RequestBody Map map){
+        responseObject = new HashMap<>();
+        responseObject.put("result",neo4jServiceRepo.addIntentAndCommandForSimulation(map));
+        responseObject.put("message","Successfully displayed the inserted relationship");
+        responseObject.put("error","No error");
+        return new ResponseEntity<>(responseObject, HttpStatus.OK);
 
-
+    }
 
 }
