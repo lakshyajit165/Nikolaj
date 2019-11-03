@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ISocketIdRepo extends CrudRepository<SocketStore, String> {
+
+
 }

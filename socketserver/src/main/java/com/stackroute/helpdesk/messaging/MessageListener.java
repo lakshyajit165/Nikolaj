@@ -28,8 +28,12 @@ public class MessageListener {
     @RabbitListener(queues = "${socketserver-ticket-closed.queue.name}")
     public void receiveMessageForApp1(MessagingResponse recievedObjectInString) throws Exception {
         System.out.println("recieved object in socket server from queue = " + recievedObjectInString.getEventData());
-        String emailId = (String) ((LinkedHashMap) recievedObjectInString.getEventData()).get("body");
+        LinkedHashMap eventData = (LinkedHashMap) recievedObjectInString.getEventData();
+        String emailId = (String) eventData.get("raisedBy");
+        System.out.println("class is = " + recievedObjectInString.getEventData().getClass());
+//        String emailId = (String)((LinkedHashMap)(((LinkedHashMap) recievedObjectInString.getEventData()).get("raisedBy"));
         socketIdService = new SocketIdService();
+        System.out.println("email id in listener = " + emailId);
         socketIdService.removeSocket(emailId);
             try {
 

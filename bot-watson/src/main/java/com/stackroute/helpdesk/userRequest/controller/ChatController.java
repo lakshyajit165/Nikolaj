@@ -65,15 +65,11 @@ public class ChatController implements MessageListener {
             chatMessage.setType("star");
         else
             chatMessage.setType("bot");
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
-
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("IST"));
         System.out.println("calender hour of day = " + Calendar.HOUR_OF_DAY);
         System.out.println("calender minute  = " + calendar.MINUTE);
-        chatMessage.setHours(String.valueOf(Calendar.HOUR_OF_DAY));
-        chatMessage.setMinutes(String.valueOf(Calendar.MINUTE));
+        chatMessage.setHours(String.valueOf(calendar.HOUR_OF_DAY));
+        chatMessage.setMinutes(String.valueOf(calendar.MINUTE));
         ObjectMapper objectMapper = new ObjectMapper();
         redisTemplate.convertAndSend(channelName, objectMapper.writeValueAsString(chatMessage));
         System.out.println("FROM BOT - published back to the socket server " + channelName);

@@ -28,8 +28,11 @@ public class MessageListenerForNoIntent {
         Gson gson = new Gson();
         System.out.println("no intent"+recievedObjectInJson.getEventData());
         JSONObject jsonObject = gson.fromJson(recievedObjectInJson.getEventData(), JSONObject.class);
+        System.out.println(jsonObject);
+
         if(!((String)jsonObject.get("NoIntent")).contains("Well"))
         reportService.printJsonObject1(jsonObject);
+
         try {
             log.info("message added to the no intent queue");
         } catch (HttpClientErrorException ex) {
