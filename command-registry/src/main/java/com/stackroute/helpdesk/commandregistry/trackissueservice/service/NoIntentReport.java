@@ -58,8 +58,8 @@ public class NoIntentReport {
                             System.out.println("current intent = " + intent.getIntent() + " but unique intent = " + uniqueIntent);
                             if (uniqueIntent == intent.getIntent()) {
                                 HashMap<String, Object> queries = new HashMap<>();
-                                System.out.println("command name = " + intent.getCommandName());
-                                if(intent.getIntent().equalsIgnoreCase("")||(intent.getIntent().equalsIgnoreCase("nointent"))||(isNullOrEmpty(intent.getIntent()))) {
+                                System.out.println("intent name = " + intent.getIntent());
+                                if(intent.getIntent().trim().equalsIgnoreCase("")||(intent.getIntent().trim().equalsIgnoreCase("nointent"))||(isNullOrEmpty(intent.getIntent().trim()))) {
                                     queries.put("name", intent.getTicketName());
                                     queries.put("size", 300);
                                     queriesList.add(queries);
