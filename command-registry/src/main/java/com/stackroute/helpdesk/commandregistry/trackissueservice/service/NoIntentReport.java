@@ -24,7 +24,6 @@ public class NoIntentReport {
         List<HashMap<String, Object>> reportList = new ArrayList<>();
 
         List<HashMap<String, Object>> mappedEntitiesList = new ArrayList<>();
-        List<HashMap<String, Object>> mappedReportList = new ArrayList<>();
 
 
         reportDetails.stream().forEach(entities -> {
@@ -144,12 +143,13 @@ public class NoIntentReport {
                 entity.put("children", mappedIntentsList);
                 entity.put("name", uniqueEntity);
                 mappedEntitiesList.add(mappedEntity);
+                System.out.println("entity mapped = " + mappedEntitiesList);
             }
         });
         noCommand.put("children", entitiesList);
         noCommand.put("name", "entity not mapped");
-        commandMapped.put("name", "entity mapped");
         commandMapped.put("children", mappedEntitiesList);
+        commandMapped.put("name", "entity mapped");
         reportList.add(noCommand);
         reportList.add(commandMapped);
 
