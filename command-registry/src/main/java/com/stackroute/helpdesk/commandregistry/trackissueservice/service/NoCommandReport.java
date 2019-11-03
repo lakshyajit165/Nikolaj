@@ -19,7 +19,6 @@ public class NoCommandReport {
         HashMap<String,Object> data4 = new HashMap<>();
         HashMap<String, Object> noCommand = new HashMap<>();
         HashMap<String, Object> commandMapped = new HashMap<>();
-        HashMap<String, Object> queries = new HashMap<>();
 
         HashSet<String> setOfEntities = new HashSet();
         List<HashMap<String, Object>> entitiesList = new ArrayList<>();
@@ -58,10 +57,13 @@ public class NoCommandReport {
                         entities.getIntentList().stream().forEach(intent -> {
                             System.out.println("current intent = " + intent.getIntent() + " but unique intent = " + uniqueIntent);
                             if (uniqueIntent == intent.getIntent()) {
-                                if(intent.getCommandName().isEmpty()) {
+                                HashMap<String, Object> queries = new HashMap<>();
+                                System.out.println("command name = " + intent.getCommandName());
+                                if(intent.getCommandName().contentEquals("nocommand")) {
                                     queries.put("name", intent.getTicketName());
                                     queries.put("size", 300);
                                     queriesList.add(queries);
+                                System.out.println("queries = "+ queries.get("name"));
                                 }
                                 else {
                                     queries.put("name", intent.getTicketName());
@@ -69,6 +71,7 @@ public class NoCommandReport {
                                     mappedIntentQueriesList.add(queries);
                                 }
                             }
+                            System.out.println("queries list = " + queriesList);
                         });
                         intents.put("children", queriesList);
                         intents.put("name", uniqueIntent);
@@ -97,8 +100,8 @@ public class NoCommandReport {
         data3.put("children", reportList);
         data3.put("name","commandReport");
 //        commandList.add(data3);
-//        data4.put("name","commandReport");
-//        data4.put("children",commandList);
+//        data3.put("name","commandReport");
+//        data3.put("children",commandList);
         return new JSONObject(data3);
     }
 }

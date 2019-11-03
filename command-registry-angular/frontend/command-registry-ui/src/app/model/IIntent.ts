@@ -8,5 +8,6 @@ export interface IIntent {
     userId: string;
     entity: string;
     reportType: string;
-    commandName:string;
-}
+    commandName: string;
+
+ }

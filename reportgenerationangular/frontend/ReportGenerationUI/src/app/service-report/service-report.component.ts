@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, OnChanges} from '@angular/core';
 import { ReportService } from '../services/report.service';
 import { ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './service-report.component.html',
   styleUrls: ['./service-report.component.css']
 })
-export class ServiceReportComponent implements OnInit {
+export class ServiceReportComponent implements OnInit , OnChanges {
 
 
   constructor(public reportService: ReportService, private router: Router) {
@@ -96,7 +96,7 @@ export class ServiceReportComponent implements OnInit {
     },
   };
 
-  
+
   public lineChartColors: Color[] = [
 
     { // grey
@@ -133,7 +133,7 @@ export class ServiceReportComponent implements OnInit {
     }
   ];
 
-  
+
   public lineChartLegend = true;
   public lineChartType = 'line';
 
