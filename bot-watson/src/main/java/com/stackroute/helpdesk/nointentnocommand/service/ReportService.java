@@ -122,7 +122,7 @@ public class ReportService implements ReportServiceRepo {
                 List<String> words = new ArrayList<>();
                 words = findingIntents(report.getTicketName());
                 System.out.println("words"+words);
-                if (words.isEmpty()) {
+                if (words == null) {
                     System.out.println("clustering null");
                     List<Report> reportList = new ArrayList<>();
                     reportList.add(report);
