@@ -47,9 +47,9 @@ export class ServiceOutlierComponent implements OnInit {
   public barChartPlugins = [pluginDataLabels];
 
   public barChartData: ChartDataSets[] = [
-    { data: this.queriesRaised, label: 'Queries Raised' },
-    { data: this.queriesResolved, label: 'Queries Resolved' },
-    { data: this.leadTime, label: 'Lead Time' },
+    { data: this.queriesRaised, label: 'Queries Raised (No.)' },
+    { data: this.queriesResolved, label: 'Queries Resolved (No.)' },
+    { data: this.leadTime, label: 'Lead Time (Hrs)' },
   ];
 
 
