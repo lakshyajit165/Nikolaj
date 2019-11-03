@@ -26,19 +26,14 @@ mat-form-field {
 }
 
 .item {
-    /* margin-top: 2%; */
-    /* padding-left: 1%; */
     padding-right: 1%;
     display: inline-block;
 }
 
 .infinityscroll {
-    /* padding-top: 4%; */
     height: 30rem;
     overflow: scroll;
     overflow-x: hidden;
-    /* overflow-y: scroll; */
-    /* overflow: auto; */
 }
 
 section {
@@ -62,9 +57,6 @@ section {
     font-size: 20px;
 }
 
-
-/* Example Only Styles */
-
 .child {
     height: 100px;
 }
@@ -74,11 +66,8 @@ section {
 }
 
 .one {
-    /* padding-top: 2%; */
     display: grid;
     grid-template-columns: 12% 1fr 15%;
-    /* grid-column-gap: 10px;
-    grid-row-gap: 10px; */
 }
 
 .ticket {
@@ -136,8 +125,3 @@ section {
 .numbering {
     font-size: 120%;
 }
-
-
-/* .mat-select {
-    font-size: 100%;
-} */

@@ -46,9 +46,6 @@ public class RecieveMessages {
     }
 
     private SendMessages sendMessages;
-//
-//    @Autowired
-//    ChannelHandler channelHandler;
 
     @MessageMapping("/send/message")
     public Map<String, String> broadcastNotification(String message) throws JsonProcessingException, JSONException {
@@ -89,32 +86,5 @@ public class RecieveMessages {
         return messageConverted;
     }
 
-//    @MessageMapping("/send/socketid")
-////    @SendTo("/send/socketid")
-//    public Map<String, String> getSocketId(String message){
-//        ObjectMapper mapper = new ObjectMapper();
-//        Map<String, String> messageConverted = null;
-//        try {
-//            messageConverted = mapper.readValue(message, Map.class);
-//            socketId = messageConverted.get("socketId");
-//            SocketStore socketStore = new SocketStore();
-//            socketStore.setEmailId(messageConverted.get("emailId"));
-//            socketStore.setSocketId(socketId);
-//            String csrEmail = socketIdService.getCsrEmailId(messageConverted.get("emailId"));
-////            if(csrEmail.contains("com")){
-//              if(!csrEmail.isEmpty()) {
-//                System.out.println("csr email id = " + csrEmail);
-//                socketStore.setCsrEmailId(csrEmail);
-//              }
-//            else {
-//                socketStore.setCsrEmailId("bot");
-//            }
-//            socketIdService.saveSocket(socketStore);
-//        } catch (IOException e) {
-//            System.out.println("error");
-//            messageConverted = null;
-//        }
-//        return messageConverted;
-//    }
 
 }

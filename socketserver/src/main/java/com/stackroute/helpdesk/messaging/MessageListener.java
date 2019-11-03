@@ -21,6 +21,7 @@ import java.util.LinkedHashMap;
 @Service
 public class MessageListener {
 
+    @Autowired
     private SocketIdService socketIdService;
 
     private static final Logger log = LoggerFactory.getLogger(MessageListener.class);
@@ -32,8 +33,8 @@ public class MessageListener {
         String emailId = (String) eventData.get("raisedBy");
         System.out.println("class is = " + recievedObjectInString.getEventData().getClass());
 //        String emailId = (String)((LinkedHashMap)(((LinkedHashMap) recievedObjectInString.getEventData()).get("raisedBy"));
-        socketIdService = new SocketIdService();
-        System.out.println("email id in listener = " + emailId);
+//        socketIdService = new SocketIdService();
+        System.out.println("soicket id service = " + socketIdService);
         socketIdService.removeSocket(emailId);
             try {
 

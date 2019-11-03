@@ -40,6 +40,7 @@ public class SocketIdService implements ISocketIdService{
 
 	public void removeSocket(String emailId){
 		System.out.println("emailId = " + emailId);
+		System.out.println("socket id repo = " + iSocketIdRepo);
 		Optional<SocketStore> optionalSocketStore = iSocketIdRepo.findById(emailId);
 		SocketStore socketStore = null;
 		if(optionalSocketStore.isPresent()) {
