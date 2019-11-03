@@ -42,7 +42,7 @@ public class NoIntentReport {
             List<HashMap<String, Object>> mappedIntentsList = new ArrayList<>();
             HashSet<String> setOfIntents = new HashSet();
             reportDetails.stream().forEach(entities -> {
-                if(uniqueEntity == entities.getEntity()) {
+                if(uniqueEntity == entities.getEntity() || (uniqueEntity == "null")) {
 
                     entities.getIntentList().stream().forEach(intent -> {
                         setOfIntents.add(intent.getIntent());
