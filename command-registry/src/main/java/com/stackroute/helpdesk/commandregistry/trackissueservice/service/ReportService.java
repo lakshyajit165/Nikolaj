@@ -48,7 +48,7 @@ public class ReportService implements ReportInterface {
         }
     }
     public void printJsonObject2(JSONObject jsonObj) {
-        System.out.println("report outside condition2"+jsonObj.getClass()+"abc"+jsonObj);
+        System.out.println("jsonObject.get data class name = " + jsonObj.get("data").getClass() + " data = " + jsonObj.get("data"));
         JSONObject jsonObject= (JSONObject) jsonObj.get("data");
         for (Object key : jsonObject.keySet()) {
             System.out.println(jsonObject);
