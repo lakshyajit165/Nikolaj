@@ -34,6 +34,7 @@ public class NoIntentReport {
                 setOfEntities.add(entities.getEntity());
         });
 
+        System.out.println("entities list = " + setOfEntities);
         setOfEntities.forEach(uniqueEntity -> {
             HashMap<String, Object> entity = new HashMap<>();
             HashMap<String, Object> mappedEntity = new HashMap<>();
@@ -44,7 +45,10 @@ public class NoIntentReport {
                 if(uniqueEntity == entities.getEntity()) {
 
                     entities.getIntentList().stream().forEach(intent -> {
-                        setOfIntents.add(intent.getIntent());
+                        if((isNullOrEmpty(intent.getIntent()))||intent.getIntent().equalsIgnoreCase(""))
+                            setOfEntities.add("nointent");
+                        else
+                            setOfEntities.add(intent.getIntent());
                     });
 
                     setOfIntents.forEach(uniqueIntent -> {
