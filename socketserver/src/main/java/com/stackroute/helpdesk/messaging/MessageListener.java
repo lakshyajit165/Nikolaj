@@ -30,7 +30,7 @@ public class MessageListener {
         System.out.println("recieved object in socket server from queue = " + recievedObjectInString.getEventData());
         String emailId = (String) ((LinkedHashMap) recievedObjectInString.getEventData()).get("body");
         socketIdService = new SocketIdService();
-//        socketIdService.removeSocket(emailId);
+        socketIdService.removeSocket(emailId);
             try {
 
             } catch (HttpClientErrorException ex) {
