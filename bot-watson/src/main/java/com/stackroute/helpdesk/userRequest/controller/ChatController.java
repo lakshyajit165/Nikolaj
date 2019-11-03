@@ -69,7 +69,7 @@ public class ChatController implements MessageListener {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
 
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Kolkata"));
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("IST"));
         System.out.println("calender hour of day = " + Calendar.HOUR_OF_DAY);
         System.out.println("calender minute  = " + calendar.MINUTE);
         chatMessage.setHours(String.valueOf(Calendar.HOUR_OF_DAY));
