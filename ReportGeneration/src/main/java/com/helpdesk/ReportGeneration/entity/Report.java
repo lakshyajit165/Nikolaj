@@ -15,8 +15,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Report {
 
-    //to make the ids uuids
-
     @Id
     private String id;
     private String ticketId;

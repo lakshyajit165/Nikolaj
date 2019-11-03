@@ -38,18 +38,14 @@ export class ServiceReportComponent implements OnInit {
 
   displayedColumns: string[] = ['entity', 'queriesRaised'];
 
-
-  // tslint:disable-next-line: member-ordering
   public lineChartData: ChartDataSets[] = [
     { data: this.queriesRaised, label: 'Queries Raised (No)', fill: false },
     { data: this.queriesResolved, label: 'Queries Resolved (No)', fill: false },
     { data: this.leadTime, label: 'Average Lead Time (Hr)', yAxisID: 'y-axis-1', fill: false }
   ];
 
-  // tslint:disable-next-line: member-ordering
   public lineChartLabels: Label[] = this.entity;
 
-  // tslint:disable-next-line: member-ordering
   public lineChartOptions = {
 
     responsive: true,
@@ -100,7 +96,7 @@ export class ServiceReportComponent implements OnInit {
     },
   };
 
-  // tslint:disable-next-line: member-ordering
+  
   public lineChartColors: Color[] = [
 
     { // grey
@@ -137,7 +133,7 @@ export class ServiceReportComponent implements OnInit {
     }
   ];
 
-  // tslint:disable-next-line: member-ordering
+  
   public lineChartLegend = true;
   public lineChartType = 'line';
 
@@ -160,7 +156,6 @@ export class ServiceReportComponent implements OnInit {
       });
   }
 
-  // tslint:disable-next-line: use-lifecycle-interface
   ngOnChanges() {
     this.resetGraph();
     this.sendDates();

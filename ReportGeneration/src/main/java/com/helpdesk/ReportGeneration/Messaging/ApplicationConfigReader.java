@@ -12,8 +12,6 @@ import org.springframework.context.annotation.PropertySource;
 public class ApplicationConfigReader {
 
 
-//there are two exchanges.....and i m having 2 queues .....and i have to bind the two exchanges to my queues
-
     //report exchanges....
     @Value("${reports.exchange.name}")
     private String reports_exchange;
