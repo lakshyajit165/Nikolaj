@@ -34,7 +34,7 @@ public class ReportService implements ReportInterface {
         for (Object key : jsonObj.keySet()) {
             report = (String)key;
             JSONObject jsonObject=new JSONObject();
-            jsonObject.put("data1",jsonObj);
+            jsonObject.put("data1",jsonObj.get(report));
 //            String keyvalue = (String) jsonObj.get(report);
 //            JSONObject jsonObject= (JSONObject) jsonObj.get(keyStr);
             if(!(jsonObj.get(report)=="Well done by developers.Currently all quries have commands") || !(jsonObj.get(report)=="Well done by developers.Currently all quries have Intents")){
@@ -48,14 +48,14 @@ public class ReportService implements ReportInterface {
         }
     }
     public void printJsonObject2(JSONObject jsonObj) {
-        System.out.println("report outside condition2"+jsonObj.getClass()+"abc"+jsonObj);
-        JSONObject jsonObject=new JSONObject();
-        jsonObject.put("data1",jsonObj);
-        for (Object key : jsonObj.keySet()) {
+        System.out.println("jsonObject.get data class name = " + jsonObj.get("data1").getClass() + " data1 = " + jsonObj.get("data1"));
+        JSONObject jsonObject= (JSONObject) jsonObj.get("data1");
+        for (Object key : jsonObject.keySet()) {
+            System.out.println(jsonObject);
             //based on you key types
             entity = (String)key;
 //            Object keyvalue = jsonObj.get(keyStr);
-            printJsonObject3((JSONObject) jsonObj.get(entity));
+            printJsonObject3((JSONObject) jsonObject.get(entity));
 
         }
     }
