@@ -35,12 +35,14 @@ public class ReportService implements ReportInterface {
             report = (String)key;
             JSONObject jsonObject=new JSONObject();
             jsonObject.put("data1",jsonObj);
-            printJsonObject2(jsonObject);
 //            String keyvalue = (String) jsonObj.get(report);
 //            JSONObject jsonObject= (JSONObject) jsonObj.get(keyStr);
             if(!(jsonObj.get(report)=="Well done by developers.Currently all quries have commands") || !(jsonObj.get(report)=="Well done by developers.Currently all quries have Intents")){
 //                printJsonObject2((JSONObject) jsonObj.get(report));
                 System.out.println("report if condition");
+            }
+            else{
+                printJsonObject2(jsonObject);
             }
         }
     }
