@@ -12,9 +12,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 @Controller
 @CrossOrigin
@@ -63,6 +65,9 @@ public class ChatController implements MessageListener {
         else
             chatMessage.setType("bot");
         Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+
         Calendar calendar = Calendar.getInstance();
         System.out.println("calender hour of day = " + Calendar.HOUR_OF_DAY);
         System.out.println("date = " + date.getHours());

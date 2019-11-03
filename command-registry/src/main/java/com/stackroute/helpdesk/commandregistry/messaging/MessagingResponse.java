@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MessagingResponse {
     String eventName;
-    Object eventData;
+    String eventData;
     String exchangeName;
     String routingKey;
     String bindingQueue;
