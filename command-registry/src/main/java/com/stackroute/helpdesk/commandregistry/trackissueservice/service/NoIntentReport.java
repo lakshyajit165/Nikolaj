@@ -28,7 +28,10 @@ public class NoIntentReport {
 
 
         reportDetails.stream().forEach(entities -> {
-            setOfEntities.add(entities.getEntity());
+            if(isNullOrEmpty(entities.getEntity()))
+                setOfEntities.add("null");
+            else
+                setOfEntities.add(entities.getEntity());
         });
 
         System.out.println("entities list = " + setOfEntities);
@@ -42,10 +45,7 @@ public class NoIntentReport {
                 if(uniqueEntity == entities.getEntity()) {
 
                     entities.getIntentList().stream().forEach(intent -> {
-                        if((isNullOrEmpty(intent.getIntent()))||intent.getIntent().equalsIgnoreCase(""))
-                            setOfEntities.add("nointent");
-                        else
-                            setOfEntities.add(intent.getIntent());
+                        setOfIntents.add(intent.getIntent());
                     });
 
                     setOfIntents.forEach(uniqueIntent -> {
