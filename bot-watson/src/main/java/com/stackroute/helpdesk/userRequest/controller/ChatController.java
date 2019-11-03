@@ -40,13 +40,15 @@ public class ChatController implements MessageListener {
                     !(botResult.contentEquals("Hi I am Optimus, how may I help you ")) &&
                     !(botResult.contentEquals("Hello how can I help you")) &&
                     !(botResult.contentEquals("Sure, how can I help you")) &&
-                    !(botResult.contentEquals("How much would you like to rate us"))
+                    !(botResult.contentEquals("How much would you like to rate us")) &&
+                    !(botResult.contentEquals("star"))
             ) {
                 Thread.sleep(1000);
-                    publishReply(chatMessage.getEmailId(), chatMessage.getEmailId() + "_chat_messages", "star");
+                    publishReply(chatMessage.getEmailId(), chatMessage.getEmailId() + "_chat_messages", "Do you have any more queries");
 
                 System.out.println("publishing back from botwatson in channel = " + chatMessage.getEmailId() + "_chat_messages");
             }
+            
 
         }catch (IOException | InterruptedException ioException) {
             ioException.printStackTrace();

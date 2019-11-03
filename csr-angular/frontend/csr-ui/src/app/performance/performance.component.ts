@@ -29,8 +29,11 @@ export class PerformanceComponent implements OnInit {
   loaded = false;
 
   public barChartOptions: ChartOptions = {
+    legend: {
+      position: 'bottom'
+    },
     responsive: true,
-    scales: { xAxes: [{  barThickness: 6, }], yAxes: [{
+    scales: { xAxes: [{  barThickness: 20, }], yAxes: [{
      ticks: {
        beginAtZero: true
       }
