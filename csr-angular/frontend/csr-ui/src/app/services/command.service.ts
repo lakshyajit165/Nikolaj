@@ -15,7 +15,7 @@ export class CommandService {
   ) { }
 
   getCommandList(): Observable<object> {
-    //return this.http.get<object>(this.apiGateWay+'commandregistry/api/v1/commandregistry/commands')
+    // return this.http.get<object>(this.apiGateWay+'commandregistry/api/v1/commandregistry/commands')
     return this.http.get<object>(this.apiGateWay + 'commandregistry/api/v1/commandregistry/commands')
     .pipe(
       retry(1),
