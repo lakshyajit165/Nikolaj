@@ -48,7 +48,9 @@ public class ReportService implements ReportInterface {
         }
     }
     public void printJsonObject2(JSONObject jsonObj) {
-        System.out.println("report outside condition2");
+        System.out.println("report outside condition2"+jsonObj.getClass()+"abc"+jsonObj);
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("data1",jsonObj);
         for (Object key : jsonObj.keySet()) {
             //based on you key types
             entity = (String)key;
@@ -62,6 +64,7 @@ public class ReportService implements ReportInterface {
         for (Object key : jsonObj.keySet()) {
             //based on you key types
             intent = (String)key;
+            System.out.println((jsonObj.get(intent))    );
             List<Intent> keyvalue = (List<Intent>) jsonObj.get(intent);
 
             ReportDetails reportDetails=new ReportDetails(report,entity,intent,keyvalue);
