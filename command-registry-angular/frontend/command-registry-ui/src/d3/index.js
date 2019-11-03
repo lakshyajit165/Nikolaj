@@ -4,12 +4,12 @@ function load(selected) {
         let matrix
         let matrix2
         let url;
-        console.log(selected);
+       // console.log(selected);
         
         if (selected === 'NoCommand-0') {
               //  url = 'http://localhost:3002/data2';
               url='https://nikolaj-dev.stackroute.io/commandregistry/api/v1/commandregistry/reports/type?type=NoCommand';
-            //  url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoCommand';
+              //  url=' http://localhost:9003/api/v1/commandregistry/reports/type?type=NoCommand';
                 
         }
         else {
@@ -41,7 +41,7 @@ function load(selected) {
         }
 
         d3.json(url).then(data => {
-               console.log(data.result);
+         //      console.log(data.result);
                 let root = partition(data.result);
                 let color = d3.scaleOrdinal().range(d3.quantize(d3.interpolateRainbow, data.result.children.length + 1));
 

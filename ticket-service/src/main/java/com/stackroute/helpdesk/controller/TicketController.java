@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.Serializable;
 import java.util.*;
 
-@CrossOrigin("http://localhost:4200")
+
 @RestController
 @RequestMapping("/api/v1/")
 public class TicketController implements Serializable {
