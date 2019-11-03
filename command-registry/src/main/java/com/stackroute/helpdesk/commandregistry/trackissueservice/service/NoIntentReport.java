@@ -147,7 +147,7 @@ public class NoIntentReport {
             }
         });
         noCommand.put("children", entitiesList);
-        noCommand.put("name", "entity mapped");
+        noCommand.put("name", "entity not mapped");
         commandMapped.put("name", "entity mapped");
         commandMapped.put("children", mappedEntitiesList);
         reportList.add(noCommand);
