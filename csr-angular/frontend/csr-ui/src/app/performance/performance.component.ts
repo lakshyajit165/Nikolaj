@@ -33,7 +33,7 @@ export class PerformanceComponent implements OnInit {
       position: 'bottom'
     },
     responsive: true,
-    scales: { xAxes: [{  barThickness: 20, }], yAxes: [{
+    scales: { xAxes: [{  barThickness: 60, }], yAxes: [{
      ticks: {
        beginAtZero: true
       }
