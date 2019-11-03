@@ -19,7 +19,6 @@ public class NoCommandReport {
         HashMap<String,Object> data4 = new HashMap<>();
         HashMap<String, Object> noCommand = new HashMap<>();
         HashMap<String, Object> commandMapped = new HashMap<>();
-        HashMap<String, Object> queries = new HashMap<>();
 
         HashSet<String> setOfEntities = new HashSet();
         List<HashMap<String, Object>> entitiesList = new ArrayList<>();
@@ -58,10 +57,12 @@ public class NoCommandReport {
                         entities.getIntentList().stream().forEach(intent -> {
                             System.out.println("current intent = " + intent.getIntent() + " but unique intent = " + uniqueIntent);
                             if (uniqueIntent == intent.getIntent()) {
+                                HashMap<String, Object> queries = new HashMap<>();
 //                                if(intent.getCommandName().isEmpty()) {
                                     queries.put("name", intent.getTicketName());
                                     queries.put("size", 300);
                                     queriesList.add(queries);
+                                System.out.println("queries = "+ queries.get("name"));
 //                                }
 //                                else {
 //                                    queries.put("name", intent.getTicketName());
@@ -69,6 +70,7 @@ public class NoCommandReport {
 //                                    mappedIntentQueriesList.add(queries);
 //                                }
                             }
+                            System.out.println("queries list = " + queriesList);
                         });
                         intents.put("children", queriesList);
                         intents.put("name", uniqueIntent);
