@@ -25,13 +25,11 @@ public class MessageListenerForNoCommand {
     private static final Logger log = LoggerFactory.getLogger(MessageListenerForNoCommand.class);
     @RabbitListener(queues = "${no-command-report-recieved.queue.name}")
     public void receiveMessageForNoCommandReport(MessagingResponse recievedObjectInJson) throws Exception {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        Gson gson = new Gson();
-//        System.out.println("no command"+recievedObjectInJson.getEventData());
-//        JSONObject jsonObject = gson.fromJson(recievedObjectInJson.getEventData(), JSONObject.class);
-        JSONObject jsonObject=new JSONObject();
-        jsonObject.put("command",recievedObjectInJson.getEventData());
+        Gson gson = new Gson();
+        System.out.println("no intent"+recievedObjectInJson.getEventData());
+        JSONObject jsonObject = gson.fromJson(recievedObjectInJson.getEventData(), JSONObject.class);
         System.out.println(jsonObject);
+//        reportService.printJsonObject1(jsonObject);
 //       if(!((String)jsonObject.get("NoCommand")).contains("Well"))
 //            reportService.printJsonObject1(jsonObject);
 //        System.out.println();
