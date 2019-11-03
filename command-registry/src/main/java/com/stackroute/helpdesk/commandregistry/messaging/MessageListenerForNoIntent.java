@@ -28,7 +28,7 @@ public class MessageListenerForNoIntent {
         Gson gson = new Gson();
         System.out.println("no intent"+recievedObjectInJson.getEventData());
         JSONObject jsonObject = gson.fromJson(recievedObjectInJson.getEventData(), JSONObject.class);
-
+        reportService.printJsonObject1(jsonObject);
 
 //        if(!((String)jsonObject.get("NoIntent")).contains("Well"))
 //        reportService.printJsonObject1(jsonObject);
