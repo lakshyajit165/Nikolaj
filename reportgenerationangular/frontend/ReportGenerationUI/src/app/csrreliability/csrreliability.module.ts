@@ -25,6 +25,8 @@ import { MaterialModule } from '../material/material.module';
     MatSelectModule,
     MaterialModule
   ],
-  schemas:[ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
-export class CsrreliabilityModule { }
+export class CsrreliabilityModule {
+
+ }
