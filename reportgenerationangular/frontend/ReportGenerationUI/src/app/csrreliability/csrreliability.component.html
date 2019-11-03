@@ -28,8 +28,8 @@
 <div layout-align="center center" class="list">
     <mat-table #videoTable [dataSource]="dataSource" class="mat-elevation-z8" class="scroll">
         <ng-container matColumnDef="Rank">
-            <mat-header-cell *matHeaderCellDef>Rank</mat-header-cell>
-            <mat-cell *matCellDef="let element"> #{{element.rank}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef>Number</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.rank}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Name">
