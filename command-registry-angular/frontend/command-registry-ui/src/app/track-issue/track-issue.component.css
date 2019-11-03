@@ -12,7 +12,11 @@
 mat-form-field {
   margin-right: 12px;
 }
-
+.hideScroll
+{
+  overflow-y:hidden ;
+  
+}
 /* .querydiv
 {
 align: right;
