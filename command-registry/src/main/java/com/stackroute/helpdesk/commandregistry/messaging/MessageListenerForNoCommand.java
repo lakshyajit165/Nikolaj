@@ -32,8 +32,8 @@ public class MessageListenerForNoCommand {
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("command",recievedObjectInJson.getEventData());
         System.out.println(jsonObject);
-        if(!((String)jsonObject.get("NoCommand")).contains("Well"))
-            reportService.printJsonObject1(jsonObject);
+//       if(!((String)jsonObject.get("NoCommand")).contains("Well"))
+//            reportService.printJsonObject1(jsonObject);
 //        System.out.println();
         try {
             log.info("message added to the no command queue");
