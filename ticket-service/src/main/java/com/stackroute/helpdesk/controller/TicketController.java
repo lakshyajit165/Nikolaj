@@ -209,7 +209,7 @@ public class TicketController implements Serializable {
                     "ticket_closed",
                     "ticket_exchange",
                     "socketserver.ticket.closed",
-                    newTicketStructure.getRaisedBy(),
+                    newTicketStructure,
                     "socketserver-closed-queue-subscribe");
 
 
