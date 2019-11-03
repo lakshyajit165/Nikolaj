@@ -38,6 +38,7 @@ public class SocketIdService implements ISocketIdService{
 	}
 
 	public void removeSocket(String emailId){
+		System.out.println("emailId = " + emailId);
 		iSocketIdRepo.deleteById(emailId);
 	}
 }

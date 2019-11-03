@@ -30,8 +30,10 @@ public class MessageListener {
         System.out.println("recieved object in socket server from queue = " + recievedObjectInString.getEventData());
         LinkedHashMap eventData = (LinkedHashMap) recievedObjectInString.getEventData();
         String emailId = (String) eventData.get("raisedBy");
+        System.out.println("class is = " + recievedObjectInString.getEventData().getClass());
 //        String emailId = (String)((LinkedHashMap)(((LinkedHashMap) recievedObjectInString.getEventData()).get("raisedBy"));
         socketIdService = new SocketIdService();
+        System.out.println("email id in listener = " + emailId);
         socketIdService.removeSocket(emailId);
             try {
 
