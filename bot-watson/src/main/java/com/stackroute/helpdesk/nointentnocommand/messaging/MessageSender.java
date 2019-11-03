@@ -2,6 +2,8 @@ package com.stackroute.helpdesk.nointentnocommand.messaging;
 
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +26,12 @@ public class MessageSender {
      * @param routingKey
      * @param data
      */
-    public void sendMessage(RabbitTemplate rabbitTemplate, String exchange, String routingKey, JSONObject data) {
+    public void sendMessage(RabbitTemplate rabbitTemplate, String exchange, String routingKey, JSONObject data) throws JsonProcessingException {
+        ObjectMapper objectMapper=new ObjectMapper();
+        String result=objectMapper.writeValueAsString(data);
         MessagingResponse messagingResponse = new MessagingResponse(
                 "optimus",
-                data,
+                result,
                 exchange,
                 routingKey,
                 "app-1-queue"

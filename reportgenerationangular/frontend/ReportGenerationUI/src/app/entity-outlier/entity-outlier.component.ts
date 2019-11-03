@@ -47,7 +47,6 @@ export class EntityOutlierComponent implements OnInit {
         this.emptyData = true;
       }
       this.serviceReport = data.result;
-      console.log("service report " + this.serviceReport);
       this.serviceReport.map(element => {
         this.entity.push(element.entity);
         this.queriesRaised.push(element.queriesRaised);
@@ -86,16 +85,6 @@ export class EntityOutlierComponent implements OnInit {
       },
     ];
   
-
-  // events
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
   //to convert the input from datepicker into the right format
   convert(date: Date): string {
     return date.toLocaleDateString('en-GB', {
@@ -112,13 +101,11 @@ export class EntityOutlierComponent implements OnInit {
     this.dataSource.length=0;
     this.dataSource.splice(0,this.dataSource.length)
     this.dataSource = [];
-    console.log("kitni aarhi h " + this.dataSource.length)
   }
 
   //when event is fired on selecting some particular date
 
   getStartDate(value: Date) {
-    console.log(value);
     this.resetGraph();
     this.startDate = this.convert(value);
     this.sendDates();
@@ -126,7 +113,6 @@ export class EntityOutlierComponent implements OnInit {
 
 
   getEndDate(value: Date) {
-    console.log('event dekho ->', typeof event);
     this.resetGraph();
     this.endDate = this.convert(value);
     this.sendDates();
@@ -141,7 +127,6 @@ export class EntityOutlierComponent implements OnInit {
         this.emptyData = false;
         if(data.result.length === 0)
         {
-          console.log("inside if");
           this.emptyData = true;
         }
         this.serviceReport = data.result;
@@ -151,7 +136,7 @@ export class EntityOutlierComponent implements OnInit {
           this.queriesResolved.push(element.queriesResolved);
           this.leadTime.push(element.leadTime);
           this.dataSource=this.serviceReport;
-          console.log(data.result)
+
         });
       });
   }
@@ -159,7 +144,6 @@ export class EntityOutlierComponent implements OnInit {
 
   toggleChart() {
     this.isBarChart = !this.isBarChart;
-    console.log('konsa chart->', this.isBarChart);
   
 }
 
