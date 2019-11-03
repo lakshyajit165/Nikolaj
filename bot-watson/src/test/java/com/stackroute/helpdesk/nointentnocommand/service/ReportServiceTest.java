@@ -1,5 +1,6 @@
 package com.stackroute.helpdesk.nointentnocommand.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.inject.matcher.Matchers;
 import com.netflix.discovery.converters.Auto;
 import com.stackroute.helpdesk.nointentnocommand.messaging.MessageSender;
@@ -64,14 +65,14 @@ public class ReportServiceTest {
         messageSender=mock(MessageSender.class);
     }
     @Test(expected = AmqpConnectException.class)
-    public void getReportWithEmptyData() {
+    public void getReportWithEmptyData() throws JsonProcessingException {
         jsonObject.put("NoCommand", "Well done by developers.Currently all quries have commands");
         jsonObject.put("NoIntent", "Well done by developers.Currently all quries have Intents");
         when(reportRepository.findAll()).thenReturn(list);
         assertEquals(jsonObject,reportService.getReport());
     }
     @Test(expected = AmqpConnectException.class)
-    public void getReportForNoCommand() {
+    public void getReportForNoCommand() throws JsonProcessingException {
         Date date=new Date();
         JSONObject clusteredData=new JSONObject();
         this.report=new Report("ticketid","query","intent",date,date,"abc@gmail.com","entity", ReportType.NoCommand,null);
@@ -88,7 +89,7 @@ public class ReportServiceTest {
     }
 
     @Test(expected = AmqpConnectException.class)
-    public void getReportForNoIntentBasedOnDataFromCsr(){
+    public void getReportForNoIntentBasedOnDataFromCsr() throws JsonProcessingException {
         Date date=new Date();
         this.report=new Report("ticketid","query","intent",date,date,"abc@gmail.com","entity", ReportType.NoIntent,"command");
         jsonObject.put("intent",report);
@@ -101,7 +102,7 @@ public class ReportServiceTest {
     }
 
     @Test(expected = AmqpConnectException.class)
-    public void getReportForNoIntent(){
+    public void getReportForNoIntent() throws JsonProcessingException {
         Date date = new Date();
         this.report=new Report("ticketid","query",null,date,date,"abc@gmail.com",null, ReportType.NoIntent,null);
         jsonObject.put("Unknown_Intent",report);
@@ -114,7 +115,7 @@ public class ReportServiceTest {
     }
 
     @Test(expected = AmqpConnectException.class)
-    public void getNoIntentAndNoCommand(){
+    public void getNoIntentAndNoCommand() throws JsonProcessingException {
         Date date=new Date();
         this.report=new Report("ticketid","query",null,date,date,"abc@gmail.com",null, ReportType.NoIntent,null);
         list.add(report);
