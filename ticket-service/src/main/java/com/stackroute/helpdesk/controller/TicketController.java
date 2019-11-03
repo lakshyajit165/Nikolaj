@@ -328,7 +328,33 @@ public class TicketController implements Serializable {
         ticketStructure.setStatus(Status.closed);
 
         responseObject.put("status", "updated");
+
+        message.sendMessage(rabbitTemplate,
+                "ticket_updated",
+                "ticket_exchange",
+                "csr.csr.updated",
+                responseObject,
+                "csr-updated-queue-subscribe");
+
+//        System.out.println("message sent outside");
+
+//
+
+//        System.out.println("message sent outside");
+
+
+
+        // send message to report microservice
+
+        message.sendMessage(rabbitTemplate,
+                "ticket_status_updated",
+                "ticket_exchange",
+                "reports.ticketstatusreport.generated",
+                responseObject,
+                "reports-ticketdetails-queue-subscribe");
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
+
+
     }
 
 
