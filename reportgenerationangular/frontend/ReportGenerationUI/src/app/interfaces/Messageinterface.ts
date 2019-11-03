@@ -3,4 +3,5 @@ export class Message {
     content: string;
     type: string;
     emailId: string;
- }
+
+}

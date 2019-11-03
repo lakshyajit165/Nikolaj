@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './service-outlier.component.html',
   styleUrls: ['./service-outlier.component.css']
 })
-export class ServiceOutlierComponent implements OnInit {
+export class ServiceOutlierComponent implements OnInit, OnChanges {
 
  public serviceReport: IService[] = [];
 
@@ -60,6 +60,11 @@ export class ServiceOutlierComponent implements OnInit {
 
   }
 
+  ngOnChanges() {
+    this.resetGraph();
+    this.sendDates();
+   }
+
   // to empty the array of service report
   resetGraph() {
     this.entity.length = 0;
@@ -83,9 +88,6 @@ export class ServiceOutlierComponent implements OnInit {
       });
   }
 
-  ngOnChanges() {
-   this.resetGraph();
-   this.sendDates();
-  }
+
 
 }

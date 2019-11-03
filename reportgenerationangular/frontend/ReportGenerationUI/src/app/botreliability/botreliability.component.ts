@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReportService } from '../services/report.service';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { Label,Color } from 'ng2-charts';
+import { Label, Color } from 'ng2-charts';
 import { MatDatepickerInputEvent } from '@angular/material';
 import { FormBuilder } from '@angular/forms';
 @Component({
