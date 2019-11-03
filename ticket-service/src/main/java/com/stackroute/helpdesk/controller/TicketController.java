@@ -204,12 +204,21 @@ public class TicketController implements Serializable {
             // set updatedOn time when ticket is resolved
             newTicketStructure.setAssignedTo(resolvedBy);
             newTicketStructure.setUpdatedOn(new Date());
+
             message.sendMessage(rabbitTemplate,
                     "ticket_closed",
                     "ticket_exchange",
                     "socketserver.ticket.closed",
                     newTicketStructure.getRaisedBy(),
                     "socketserver-closed-queue-subscribe");
+
+
+            message.sendMessage(rabbitTemplate,
+                    "ticket_updated",
+                    "ticket_exchange",
+                    "notification.mail.sent",
+                    newTicketStructure,
+                    "notification-sent-queue-subscribe");
 
         }else{
 
@@ -222,12 +231,6 @@ public class TicketController implements Serializable {
 
             // send message from ticket exchange to notification
 
-            message.sendMessage(rabbitTemplate,
-                    "ticket_updated",
-                    "ticket_exchange",
-                    "notification.mail.sent",
-                    newTicketStructure,
-                    "notification-sent-queue-subscribe");
 
 
         }
