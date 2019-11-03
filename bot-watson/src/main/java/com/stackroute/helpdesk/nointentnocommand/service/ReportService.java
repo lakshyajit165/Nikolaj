@@ -119,7 +119,8 @@ public class ReportService implements ReportServiceRepo {
         for(Report report:reports) {
             if (report.getIntent() == null) {
                 System.out.println("null intent");
-                List<String> words = findingIntents(report.getTicketName());
+                List<String> words = new ArrayList<>();
+                words = findingIntents(report.getTicketName());
                 System.out.println("words"+words);
                 if (words.isEmpty()) {
                     System.out.println("clustering null");
