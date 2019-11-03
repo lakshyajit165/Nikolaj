@@ -59,7 +59,7 @@ public class NoCommandReport {
                             if (uniqueIntent == intent.getIntent()) {
                                 HashMap<String, Object> queries = new HashMap<>();
                                 System.out.println("command name = " + intent.getCommandName());
-                                if(intent.getCommandName().isEmpty()) {
+                                if(intent.getCommandName().contentEquals("nocommand")) {
                                     queries.put("name", intent.getTicketName());
                                     queries.put("size", 300);
                                     queriesList.add(queries);
