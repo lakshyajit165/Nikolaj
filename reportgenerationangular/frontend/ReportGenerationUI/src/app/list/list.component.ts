@@ -171,7 +171,6 @@ sendMessageWhenEstablished() {
 handleResult(message) {
   if (message.body) {
 
-    // this.selectionChange(this.status);
     if (this.status === 'all') {
       this.status = '';
       this.totalNoOfDocuments = this.totalNoOfDocuments + 1;

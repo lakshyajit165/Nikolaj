@@ -6,7 +6,6 @@ import { EntityOutlierComponent } from './entity-outlier/entity-outlier.componen
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SomethingWentWrongComponent } from './something-went-wrong/something-went-wrong.component';
 
-// import { ListComponent } from './list/list.component';
 
 const routes: Routes = [
   { path:  'report-angular', redirectTo: '/reports' , pathMatch: 'full'},
