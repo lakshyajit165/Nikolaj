@@ -18,14 +18,12 @@ export class ReportService {
 
   // service report 1.all time data 2. on the basis of date
   getServiceReport(startdate: string, enddate: string): Observable<ResponseFormatforService> {
-    if(startdate === undefined )
-    {
+    if (startdate === undefined ) {
       startdate = '';
-    
+
     }
 
-    if(enddate === undefined )
-    {
+    if (enddate === undefined ) {
       enddate = '';
     }
     this.listUrl = `${this.apiGateWay}reportservice/api/v1/report/service?startdate=${startdate}&enddate=${enddate}`;
@@ -50,7 +48,7 @@ export class ReportService {
   }
 
   // to get the bot report according to the given date
-  getBotReliability(startdate: String, enddate: String): Observable<object> {
+  getBotReliability(startdate: string, enddate: string): Observable<object> {
     this.listUrl = `${this.apiGateWay}reportservice/api/v1/report/reliablebot?startdate=${startdate}&enddate=${enddate}`;
     return this.httpClient.get<object>(this.listUrl);
   }

@@ -32,7 +32,6 @@ font-size: 50px;
     /* font: 30px; */
 }
 
-.scroll {
-    overflow-x: hidden;
-    overflow-y: hidden;
+html {
+    overflow-x: initial !important;
 }
