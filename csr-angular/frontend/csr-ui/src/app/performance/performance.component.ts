@@ -33,7 +33,7 @@ export class PerformanceComponent implements OnInit {
       position: 'bottom'
     },
     responsive: true,
-    scales: { xAxes: [{  barThickness: 60, }], yAxes: [{
+    scales: { xAxes: [{  barThickness: 30, }], yAxes: [{
      ticks: {
        beginAtZero: true
       }
@@ -82,8 +82,8 @@ export class PerformanceComponent implements OnInit {
       this.responseTaken = this.response1[this.result];
       // console.log(this.responseTaken);
 
-      this.dates = Object.keys(this.responseTaken);
-      this.queryTakenCount = Object.values(this.responseTaken);
+      this.dates = Object.keys(this.responseTaken).slice(0, 8);
+      this.queryTakenCount = Object.values(this.responseTaken).slice(0, 8);
 
       // console.log(this.dates);
       // console.log(this.queryTakenCount);
@@ -103,7 +103,7 @@ export class PerformanceComponent implements OnInit {
         this.response2 = response;
         this.responseResolved = this.response2[this.result];
 
-        this.queryResolvedCount = Object.values(this.responseResolved);
+        this.queryResolvedCount = Object.values(this.responseResolved).slice(0, 8);
 
         // console.log(this.queryResolvedCount);
 
