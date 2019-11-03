@@ -317,6 +317,22 @@ public class TicketController implements Serializable {
         return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
 
+     // request for simulation
+    @GetMapping(path="/tickets/simulation/{id}")
+    public ResponseEntity<HashMap<String, Object>> forSimulation(
+            @PathVariable("id") String id
+    ){
+        responseObject = new HashMap<>();
+        TicketStructure ticketStructure = ticketInterface.getTicketById(id);
+
+        ticketStructure.setStatus(Status.closed);
+
+        responseObject.put("status", "updated");
+        return new ResponseEntity<>(responseObject, HttpStatus.OK);
+    }
+
+
+
 
 
 }
