@@ -218,8 +218,8 @@ public class  SimulationService implements SimulationServiceInterface {
             System.out.println("In suggestions");
             List<JSONObject> suggestionsList = neo4jService.getCommandByName(intentName, "");
             //no command report
-            System.out.println(suggestionsList);
-            if (suggestionsList == null) {
+            //System.out.println(suggestionsList);
+            if (suggestionsList.size()==0) {
                 ticketGenerate("open");
                 noCommandFound(userMessage, intentName, entity);
             }

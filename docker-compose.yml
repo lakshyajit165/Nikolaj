@@ -334,11 +334,11 @@ services:
       replicas: 1
       resources:
         reservations:
-          cpus: '0.20'
-          memory: 124M
+          cpus: '0.30'
+          memory: 512M
         limits:
-          cpus: '0.25'
-          memory: 256M
+          cpus: '0.35'
+          memory: 1024M
     volumes:
       - $HOME/mavenrepo/:/maven/home/
     environment:
