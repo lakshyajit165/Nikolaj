@@ -28,7 +28,7 @@ public class MessageListener {
     @RabbitListener(queues = "${socketserver-ticket-closed.queue.name}")
     public void receiveMessageForApp1(MessagingResponse recievedObjectInString) throws Exception {
         System.out.println("recieved object in socket server from queue = " + recievedObjectInString.getEventData());
-        String emailId = (String) ((LinkedHashMap) recievedObjectInString.getEventData()).get("body");
+        String emailId = (String)((LinkedHashMap)(((LinkedHashMap) recievedObjectInString.getEventData()).get("body"))).get("raisedBy");
         socketIdService = new SocketIdService();
         socketIdService.removeSocket(emailId);
             try {
