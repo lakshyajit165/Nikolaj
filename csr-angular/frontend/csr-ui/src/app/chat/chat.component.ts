@@ -48,13 +48,14 @@ export class ChatComponent implements OnInit {
       // console.log("this is user email in constructor " + this.usermail);
     }  
 
-    //this.usermail = "saswat3@gmail.com"
+    
     
     this.chatservice.getChats(this.usermail).subscribe(data => {
       
       data.map(chatMessage => {
         // console.log(chatMessage);
-        let previousMessage: Message = { content: chatMessage.message, emailId: '', type: chatMessage.user, sender:'', hours: '', minutes: '' };
+        let previousMessage: Message = { content: chatMessage.message, 
+          emailId: '', type: chatMessage.user, sender:'', hours: '', minutes: '' };
         this.messages.push(previousMessage);
         // console.log(previousMessage);
         });

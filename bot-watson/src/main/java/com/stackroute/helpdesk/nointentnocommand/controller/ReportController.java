@@ -1,6 +1,7 @@
 package com.stackroute.helpdesk.nointentnocommand.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.stackroute.helpdesk.nointentnocommand.model.Report;
 import com.stackroute.helpdesk.nointentnocommand.model.ReportType;
 import com.stackroute.helpdesk.nointentnocommand.model.UpdateReport;
@@ -46,7 +47,7 @@ public class ReportController {
     }
 
     @GetMapping("/report")
-    public ResponseEntity<HashMap<String,?>> updateRecord(){
+    public ResponseEntity<HashMap<String,?>> updateRecord() throws JsonProcessingException {
         responseObject = new HashMap<>();
         responseObject.put("result", reportServiceRepo.getReport());
         responseObject.put("message", "Successfully inserted the command report");

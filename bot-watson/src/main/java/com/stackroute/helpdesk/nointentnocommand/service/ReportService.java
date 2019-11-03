@@ -1,5 +1,6 @@
 package com.stackroute.helpdesk.nointentnocommand.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mongodb.util.JSON;
 import com.stackroute.helpdesk.nointentnocommand.messaging.MessageSender;
 import com.stackroute.helpdesk.nointentnocommand.model.Report;
@@ -48,7 +49,7 @@ public class ReportService implements ReportServiceRepo {
     }
 
     @Scheduled(fixedRate = 86400000,initialDelay = 86400000)
-    public JSONObject getReport() {
+    public JSONObject getReport() throws JsonProcessingException {
         Map<String, List<Report>> removingDuplicate = new HashMap<>();
         HashSet<String> uniqueIntents=new HashSet<String>();
         List<Report> allReports = (List<Report>) reportRepository.findAll();

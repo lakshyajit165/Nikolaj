@@ -229,7 +229,7 @@ public class ChatService implements ChatServiceInterface {
             List<JSONObject> suggestionsList = neo4jService.getCommandByName(intentName, "");
             //no command report
             System.out.println(suggestionsList);
-            if (suggestionsList == null) {
+            if (suggestionsList.size() == 0) {
                 ticketGenerate("open");
                 noCommandFound(userMessage, intentName, entity);
             }

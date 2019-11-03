@@ -1,5 +1,6 @@
 package com.stackroute.helpdesk.nointentnocommand.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.stackroute.helpdesk.nointentnocommand.model.Report;
 import com.stackroute.helpdesk.nointentnocommand.model.ReportType;
 import com.stackroute.helpdesk.nointentnocommand.model.UpdateReport;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 @Service
 public interface ReportServiceRepo {
-    JSONObject getReport();
+    JSONObject getReport() throws JsonProcessingException;
     List addRecord(Report report);
     public String updateReport(UpdateReport updateReport);
 //    JSONObject schedulingReports();
