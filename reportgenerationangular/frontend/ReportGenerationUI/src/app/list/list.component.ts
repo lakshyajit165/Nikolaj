@@ -154,21 +154,17 @@ openSocket() {
     this.stompClient.subscribe('/socket-publisher', (message) => {
       this.handleResult(message);
     });
-    // this.sendMessageWhenEstablished();
-    // }
 }
 
 sendMessage(message: string) {
   const chatmessage: Message = { content: message, emailId: this.usermail, type: 'csr', sender: this.csrmail };
   this.stompClient.send('/socket-subscriber/send/message', {}, JSON.stringify(chatmessage));
-  // this.handleResult(chatmessage);
   ( document.getElementById('chatmessage') as HTMLInputElement).value = '';
 }
 
 
 sendMessageWhenEstablished() {
   const socketStorage: SocketStorage = { emailId: this.csrmail, socketId: this.uuId };
-  // let message: Message = { content: this.uuId, emailId: 'this.userForm.value.fromId', type: this.userForm.value.toId, sender:'CHAT' };
   this.stompClient.send('/socket-subscriber/send/socketid', {}, JSON.stringify(socketStorage));
 }
 
@@ -193,10 +189,6 @@ handleResult(message) {
 
   }
 
-
-
-
 }
-
 
 }

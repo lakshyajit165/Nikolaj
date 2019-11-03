@@ -50,7 +50,6 @@ export class ReportService {
   }
 
   // to get the bot report according to the given date
-  // tslint:disable-next-line: ban-types
   getBotReliability(startdate: String, enddate: String): Observable<object> {
     this.listUrl = `${this.apiGateWay}reportservice/api/v1/report/reliablebot?startdate=${startdate}&enddate=${enddate}`;
     return this.httpClient.get<object>(this.listUrl);

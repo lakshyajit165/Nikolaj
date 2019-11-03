@@ -152,7 +152,6 @@ public class TicketListener {
 
             }
         });
-//        ISODate("2019-10-20T16:28:54.307Z"),
 
         map.put(environment.getProperty("eventname5"), new Task() {
             @Override
@@ -222,6 +221,5 @@ public class TicketListener {
 
         System.out.println("what the map is showing  " + map.get(eventName));
         map.get(eventName).performSaveOperation();
-//        sendMessages.sendResponse(new User(), "");
     }
 }

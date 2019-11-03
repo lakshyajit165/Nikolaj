@@ -27,6 +27,7 @@ public class MessageListenerForNoCommand {
     public void receiveMessageForNoCommandReport(MessagingResponse recievedObjectInJson) throws Exception {
 //        ObjectMapper objectMapper = new ObjectMapper();
         Gson gson = new Gson();
+        System.out.println("no command"+recievedObjectInJson.getEventData());
         JSONObject jsonObject = gson.fromJson(recievedObjectInJson.getEventData(), JSONObject.class);
         if(!((String)jsonObject.get("NoCommand")).contains("Well"))
             reportService.printJsonObject1(jsonObject);
