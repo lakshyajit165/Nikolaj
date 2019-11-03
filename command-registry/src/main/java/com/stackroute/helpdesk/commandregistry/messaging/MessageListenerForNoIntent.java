@@ -1,5 +1,6 @@
 package com.stackroute.helpdesk.commandregistry.messaging;
 //import com.stackroute.helpdesk.mailservice.Sender;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.helpdesk.commandregistry.trackissueservice.service.ReportService;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -23,8 +24,8 @@ public class MessageListenerForNoIntent {
     private static final Logger log = LoggerFactory.getLogger(MessageListenerForNoCommand.class);
     @RabbitListener(queues = "${no-intent-report-recieved.queue.name}")
     public void receiveMessageForNoIntentReport(MessagingResponse recievedObjectInJson) throws Exception {
-        recievedObjectInJson.getEventData();
-        JSONObject jsonObject = (JSONObject)((LinkedHashMap)recievedObjectInJson.getEventData()).get("result");
+        ObjectMapper objectMapper = new ObjectMapper();
+        JSONObject jsonObject = objectMapper.convertValue(recievedObjectInJson.getEventData(), JSONObject.class);
         reportService.printJsonObject1(jsonObject);
         try {
             log.info("message added to the no intent queue");

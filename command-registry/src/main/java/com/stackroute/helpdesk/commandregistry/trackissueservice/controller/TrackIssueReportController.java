@@ -101,6 +101,23 @@ public class TrackIssueReportController {
             System.out.println(responseObject);
             return new ResponseEntity<>(responseObject, HttpStatus.OK);
         }
+
+
+    @PostMapping(path="/api/v1/commandregistry/reports/updatingdatabse/{command}/{intent}")
+    public ResponseEntity<HashMap<String,Object>>updateReportDatabase(@PathVariable String command,@PathVariable String intent) throws IOException, TimeoutException {
+        List<ReportDetails> reportDetails=reportRepository.findAll();
+        for(ReportDetails report :reportDetails)
+        {
+            report.getIntent().equals(intent);
+        }
+        responseObject.put("result", reportDetails);
+        responseObject.put("message", "Success!");
+        responseObject.put("error", "false");
+        System.out.println(responseObject);
+        return new ResponseEntity<>(responseObject, HttpStatus.OK);
+    }
+
+
         }
 
 

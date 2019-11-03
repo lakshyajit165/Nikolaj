@@ -1,4 +1,5 @@
 package com.stackroute.helpdesk.commandregistry.messaging;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.helpdesk.commandregistry.trackissueservice.service.ReportService;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -20,8 +21,8 @@ public class MessageListenerForNoCommand {
     private static final Logger log = LoggerFactory.getLogger(MessageListenerForNoCommand.class);
     @RabbitListener(queues = "${no-command-report-recieved.queue.name}")
     public void receiveMessageForNoCommandReport(MessagingResponse recievedObjectInJson) throws Exception {
-        recievedObjectInJson.getEventData();
-        JSONObject jsonObject = (JSONObject)((LinkedHashMap)recievedObjectInJson.getEventData()).get("result");
+        ObjectMapper objectMapper = new ObjectMapper();
+        JSONObject jsonObject = objectMapper.convertValue(recievedObjectInJson.getEventData(), JSONObject.class);
         reportService.printJsonObject1(jsonObject);
 //        System.out.println();
         try {

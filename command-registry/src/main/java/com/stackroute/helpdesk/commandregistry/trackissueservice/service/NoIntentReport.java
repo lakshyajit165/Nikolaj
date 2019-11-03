@@ -20,7 +20,9 @@ public class NoIntentReport {
         HashMap<String, Object> intentMapped = new HashMap<>();
         HashMap<String, Object> queries = new HashMap<>();
         HashSet<String> setOfEntities = new HashSet();
+        HashSet<String> mappedSetOfEntities = new HashSet();
         List<HashMap<String, Object>> reportList = new ArrayList<>();
+        List<HashMap<String, Object>> mappedReportList = new ArrayList<>();
 
         reportDetails.stream().forEach(entities -> {
             if(isNullOrEmpty(entities.getEntity()))
@@ -31,7 +33,9 @@ public class NoIntentReport {
 
         setOfEntities.forEach(uniqueEntity -> {
             HashMap<String, Object> entity = new HashMap<>();
+            HashMap<String, Object> mappedEntity = new HashMap<>();
             List<HashMap<String, Object>> intentsList = new ArrayList<>();
+            List<HashMap<String, Object>> mappedIntentsList = new ArrayList<>();
             HashSet<String> setOfIntents = new HashSet();
             reportDetails.stream().forEach(entities -> {
                 if(uniqueEntity == entities.getEntity()) {
@@ -42,13 +46,14 @@ public class NoIntentReport {
 
                     setOfIntents.forEach(uniqueIntent -> {
                         HashMap<String, Object> intents = new HashMap<>();
+                        HashMap<String, Object> mappedIntents = new HashMap<>();
                         System.out.println("unique intent = " + uniqueIntent);
                         entities.getIntentList().stream().forEach(intent -> {
                             System.out.println("current intent = " + intent.getIntent() + " but unique intent = " + uniqueIntent);
                             if (uniqueIntent == intent.getIntent()) {
-                                queries.put("name", intent.getTicketName());
-                                queries.put("size", 300);
-                                queriesList.add(queries);
+                                    queries.put("name", intent.getTicketName());
+                                    queries.put("size", 300);
+                                    queriesList.add(queries);
                             }
                         });
                     });

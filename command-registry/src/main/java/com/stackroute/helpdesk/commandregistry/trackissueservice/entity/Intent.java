@@ -21,4 +21,5 @@ public class Intent {
     String userId;
     String entity;
     String reportType;
+    String commandName;
 }

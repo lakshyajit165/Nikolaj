@@ -61,10 +61,10 @@ public class ChatController implements MessageListener {
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         System.out.println("calender hour of day = " + Calendar.HOUR_OF_DAY);
-        System.out.println("local date = " + LocalDateTime.now().getHour());
-        System.out.println("local minute = " + LocalDateTime.now().getMinute());
-        chatMessage.setHours(String.valueOf(LocalDateTime.now().getHour()));
-        chatMessage.setMinutes(String.valueOf(LocalDateTime.now().getMinute()));
+        System.out.println("date = " + date.getHours());
+        System.out.println("minute = " + date.getMinutes());
+        chatMessage.setHours(String.valueOf(date.getHours()));
+        chatMessage.setMinutes(String.valueOf(date.getMinutes()));
         ObjectMapper objectMapper = new ObjectMapper();
         redisTemplate.convertAndSend(channelName, objectMapper.writeValueAsString(chatMessage));
         System.out.println("FROM BOT - published back to the socket server " + channelName);

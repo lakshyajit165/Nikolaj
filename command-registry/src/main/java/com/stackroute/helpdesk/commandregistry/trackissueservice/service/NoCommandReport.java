@@ -19,12 +19,15 @@ public class NoCommandReport {
         HashMap<String,Object> data4 = new HashMap<>();
         HashMap<String, Object> noCommand = new HashMap<>();
         HashMap<String, Object> commandMapped = new HashMap<>();
-        HashMap<String,Object> commandReport = new HashMap<>();
         HashMap<String, Object> queries = new HashMap<>();
+
         HashSet<String> setOfEntities = new HashSet();
         List<HashMap<String, Object>> entitiesList = new ArrayList<>();
-        List<HashMap<String, Object>> commandList = new ArrayList<>();
         List<HashMap<String, Object>> reportList = new ArrayList<>();
+
+        List<HashMap<String, Object>> mappedEntitiesList = new ArrayList<>();
+        List<HashMap<String, Object>> mappedReportList = new ArrayList<>();
+
 
         reportDetails.stream().forEach(entities -> {
             if(isNullOrEmpty(entities.getEntity()))
@@ -35,7 +38,9 @@ public class NoCommandReport {
 
         setOfEntities.forEach(uniqueEntity -> {
             HashMap<String, Object> entity = new HashMap<>();
+            HashMap<String, Object> mappedEntity = new HashMap<>();
             List<HashMap<String, Object>> intentsList = new ArrayList<>();
+            List<HashMap<String, Object>> mappedIntentsList = new ArrayList<>();
             HashSet<String> setOfIntents = new HashSet();
             reportDetails.stream().forEach(entities -> {
                 if(uniqueEntity == entities.getEntity()) {
@@ -46,30 +51,46 @@ public class NoCommandReport {
 
                     setOfIntents.forEach(uniqueIntent -> {
                         HashMap<String, Object> intents = new HashMap<>();
+                        HashMap<String, Object> mappedIntents = new HashMap<>();
                         List<HashMap<String, Object>> queriesList = new ArrayList<>();
+                        List<HashMap<String, Object>> mappedIntentQueriesList = new ArrayList<>();
                         System.out.println("unique intent = " + uniqueIntent);
                         entities.getIntentList().stream().forEach(intent -> {
                             System.out.println("current intent = " + intent.getIntent() + " but unique intent = " + uniqueIntent);
                             if (uniqueIntent == intent.getIntent()) {
-                                queries.put("name", intent.getTicketName());
-                                queries.put("size", 300);
-                                queriesList.add(queries);
+                                if(intent.getCommandName().isEmpty()) {
+                                    queries.put("name", intent.getTicketName());
+                                    queries.put("size", 300);
+                                    queriesList.add(queries);
+                                }
+                                else {
+                                    queries.put("name", intent.getTicketName());
+                                    queries.put("size", 300);
+                                    mappedIntentQueriesList.add(queries);
+                                }
                             }
                         });
                         intents.put("children", queriesList);
                         intents.put("name", uniqueIntent);
+                        mappedIntents.put("children", mappedIntentQueriesList);
+                        mappedIntents.put("name", uniqueIntent);
                         intentsList.add(intents);
+                        mappedIntentsList.add(mappedIntents);
                     });
                 }
             });
             entity.put("children", intentsList);
             entity.put("name", uniqueEntity);
             entitiesList.add(entity);
+
+            mappedEntity.put("children", mappedIntentsList);
+            mappedEntity.put("name", uniqueEntity);
+            mappedEntitiesList.add(mappedEntity);
         });
         noCommand.put("children", entitiesList);
         noCommand.put("name", "noCommand");
         commandMapped.put("name", "commandMapped");
-        commandMapped.put("children",entitiesList);
+        commandMapped.put("children",mappedEntitiesList);
         reportList.add(noCommand);
         reportList.add(commandMapped);
 
