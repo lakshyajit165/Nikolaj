@@ -14,11 +14,9 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 @Service
 public class NoIntentReport {
     public JSONObject formattingReportIntent(String type, List<ReportDetails> reportDetails) {
-        List<HashMap<String, Object>> queriesList = new ArrayList<>();
         HashMap<String, Object> data3 = new HashMap<>();
         HashMap<String, Object> noIntent = new HashMap<>();
         HashMap<String, Object> intentMapped = new HashMap<>();
-        HashMap<String, Object> queries = new HashMap<>();
         HashSet<String> setOfEntities = new HashSet();
         HashSet<String> mappedSetOfEntities = new HashSet();
         List<HashMap<String, Object>> reportList = new ArrayList<>();
@@ -41,32 +39,53 @@ public class NoIntentReport {
                 if(uniqueEntity == entities.getEntity()) {
 
                     entities.getIntentList().stream().forEach(intent -> {
-                        setOfIntents.add(intent.getIntent());
+                        if(isNullOrEmpty(intent.getIntent())){
+                            setOfIntents.add("null");
+                        }
+                        else {
+                            setOfIntents.add(intent.getIntent());
+                        }
                     });
 
                     setOfIntents.forEach(uniqueIntent -> {
                         HashMap<String, Object> intents = new HashMap<>();
                         HashMap<String, Object> mappedIntents = new HashMap<>();
+                        List<HashMap<String, Object>> queriesList = new ArrayList<>();
+                        List<HashMap<String, Object>> mappedQueriesList = new ArrayList<>();
+
                         System.out.println("unique intent = " + uniqueIntent);
                         entities.getIntentList().stream().forEach(intent -> {
                             System.out.println("current intent = " + intent.getIntent() + " but unique intent = " + uniqueIntent);
                             if (uniqueIntent == intent.getIntent()) {
+                                HashMap<String, Object> queries = new HashMap<>();
+                                if(intent.getCommandName().equalsIgnoreCase("")) {
                                     queries.put("name", intent.getTicketName());
                                     queries.put("size", 300);
                                     queriesList.add(queries);
+                                }
+                                else {
+                                    queries.put("name", intent.getTicketName());
+                                    queries.put("size", 300);
+                                    mappedQueriesList.add(queries);
+                                }
                             }
                         });
+                        noIntent.put("children", queriesList);
+                        noIntent.put("name", "noIntent");
+                        intentMapped.put("name", "intentMapped");
+                        intentMapped.put("children", mappedQueriesList);
                     });
                 }
             });
+            reportList.add(noIntent);
+            reportList.add(intentMapped);
         });
-        System.out.println("queries list = " + queriesList);
-        noIntent.put("children", queriesList);
-        noIntent.put("name", "noIntent");
-        reportList.add(noIntent);
-        intentMapped.put("name", "intentMapped");
-        intentMapped.put("children", new ArrayList<HashMap<String, String>>());
-        reportList.add(intentMapped);
+//        System.out.println("queries list = " + queriesList);
+//        noIntent.put("children", queriesList);
+//        noIntent.put("name", "noIntent");
+
+
+//        reportList.add(intentMapped);
         data3.put("children", reportList);
         data3.put("name", "intentReport");
         return new JSONObject(data3);

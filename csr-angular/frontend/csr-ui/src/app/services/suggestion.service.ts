@@ -21,8 +21,8 @@ export class SuggestionService {
     catchError(this.handleError)
   );
   }
-  feedback(feedback : Feedback): Observable<object> {
-  
+  feedback(feedback: Feedback): Observable<object> {
+
    const uri = this.apiGateWay + 'botwatson/optimus/api/v1/confidence';
    return  this.http.patch<object>(uri, feedback).pipe(
       catchError(this.handleError)

@@ -13,7 +13,7 @@ styleUrls: ['./suggestion.component.css']
 export class SuggestionComponent implements OnInit {
 
 
-constructor(private suggestion: SuggestionService, private form:FormBuilder) { }
+constructor(private suggestion: SuggestionService, private form: FormBuilder) { }
  @Input() ticketId: string;
  @Input() intents: string[];
 response: Response;
@@ -83,10 +83,10 @@ this.suggestion.feedback(this.feedBack)
 
 public onSubmit(updatedReportDetails) {
   this.intents = ['defined'];
-updatedReportDetails.id=this.ticketId;
-this.suggestion.nointent(updatedReportDetails)
-.subscribe(data =>{
- this.feedback=data;
+  updatedReportDetails.id = this.ticketId;
+  this.suggestion.nointent(updatedReportDetails)
+.subscribe(data => {
+ this.feedback = data;
 });
 }
 }

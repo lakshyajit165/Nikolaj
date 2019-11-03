@@ -19,7 +19,7 @@ export class TicketService {
 
 
   assignTicket(): Observable<object> {
-    return this.http.get<Map<string, object>>(this.apiGateWay+'csrservice/api/v1/csr/assign')
+    return this.http.get<Map<string, object>>(this.apiGateWay + 'csrservice/api/v1/csr/assign')
     .pipe(
         retry(1),
         catchError(this.handleError)
