@@ -30,13 +30,19 @@ public class ReportService implements ReportInterface {
     String intent;
     public void printJsonObject1(JSONObject jsonObj) {
         System.out.println("report outside condition");
+        System.out.println("data1"+jsonObj);
         for (Object key : jsonObj.keySet()) {
             report = (String)key;
-            printJsonObject2((JSONObject) jsonObj.get(report));
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put("data1",jsonObj);
 //            String keyvalue = (String) jsonObj.get(report);
 //            JSONObject jsonObject= (JSONObject) jsonObj.get(keyStr);
             if(!(jsonObj.get(report)=="Well done by developers.Currently all quries have commands") || !(jsonObj.get(report)=="Well done by developers.Currently all quries have Intents")){
 //                printJsonObject2((JSONObject) jsonObj.get(report));
+                System.out.println("inside if for printJsonObject2 function");
+                printJsonObject2(jsonObject);
+            }
+            else{
                 System.out.println("report if condition");
             }
         }
