@@ -24,7 +24,7 @@ import {
     trigger('flyInOut', [
       state('in', style({ backgroundColor: 'none' })),
       transition(':enter', [
-        style({ backgroundColor: 'blue' }),
+        style({ backgroundColor: '#E2FFFF' }),
         animate(1000)
       ]),
     ])
@@ -60,7 +60,6 @@ export class ListComponent implements OnInit {
 
   pagination: boolean;
 
-  emptyData: boolean ;
   private serverUrl = environment.url + 'socket';
   private uuId: string;
   isLoaded = false;
@@ -83,10 +82,6 @@ export class ListComponent implements OnInit {
     this.limit = 10;
     this.reportService.getSize(this.status).subscribe(data => {
       this.count = data.result;
-      if (this.count === 0) {
-        this.emptyData = true;
-        console.log('inside if');
-      }
       this.noOfDocuments = data.result;
     });
     this.initializeWebSocketConnection();
@@ -97,7 +92,6 @@ export class ListComponent implements OnInit {
 
     this.reportService.getReportsByStatus(value, this.page, this.limit).subscribe(data => {
       if (this.count < 10) {
-        console.log('inside if count = ' + this.count);
         this.scrollStatus = false;
       }
       if (data.result.length > 0) {
@@ -106,14 +100,6 @@ export class ListComponent implements OnInit {
       this.count = this.count - this.limit;
       this.totalNoOfDocuments = this.totalNoOfDocuments + data.result.length;
       this.reports.push(...data.result);
-      console.log("size of reports got = " + this.reports.length);
-      // this.reverseReports = [];
-      // this.reports.forEach(report => {
-      //   this.reverseReports.unshift(report);
-      //   // this.reverseReports.push(reeportsport);
-      //   // this.reverseReports.sort((a, b) => new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime());
-      // });
-      console.log(this.reports);
     });
 
   }
@@ -122,7 +108,6 @@ export class ListComponent implements OnInit {
   onScroll() {
     this.page = this.page + 1;
     this.getAllReports(this.status);
-    // this.emptyData = false;
   }
 
   // when something is changes in select box
@@ -142,11 +127,6 @@ export class ListComponent implements OnInit {
       this.status = '';
       this.reportService.getSize(this.status).subscribe(data => {
         this.count = data.result;
-        // this.emptyData = false;
-        // if (this.count === 0) {
-        //   this.emptyData = true;
-        //   console.log('inside if');
-        // }
         this.noOfDocuments = data.result;
       });
       this.getAllReports(this.status);
@@ -209,11 +189,8 @@ handleResult(message) {
       });
     }
     const reportData: IReport = JSON.parse(message.body);
-    console.log("data result = " + reportData);
     this.reports.unshift(reportData);
-    console.log("yahana aaarha h kya..........")
-    // const messageResult: Message = JSON.parse(message.body);
-    // this.messages.push(messageResult);
+
   }
 
 
