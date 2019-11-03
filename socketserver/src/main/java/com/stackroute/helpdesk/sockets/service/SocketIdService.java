@@ -44,7 +44,8 @@ public class SocketIdService implements ISocketIdService{
 		SocketStore socketStore = null;
 		if(optionalSocketStore.isPresent()) {
 			socketStore = optionalSocketStore.get();
-			iSocketIdRepo.delete(socketStore);
+			socketStore.setCsrEmailId("bot");
+			saveSocket(socketStore);
 		}
 	}
 }
