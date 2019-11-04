@@ -48,7 +48,7 @@ public class  SimulationService implements SimulationServiceInterface {
     {
         //creating session
         IamOptions iamoptions = new IamOptions.Builder()
-                .apiKey("-Iu3aehg_g_ghAgLemP9nNRD71OxlPOWoSO6WBewKjxy")
+                .apiKey("<WATSON_API_KEY>")
                 .build();
         Assistant assistant = new Assistant("2019-09-23", iamoptions);
         assistant.setEndPoint("https://gateway-lon.watsonplatform.net/assistant/api");
