@@ -329,6 +329,9 @@ public class TicketController implements Serializable {
 
         responseObject.put("status", "updated");
 
+	ticketInterface.saveTicket(ticketStructure);
+
+
         message.sendMessage(rabbitTemplate,
                 "ticket_updated",
                 "ticket_exchange",
